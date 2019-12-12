@@ -1,0 +1,399 @@
+.provider__button,
+.product__button {
+  font-size: 1em;
+}
+
+.provider__button-icon,
+.product__button-icon {
+  font-size: 0.8em;
+  margin-right: 4px;
+}
+
+.provider-form__button,
+.provider-list__button,
+.product-list__button {
+  margin: 0 2px 0;
+}
+
+.provider-list__button,
+.product-list__button {
+  display: inline-block;
+  padding: 0 5px 0;
+  border: 1px solid transparent;
+  border-radius: 20%;
+  background-color: #007bff;
+  color: white;
+}
+
+.provider-list__button:hover,
+.product-list__button:hover {
+  color: white;
+  background-color: #0069d9;
+}
+
+.provider-list__button-icon,
+.product-list__button-icon {
+  margin-top: -4px;
+}
+
+.provider-view__button-row {
+  float: right;
+}
+
+/*****************************************/
+/*************** Generales ***************/
+/*****************************************/
+.form-control {
+	border-radius: 0;
+	border: 0;
+	border-bottom: 1px solid #cec4ca;
+}
+
+
+.block-header {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.block-header h1,
+.block-header h2 {
+    font-size: 18px;
+    color: #777;
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.block-header h2{
+    font-size: 15px;
+}
+
+@media screen and (min-width: 768px){
+    .block-header {
+        padding: 22px 0 0 0;
+    }
+}
+
+
+/* busqueda proovedores */
+.busqueda {
+	margin: 0 0 25px 0;	
+	background: #fff;
+	border: 1px solid #F0F0F0;
+}
+
+.busqueda h4{
+	font-size: 15px;
+    color: #777;
+    margin: 0;
+    font-weight: 400;
+	text-transform: uppercase;
+	border-bottom: 1px solid #F0F0F0;
+	padding: 10px 5px;
+	text-align: center;
+}
+
+.busqueda .flex-container {
+	display: flex;
+	padding: 10px 5px;
+}
+
+.busqueda .flex-container > div{
+	flex: 1 1 33.33%;
+    padding: 0 10px;
+}
+
+.busqueda .flex-container > div.lastCol {
+	flex: 0 1 auto;
+}
+
+.busqueda .flex-container .clearButton,
+.busqueda .flex-container .searchButton {
+	padding: 0;
+	width: 38px;
+	height: 38px;
+	color: #009688;
+	border-radius: 50%;
+	border-color: transparent;
+	background: transparent;
+}
+
+.busqueda .flex-container .clearButton:hover,
+.busqueda .flex-container .searchButton:hover {
+	border-color: #009688;
+}
+
+.busqueda .form-control:focus {
+	box-shadow: none;
+}
+
+.busqueda .form-control:focus-visible {
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.busqueda .flex-container .clearButton svg,
+.busqueda .flex-container .searchButton svg {
+	width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+}
+
+
+/* Provider button */
+.agregarALaLista .btn {
+	padding: 0;
+	width: 38px;
+	height: 38px;
+	color: #009688;
+	border-radius: 50%;
+	border-color: transparent;
+	background: transparent;
+}
+
+.agregarALaLista .btn svg {
+	margin: 0;
+	width: 1.7em;
+	height: 1.7em;
+    vertical-align: middle;
+}
+
+/* Tabla proovedores */
+.ReactTable {
+    font-family: 'Roboto', sans-serif;
+    border: 0;
+}
+
+.ReactTable .rt-table{
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.ReactTable .tableHeading {
+	margin: 0;
+    line-height: 100%;
+    font-size: 17px;
+	font-weight: 400;
+	font-size: 17px;
+}
+
+.ReactTable .rt-thead .rt-th {
+	padding: 23px 25px;
+	font-weight: 700
+}
+
+.ReactTable .rt-thead.-header  {
+    box-shadow: none;
+    background: #fff;
+}
+
+.ReactTable.-striped .rt-tr.-odd {
+	background: #fff;
+}
+
+.ReactTable.-striped .rt-tr.-even{
+	background: #f4f4f4
+}
+
+.ReactTable .rt-tbody .rt-td {
+	padding: 20px;
+	font-size: 13px;
+}
+
+.ReactTable .rt-tbody .rt-td:last-child{
+    justify-content: center;
+    display: flex;
+}
+
+.ReactTable .rt-tbody .rt-td .provider-list__button,
+.ReactTable .rt-tbody .rt-td .product-list__button {
+    background: none;
+    color: #009688;
+    padding: 0;
+    border-radius: 0;
+    width: 15px;
+    height:15px;
+    margin: 0 15px;
+}
+
+.ReactTable .rt-tbody .rt-td .provider-list__button svg,
+.ReactTable .rt-tbody .rt-td .product-list__button svg {
+    width: inherit;
+    height: inherit;
+}
+
+/* pagination */
+.ReactTable .pagination-bottom .-pagination {
+    border: 0;
+    margin-top: 15px;
+    box-shadow: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.ReactTable .-pagination .-center,
+.ReactTable .-pagination .-previous, 
+.ReactTable .-pagination .-next {
+    flex: 0 1 auto;
+}
+
+.ReactTable .-pagination .-btn {
+    border-radius: 50%;
+    font-size: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ffffff;
+    position: relative;
+    cursor: pointer;
+}
+
+.ReactTable .-pagination .-previous .-btn:before,
+.ReactTable .-pagination .-next .-btn:before {
+    content:"«";
+    font-size: 16px;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.ReactTable .-pagination .-next .-btn:before {
+    content:"›";
+}
+
+.ReactTable .rt-noData {
+    padding: 17px;
+}
+
+.ReactTable .-pagination input, 
+.ReactTable .-pagination select {
+    border: 1px solid #e0e0e0;
+    padding: 5px;
+    font-size: 13px;
+}
+
+.ReactTable .-pagination .-pageInfo {
+    font-size: 13px;
+}
+
+.ReactTable .-pagination .-pageJump input {
+    text-align: left;
+}
+
+/* Caja Info */
+.info-box {
+    padding:0 15px;
+    background: #fff;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.info-box .row {
+    padding: 10px 0;
+    font-size: 13px;
+    font-family: "Segoe UI",sans-serif;
+    font-weight: 500;
+}
+
+.info-box .row:nth-child(even){
+    background: #f4f4f4;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* UI Sidebar */
+.ui-sidebar {
+    /* 100vh - alto del header verde */
+    height: calc(100vh - 56px);
+}
+
+/* Botones */
+.btn,
+.btn-default {
+    background:#007788;
+    border-color:#007788;
+}
+
+.btn-primary,
+.btn-primary:not(:disabled):not(.disabled):active, 
+.btn-primary:not(:disabled):not(.disabled).active {
+    background: #00AC9D;
+    border-color:#00AC9D;
+}
+
+.btn-secondary {
+    background: #14242C;
+    border-color:#14242C;
+}
+
+.btn-danger {
+    background: #CC3A67;
+    border-color:#CC3A67;
+}
+
+.btn:hover, .btn:focus,
+.btn-default:hover, .btn-default:focus {
+    background: #036270;
+    border-color: #036270;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: #059084;
+    border-color:#059084;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background: #b72f59;
+    border-color:#b72f59;
+}
+
+.btn svg,
+.btn-default svg,
+.btn-primary svg,
+.btn-secondary svg,
+.btn-danger svg {
+    fill: #fff;
+}
+
+.product__button svg{
+    fill: #059084;
+}
+
+.btn:hover svg, .btn:focus svg,
+.btn-primary:hover svg, .btn-primary:focus svg,
+.btn-default:hover, .btn-default:focus,
+.btn-danger:hover, .btn-danger:focus  {
+    fill: #fff;
+}
+
+.btn-outline-secondary:hover{
+
+}
+
+.btn.searchButton:hover,
+.btn.searchButton:focus,
+.btn.searchButton:active,
+.btn.clearButton:hover,
+.btn.clearButton:active,
+.btn.clearButton:focus {
+    border: 0;    
+}
+
+.clearButton:not(:disabled):not(.disabled):active,
+.clearButton:not(:disabled):not(.disabled).active, 
+.searchButton:not(:disabled):not(.disabled):active,
+.searchButton:not(:disabled):not(.disabled).active {
+    background: transparent;
+}
+
+.btn.searchButton:hover svg,
+.btn.searchButton:focus svg,
+.btn.searchButton:active svg,
+.btn.clearButton:hover svg,
+.btn.clearButton:active svg,
+.btn.clearButton:focus svg {
+    fill: #009688;
+}
+
+/* Temporales */
+body {
+	background-color: #edecec;
+}

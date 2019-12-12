@@ -1,0 +1,22 @@
+.ui-sidebar {    
+    background: #f2f2f2;
+    padding-top: 2rem
+}
+
+.ui-sidebar-section-title {
+    margin-bottom: 2rem;
+}
+
+.ui-sidebar-section-nav a {
+    color: #333;
+    padding: 0.5rem;
+}
+.ui-sidebar-section-nav a:hover,
+.ui-sidebar-section-nav a.active {
+    background: rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.ui-sidebar-section-nav a p {
+    margin-bottom: 0;
+}

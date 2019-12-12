@@ -1,0 +1,16 @@
+.ui-header {
+    color: white;
+    background: #009688;
+}
+
+.ui-header-brand {
+}
+
+.ui-header-options .btn {
+    background: none;
+    border: none;
+}
+
+.ui-header-options.show .btn {
+    background: rgba(0, 0, 0, 0.2);
+}

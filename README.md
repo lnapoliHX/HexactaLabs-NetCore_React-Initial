@@ -1,8 +1,55 @@
 # HexactaLabs-.NETCore_React
 
-Hexacta 2019
+Hexacta 2020
+
+Bienvenidos a los Hexacta Labs
+
+Este curso está orientado a profesionales, no profesionales y recién iniciados en el desarrollo web. 
+Se trata de la implementación guiada de un sitio web sobre el manejo de stock de productos generales.
+
+El curso tiene diferentes etapas y nivelaciones con este formato:
+* __Initial__: Presentación de la aplicación básica, pasos para correrla localmente y planteo de la primer actividad: Backend con .NetCore.
+* __Level 1__: Se nivelará presentando una aplicación con las actividades de la etapa inicial completas. Planteo de la segunda actividad: Frontend con ReactJS.
+* __Level 2__: Se presenta la aplicación con las actividades anteriores completas. Planteo de la tercera actividad: FullStack development.
+* __Final__: Se presenta la aplicación completa. Planteo de la actividad final. 
+
+## Requisitos
+* Conocimientos básicos de HTML
+* Manejo básico de bases de datos
+* Conocimientos básicos sobre ORMs
 
 ## [Documentación](./Docs/index.md)
+
+
+# Actividad Inicial
+Para el trabajo inicial, se necesita crear un servicio backend que se conecte a la base de datos local para obtener información y brindar operaciones CRUD de la entidad __Provider__.
+
+IMPORTANTE: Al momento de crear los servicios del lado Backend es necesario descomentar lo siguiente de la clase __Startup.cs__:
+```
+//services.AddTransient<ProviderService>();
+```
+
+Además es necesario descomentar la configuración del mapeo para Provider en __ModelProfile.cs__:
+```
+//CreateMap<Provider, ProviderDTO>().ReverseMap();  
+```
+
+El sistema debe ser capaz de:
+* Crear, editar y eliminar un nuevo provider a través de la sección Proveedores dentro del sitio.
+* Realizar búsquedas de proveedores.
+* La interfaz swagger debe mostrar todos los servicios expuestos.
+* La web React debe conectarse con estos servicio configurando un store.
+
+# Tips
+## Entidad Store (Tienda)
+En la web se encuentra una sección llamada Tiendas en donde se presenta una pantalla con la implementación completa sobre:
+* Búsqueda de tiendas: A través de un formulario en pantalla se envía una serie de parámetros para realizar la consulta en la base de datos.
+* Listado de tiendas: una grilla presenta el detalle de cada tienda además de los botones de acción para:
+  * Ir al detalle de una tienda
+  * Navegar a la pantalla de edición
+  * Eliminar tienda
+
+Se recomienda utilizar esta entidad tanto del lado frontend como backend para realizar las actividades teniendo esta sección como referencia.
 
 ## Front end
 
@@ -29,13 +76,3 @@ The SDK 'Microsoft.NET.Sdk.Web' specified could not be found.
 https://github.com/OmniSharp/omnisharp-roslyn/issues/1313#issuecomment-429039879
 ```
 
-## Actividad Final
-Para el trabajo final disponemos de una versión de la Stock Web completa con el manejo CRUD de todas las entidades tanto de backend como de frontend.
-Este ejercicio final propone el modelado e implementación de un carrito de compra, para el que se necesita:
-
-* Agregar en la tabla de productos la opción de _agregar producto al carrito_ con un botón y un campo de cantidad.
-* Los productos cuyo stock sea 0 no deben habilitar la opción para agregar al carrito.
-* Una nueva sección en el sitio debe mostrar el detalle del carrito con una tabla donde se muestren los productos seleccionados, la cantidad y el precio unitario. En la sección inferior de la pantalla se debe mostrar el precio total a pagar y un botón de checkout.
-* Al presionar el botón para realizar la compra, el sistema debe chequear el stock disponible en ese momento para cada producto seleccionado. Si hay stock para un producto en particular, se debe actualizar la cantidad de existencias restando la cantidad que el usuario seleccionó.
-* Aquellos productos que no tienen suficiente stock al momento de realizar la compra no deben ser actualizados.
-* Al finalizar la compra el sistema debe mostrar al usuario una nueva página donde se muestre el detalle de qué productos pudieron reservarse y el precio total de la compra. Tener en cuenta que este precio puede ser distinto al precio que se mostró en la página anterior por falta de stock.

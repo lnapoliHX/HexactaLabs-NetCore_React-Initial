@@ -1,6 +1,6 @@
 [Volver](./index.md)
 
-# React
+# NET Core
 
 ## Introducción
 
@@ -43,4 +43,6 @@ La [Estructura de Carpetas](./estructura-carpetas-netcore.md) sigue la lógica d
 
 ## Referencias
 
-[Documentación Oficial](https://docs.microsoft.com/es-es/dotnet/core/)
+[Documentación Oficial Net Core](https://docs.microsoft.com/es-es/dotnet/core/)
+[Documentación Oficial Web API](https://docs.microsoft.com/en-us/aspnet/web-api/)
+[Documentación Oficial MVC](https://docs.microsoft.com/en-us/aspnet/mvc/)

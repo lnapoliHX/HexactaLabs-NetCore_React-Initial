@@ -61,8 +61,9 @@ Los request a la API se hacen a través del server de desarrollo que usa create-
 ## Backend
 
 ```dotnet run --project Stock.Api/Stock.Api.csproj
-
-
-¿Tuviste algun problema? [Troubleshooting](./Docs/troubleshooting.md)
 ```
+
+### ¿Tuviste algun problema? 
+- [Troubleshooting](./Docs/troubleshooting.md)
+- Creá un issue para que lo resolvamos.
 

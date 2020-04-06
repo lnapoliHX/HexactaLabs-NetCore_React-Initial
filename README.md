@@ -60,7 +60,8 @@ Los request a la API se hacen a través del server de desarrollo que usa create-
 
 ## Backend
 
-```dotnet run --project Stock.Api/Stock.Api.csproj
+```
+dotnet run --project Stock.Api/Stock.Api.csproj
 ```
 
 ### ¿Tuviste algun problema? 

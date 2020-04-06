@@ -9,10 +9,11 @@ ASP.NET Core es un Framework de código abierto creado por Microsoft, que nos pr
 
 ## ¿Qué es una API?
 
-> Una API (Application Programming Interface) es la interfaz que un software utiliza para interactuar con otro software.
+Una API (Application Programming Interface) es la interfaz que un software utiliza para interactuar con otro software.
+
 Un Web API es un API que se invoca a través del protocolo HTTP.  Se detalla solamente la forma en que cada rutina debe ser llevada a cabo y la funcionalidad que brinda, sin otorgar información acerca de cómo se lleva a cabo la tarea. La ventaja de usar HTTP es que es posible hacer peticiones desde cualquier lenguaje de programación, lo que hace a la Web un medio ideal para conectar aplicaciones. Para gestionar las solicitudes, una API web usa Controllers.
 
-## Tipos de Clases:
+## Tipos de Clases
 
 ### Controller
 
@@ -43,6 +44,6 @@ La [Estructura de Carpetas](./estructura-carpetas-netcore.md) sigue la lógica d
 
 ## Referencias
 
-[Documentación Oficial Net Core](https://docs.microsoft.com/es-es/dotnet/core/)
-[Documentación Oficial Web API](https://docs.microsoft.com/en-us/aspnet/web-api/)
-[Documentación Oficial MVC](https://docs.microsoft.com/en-us/aspnet/mvc/)
+[Documentación Oficial Net Core](https://docs.microsoft.com/es-es/dotnet/core/)   
+[Documentación Oficial Web API](https://docs.microsoft.com/en-us/aspnet/web-api/)   
+[Documentación Oficial MVC](https://docs.microsoft.com/en-us/aspnet/mvc/)   

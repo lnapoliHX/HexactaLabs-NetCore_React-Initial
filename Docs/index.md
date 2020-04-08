@@ -4,19 +4,9 @@
 En las guías se promueve el uso de __VSCode__ como herramienta de desarrollo.  
 Cada vez que avancen en las etapas, tendrán que descargar una nueva base de código. 
 
-1. Instalar Visual Studio Code [Link](https://code.visualstudio.com/)
-1. Crear una carpeta __HxLabs__ y abrir Visual Studio Code en la misma
-1. Clonar el proyecto de GitHub en Visual Studio Code
-	1. CTRL + SHIFT + P y escribir "git clone"
-	1. Agregar la URL del proyecto y seleccionar una carpeta.
-	1. Se puede clonar directamente en la carpeta haciendo *git clone "url"* desde una linea de comandos
-    1. Repetir estos pasos para cada proyecto.
-1. Luego, cuando comience la *etapa X* ir a la carpeta correspondiente y abrir una nueva instancia de VSCode, o directamente desde Code, *File/Open Folder*.
 
-Debería quedar algo semejante a esto: 
-
-![folders](./images/folders_git.png)
-
+## Git guía
+1. [Guía](./index_git.md)
 
 ## Frontend
 

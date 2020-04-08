@@ -8,7 +8,7 @@
         "dbaeumer.vscode-eslint",
 		"eamodio.gitlens",
 		"fernandoescolar.vscode-solution-explorer",
-		"ms-vscode.csharp",
+		"ms-dotnettools.csharp",
 		"jchannon.csharpextensions",
 		
 	],

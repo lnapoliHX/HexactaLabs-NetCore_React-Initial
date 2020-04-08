@@ -57,7 +57,7 @@ Microsoft.AspNetCore.Mvc proporciona atributos que se pueden usar para configura
 
 ### Notas
 La [Estructura de Carpetas](./estructura-carpetas-netcore.md) sigue la lógica de separar los elementos antes mencionados.
-Normalmente este esquema recibe el nombre de [N-Layer]()
+Normalmente este esquema recibe el nombre de [N-Layer](https://es.wikipedia.org/wiki/Programaci%C3%B3n_por_capas)
 
 ## Referencias
 [Documentación Oficial Net Core](https://docs.microsoft.com/es-es/dotnet/core/)   

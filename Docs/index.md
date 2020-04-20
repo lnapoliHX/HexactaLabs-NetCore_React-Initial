@@ -4,9 +4,18 @@
 En las guías se promueve el uso de __VSCode__ como herramienta de desarrollo.  
 Cada vez que avancen en las etapas, tendrán que descargar una nueva base de código. 
 
-
 ## Git guía
 1. [Guía](./index_git.md)
+
+### Ingreso
+Para ingresar a la aplicación se puede por medio de las credenciales:
+- user: admin
+- pass: admin
+
+También puede crearse un usuario por medio del botón "Sign up" en [Login.js](../Stock.Web/client-app/src/modules/auth/presentational/Login.js).
+
+Para esta tarea, tienen que estar el backend y el frontend levantados.
+
 
 ## Frontend
 

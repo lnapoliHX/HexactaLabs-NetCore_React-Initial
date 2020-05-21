@@ -1,17 +1,15 @@
 import React from "react";
-import { Input, Button } from "reactstrap";
-import { MdSearch, MdCancel } from "react-icons/md";
-
 import PropTypes from "prop-types";
+import { Row, Col, Input, Button } from "reactstrap";
+import { MdSearch, MdCancel } from "react-icons/md";
 
 const Search = props => {
   return (
     <React.Fragment>
-      <div className="busqueda">
       <h4>Búsqueda</h4>
-      <div className="flex-container">
-			<div>
-				<Input
+      <Row>
+        <Col>
+		<Input
 					name="name"
 					id="nameInput"
 					type="text"
@@ -19,9 +17,9 @@ const Search = props => {
 					value={props.filters.name}
 					placeholder="Nombre"
 				/>
-			</div>
-			<div>
-				<Input
+        </Col>
+        <Col>
+		<Input
 					name="email"
 					id="emailInput"
 					type="text"
@@ -29,17 +27,16 @@ const Search = props => {
 					value={props.filters.email}
 					placeholder="Email"
 				/>
-			</div>
-			<div  className="lastCol">
-				<Button color="primary" aria-label="Search" className="searchButton" onClick={props.submitFilter}>
-					<MdSearch />
-				</Button>
-				<Button color="primary" aria-label="Clear" className="ml-3 clearButton" onClick={props.clearFilter}>
-					<MdCancel />
-				</Button>
-			</div>
-		</div>
-      </div>
+        </Col>
+        <Col>
+          <Button color="primary" onClick={props.submitFilter}>
+            <MdSearch /> Buscar
+          </Button>
+          <Button color="primary" className="ml-3" onClick={props.clearFilter}>
+            <MdCancel /> Limpiar
+          </Button>
+        </Col>
+      </Row>
     </React.Fragment>
   );
 };

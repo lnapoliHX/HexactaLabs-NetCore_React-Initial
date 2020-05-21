@@ -90,7 +90,7 @@ namespace Stock.Api.Controllers
             var store = this.service.Get(id);
 
             this.service.Delete(store);
-            return Ok();
+            return Ok(new { Success = true, Message = "", data = id });
         }
 
         [HttpPost("search")]

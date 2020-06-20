@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Stock.Model.Entities;
 
 namespace Stock.Api.DTOs
 {
@@ -12,6 +14,8 @@ namespace Stock.Api.DTOs
         public string Phone { get; set; }
 
         public string Email { get; set; }
+
+        public List<Product> OfferedProducts { get; set; }
 
     }
 }

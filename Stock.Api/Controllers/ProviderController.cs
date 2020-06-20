@@ -105,8 +105,8 @@ namespace Stock.Api.Controllers
                     model.Condition.Equals(ActionDto.AND));
             }
 
-            var stores = this.service.Search(filter);
-            return Ok(stores);
+            var providers = this.service.Search(filter);
+            return Ok(providers);
         }
     }
 }

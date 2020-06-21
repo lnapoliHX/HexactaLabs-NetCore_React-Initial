@@ -2,6 +2,9 @@
 using Stock.Model.Base;
 using Stock.Repository.LiteDb.Interface;
 
+using System.Linq.Expressions;
+using System;
+
 namespace Stock.AppService.Base
 {
     public class BaseService<TEntity>
@@ -38,6 +41,11 @@ namespace Stock.AppService.Base
         {
             this.Repository.Update(entity);
             return entity;
+        }
+
+        public IEnumerable<TEntity> Search(Expression<Func<TEntity, bool>> filter)
+        {
+            return this.Repository.List(filter);
         }
     }
 }

@@ -11,14 +11,14 @@ using System.Linq.Expressions;
 namespace Stock.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/producttype")]
+    [Route("api/provider")]
     [ApiController]
-    public class ProductTypeController : ControllerBase
+    public class ProviderController : ControllerBase
     {
-        private readonly ProductTypeService service;
+        private readonly ProviderService service;
         private readonly IMapper mapper;
         
-        public ProductTypeController(ProductTypeService service, IMapper mapper)
+        public ProviderController(ProviderService service, IMapper mapper)
         {
             this.service = service;
             this.mapper = mapper;
@@ -29,9 +29,9 @@ namespace Stock.Api.Controllers
         /// </summary>
         /// <returns>Una colección de instancias</returns>
         [HttpGet]
-        public ActionResult<IEnumerable<ProductTypeDTO>> Get()
+        public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
-            return this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList();
+            return this.mapper.Map<IEnumerable<ProviderDTO>>(this.service.GetAll()).ToList();
         }
 
         /// <summary>
@@ -40,9 +40,9 @@ namespace Stock.Api.Controllers
         /// <param name="id">Identificador de la instancia a recuperar</param>
         /// <returns>Una instancia</returns>
         [HttpGet("{id}")]
-        public ActionResult<ProductTypeDTO> Get(string id)
+        public ActionResult<ProviderDTO> Get(string id)
         {
-            return this.mapper.Map<ProductTypeDTO>(this.service.Get(id));
+            return this.mapper.Map<ProviderDTO>(this.service.Get(id));
         }
 
         /// <summary>
@@ -50,11 +50,11 @@ namespace Stock.Api.Controllers
         /// </summary>
         /// <param name="value">Una instancia</param>
         [HttpPost]
-        public ProductTypeDTO Post([FromBody] ProductTypeDTO value)
+        public ProviderDTO Post([FromBody] ProviderDTO value)
         {
             TryValidateModel(value);
-            var productType = this.service.Create(this.mapper.Map<ProductType>(value));
-            return this.mapper.Map<ProductTypeDTO>(productType);
+            var provider = this.service.Create(this.mapper.Map<Provider>(value));
+            return this.mapper.Map<ProviderDTO>(provider);
         }
 
         /// <summary>
@@ -63,12 +63,12 @@ namespace Stock.Api.Controllers
         /// <param name="id">Identificador de la instancia a editar</param>
         /// <param name="value">Una instancia con los nuevos datos</param>
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] ProductTypeDTO value)
+        public void Put(string id, [FromBody] ProviderDTO value)
         {
-            var productType = this.service.Get(id);
+            var provider = this.service.Get(id);
             TryValidateModel(value);
-            this.mapper.Map<ProductTypeDTO, ProductType>(value, productType);
-            this.service.Update(productType);
+            this.mapper.Map<ProviderDTO, Provider>(value, provider);
+            this.service.Update(provider);
         }
 
         /// <summary>
@@ -78,12 +78,22 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var productType = this.service.Get(id);
+            var provider = this.service.Get(id);
 
-        //     Expression<Func<Product, bool>> filter = x => x.ProductType.Id.Equals(id);
+            // Expression<Func<Product, bool>> filter = x => x.Provider.Id.Equals(id);
             
-            this.service.Delete(productType);
+            this.service.Delete(provider);
             return Ok();
+        }
+
+        [Route("search")]
+        [HttpPost]
+        public ActionResult<IEnumerable<ProviderDTO>> search([FromBody] FiltersDTO filter)
+        {
+            filter.Email = (filter.Email == null) ? "" : filter.Email;
+            filter.Name = (filter.Name == null) ? "" : filter.Name;
+            Func<Provider, bool> filterEx = x => x.Email.Contains(filter.Email) && x.Name.Contains(filter.Name);
+            return this.mapper.Map<IEnumerable<ProviderDTO>>(this.service.GetAll().Where(filterEx)).ToList();
         }
     }
 }

@@ -18,12 +18,16 @@ export function create(provider) {
     return api
       .post(`/provider/`, provider)
       .then(response => {
-        toast.success("El proveedor se creó con éxito");
-        dispatch(success(response.data.data));
-        dispatch(setLoading(false));
-        return dispatch(goBack());
+        if(response.data.success){
+          toast.success("El proveedor se creó con éxito");
+          dispatch(success(response.data.data));
+          dispatch(setLoading(false));
+          return dispatch(goBack());
+        }
+        toast.error(response.data.message);
+        return dispatch(setLoading(false));
       })
-      .catch(error => {
+      .catch(error => {        
         apiErrorToast(error);
         return dispatch(setLoading(false));
       });

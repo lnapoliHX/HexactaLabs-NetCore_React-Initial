@@ -36,7 +36,7 @@ namespace Stock.Api
             services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<StoreService>();
             //services.AddTransient<ProductService>();
-            //services.AddTransient<ProviderService>();
+            services.AddTransient<ProviderService>();
             services.AddTransient<ProductTypeService>();
             services.AddTransient<Repository.LiteDb.Configuration.ConfigurationProvider>();
             services.AddTransient<ILiteConfiguration, LiteConfiguration>();
@@ -94,8 +94,8 @@ namespace Stock.Api
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock API V1");
-               // c.RoutePrefix = "docs";
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock API V1");                
+                c.RoutePrefix = string.Empty;
             });
 
             applicationLifetime.ApplicationStopping.Register(OnShutdown);                        

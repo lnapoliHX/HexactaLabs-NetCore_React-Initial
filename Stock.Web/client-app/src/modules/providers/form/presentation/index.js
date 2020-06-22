@@ -11,7 +11,7 @@ const ProviderForm = props => {
   return (
     <Form onSubmit={handleSubmit} className="addForm">
       <Field label="Nombre" name="name" component={InputField} type="text" />
-      <Field label="Telefono" name="phone" component={InputField} type="text" />
+      <Field label="Telefono" name="phone" component={InputField} type="number" />
       <Field label="Email" name="email" component={InputField} type="text" />
       <Button className="provider-form__button" color="primary" type="submit">
         Guardar

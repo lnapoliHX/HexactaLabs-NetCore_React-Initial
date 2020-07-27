@@ -24,15 +24,20 @@ Seguir la documentación para instalar las herramientas necesarias y comprobar q
 # Actividad Inicial
 Para el trabajo inicial, se necesita crear un servicio backend que se conecte a la base de datos local para obtener información y brindar operaciones CRUD de la entidad __Provider__.
 
-*IMPORTANTE*: Al momento de crear los servicios del lado Backend es necesario descomentar lo siguiente de la clase __Startup.cs__:
+*IMPORTANTE*: Al momento de crear los servicios del lado Backend es necesario descomentar en la clase __Startup.cs__:
 ```
 //services.AddTransient<ProviderService>();
 ```
+Este código permite utilizar un objeto sin instanciarlo directamente. 
+Luego podremos usarlo en otras clases, como por ejemplo en __ProductTypeController.cs__ se utiliza la inyección de __ProductTypeService__. En la [introducción a NetCore](./Docs/netcore.md) hay una explicación sobre el concepto de inyección de dependencias.
 
-Además es necesario descomentar la configuración del mapeo para Provider en __ModelProfile.cs__:
+Luego descomentar la configuración del mapeo para Provider en __ModelProfile.cs__:
 ```
 //CreateMap<Provider, ProviderDTO>().ReverseMap();  
 ```
+Esta línea nos permite mapear entre Provider y ProviderDTO según las convenciones de AutoMapper. 
+Será parte de la actividad crear un ProviderDTO para enviar la información necesaria a la vista.
+Para más información sobre [ReverseMap() aquí.](https://docs.automapper.org/en/stable/Reverse-Mapping-and-Unflattening.html)
 
 El sistema debe ser capaz de:
 * Crear, editar y eliminar un nuevo provider a través de la sección Proveedores dentro del sitio.

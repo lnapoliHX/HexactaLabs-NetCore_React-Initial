@@ -8,6 +8,7 @@ namespace Stock.Repository.LiteDb.Configuration
         public LiteDatabase GetDatabase(ConfigurationProvider provider)
         {
             var db = new LiteDatabase(provider.LiteUrl);
+            db.Mapper.IncludeNonPublic = true;
             return db;
         }
     }

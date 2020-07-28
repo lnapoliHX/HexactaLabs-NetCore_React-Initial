@@ -54,6 +54,18 @@ Microsoft.AspNetCore.Mvc proporciona atributos que se pueden usar para configura
 
 ### Mapper
 - Es utilizado para mapear un modelo de negocio a un DTO o viceversa.
+- Realizar el mapping suele ser tedioso ya que lo que suele ocurrir son situaciones repetitivas:
+    - Mapear fields que tienen los mismos nombres
+    - Mapear fields de elementos anidados => DTO: CustomerName <=> Entity: Customer { Name }
+En esas situaciones (y otras) [AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html) es una herramienta sencilla para utilizar. 
+
+### Swagger
+Es un lenguaje que nos permite describir y especificar nuestras APIs.
+Esto permite a las máquinas y humanos entender como funcionan nuestros servicios Rest, minimizando el tiempo de integración de los mismos y dejando una documentación inline en el código.
+Swagger UI es una herramienta que lee esta información y genera un frontend que nos permite probar el funcionamiento del backend.
+
+![<img src="./images/swagger-ui.png" width="200" height="150">](./images/swagger-ui.png)
+
 
 ### Notas
 La [Estructura de Carpetas](./estructura-carpetas-netcore.md) sigue la lógica de separar los elementos antes mencionados.
@@ -62,4 +74,9 @@ Normalmente este esquema recibe el nombre de [N-Layer](https://es.wikipedia.org/
 ## Referencias
 [Documentación Oficial Net Core](https://docs.microsoft.com/es-es/dotnet/core/)   
 [Documentación Oficial Web API](https://docs.microsoft.com/en-us/aspnet/web-api/)   
-[Documentación Oficial MVC](https://docs.microsoft.com/en-us/aspnet/mvc/)   
+[Documentación Oficial MVC](https://docs.microsoft.com/en-us/aspnet/mvc/)
+
+[Documentación AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html)
+
+[Documentación Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+[Ejemplo Swagger Microsoft](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1)

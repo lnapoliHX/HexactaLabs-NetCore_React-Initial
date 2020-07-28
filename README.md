@@ -38,6 +38,7 @@ Luego descomentar la configuración del mapeo para Provider en __ModelProfile.cs
 Esta línea nos permite mapear entre Provider y ProviderDTO según las convenciones de AutoMapper. 
 Será parte de la actividad crear un ProviderDTO para enviar la información necesaria a la vista.
 Para más información sobre [ReverseMap() aquí.](https://docs.automapper.org/en/stable/Reverse-Mapping-and-Unflattening.html)
+En la [introducción a NetCore](./Docs/netcore.md) hay información sobre automapper.
 
 El sistema debe ser capaz de:
 * Crear, editar y eliminar un nuevo provider a través de la sección Proveedores dentro del sitio.
@@ -55,6 +56,32 @@ En la web se encuentra una sección llamada Tiendas en donde se presenta una pan
   * Eliminar tienda
 
 Se recomienda utilizar esta entidad tanto del lado frontend como backend para realizar las actividades teniendo esta sección como referencia.
+
+## Swagger
+La idea de swagger es crear una interfaz para probar nuestro backend, a partir de poca información que le dejemos anotada a nuestros endpoints. 
+Si buscamos en la carpeta __Stock.Api/Controllers__ en la clase __ProductTypeController.cs__
+
+```csharp
+...
+/// <summary>
+/// Permite recuperar una instancia mediante un identificador
+/// </summary>
+/// <param name="id">Identificador de la instancia a recuperar</param>
+/// <returns>Una instancia</returns>
+[HttpGet("{id}")]
+public ActionResult<ProductTypeDTO> Get(string id)
+...
+```
+Destacamos como primordial: 
+- summary: da información sobre la funcionalidad de nuestro endpoint
+- param: da información sobre nuestros atributos *query*, *param*, *form*
+- returns: informacion sobre el tipo retornado.
+
+Luego si nos abrimos el browser en *localhost:5000/swagger* nos abrirá una página con todos nuestros endpoints: 
+![swagger-ui](./Docs/images/swagger-ui.png)
+
+Para ver información más extensa de esta herramienta [aquí](https://github.com/domaindrivendev/Swashbuckle.AspNetCore).
+En la [introducción a NetCore](./Docs/netcore.md) hay más información sobre Swagger.
 
 ## Front end
 

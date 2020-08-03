@@ -45,8 +45,9 @@ Para injectar objetos, debemos utilizar los constructores de la clase. En los co
 ```
 En el ejemplo se puede ver que se esta inyectando un IRepository<ProductType> al servicio ProductTypeService y el contenedor puede saber que inyectar, dado que busca en la clase Startup que instancia debe injectar según el tipo. Esto se inica con esta linea :
 
+```C#
 services.AddTransient<IRepository<ProductType>, BaseRepository<ProductType>>();
-
+```
 En la clase Startup. 
 
 ### Startup
@@ -131,7 +132,7 @@ Normalmente este esquema recibe el nombre de [N-Layer](https://es.wikipedia.org/
 [Documentación Oficial Net Core](https://docs.microsoft.com/es-es/dotnet/core/)   
 [Documentación Oficial Web API](https://docs.microsoft.com/en-us/aspnet/web-api/)   
 [Documentación Oficial MVC](https://docs.microsoft.com/en-us/aspnet/mvc/)  
-[Documentación dependeny injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) 
-[Documentación AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html)	
-[Documentación Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)	
-[Ejemplo Swagger Microsoft](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1)
+[Documentación dependeny injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection)   
+[Documentación AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html)   
+[Documentación Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)   
+[Ejemplo Swagger Microsoft](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1)   

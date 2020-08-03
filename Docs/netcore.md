@@ -88,7 +88,18 @@ Microsoft.AspNetCore.Mvc proporciona atributos que se pueden usar para configura
 
 ### Mapper
 - Es utilizado para mapear un modelo de negocio a un DTO o viceversa.
+- Realizar el mapping suele ser tedioso ya que lo que suele ocurrir son situaciones repetitivas:	
+    - Mapear fields que tienen los mismos nombres	
+    - Mapear fields de elementos anidados => DTO: CustomerName <=> Entity: Customer { Name }	
+En esas situaciones (y otras) [AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html) es una herramienta sencilla para utilizar. 
 
+### Swagger	 
+Es un lenguaje que nos permite describir y especificar nuestras APIs.	
+Esto permite a las máquinas y humanos entender como funcionan nuestros servicios Rest, minimizando el tiempo de integración de los mismos y dejando una documentación inline en el código.	
+Swagger UI es una herramienta que lee esta información y genera un frontend que nos permite probar el funcionamiento del backend.	
+
+
+![<img src="./images/swagger-ui.png" width="200" height="150">](./images/swagger-ui.png)
 ## Interacción 
 
 Cuando desde frontend realizan un pedido al backend, este es atendido por un controller determinado. El controller que atiende este pedido es determinado por la URL donde se hace el pedido. Dicho Controller utiliza un service para resolver los pedidos. El service utiliza un DAO para acceder a la base de datos, un mapper para transformar un objeto del modelo a DTO y siempre retorna un DTO. Dicha interacción se puede ver en este diagrama de secuencia: 
@@ -121,3 +132,6 @@ Normalmente este esquema recibe el nombre de [N-Layer](https://es.wikipedia.org/
 [Documentación Oficial Web API](https://docs.microsoft.com/en-us/aspnet/web-api/)   
 [Documentación Oficial MVC](https://docs.microsoft.com/en-us/aspnet/mvc/)  
 [Documentación dependeny injection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) 
+[Documentación AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html)	
+[Documentación Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)	
+[Ejemplo Swagger Microsoft](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-3.1)

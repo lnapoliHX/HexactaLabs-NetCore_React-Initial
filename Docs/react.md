@@ -8,6 +8,9 @@
 Más información se puede encontrar en el siguiente link
 [React Docs](https://reactjs.org/docs/getting-started.html).
 
+[Vídeo introductorio](https://www.youtube.com/watch?v=Ke90Tje7VS0&t) 
+Aclaración: El vídeo se encuentra en inglés
+
 ## Filosofía
 
 > Todo se puede encapsular en un Componente.
@@ -143,6 +146,29 @@ Para utilizar estos métodos en los componentes funcionales, React incorporó ha
 
 Para información más detallada. [State / Lifecycle Docs](https://reactjs.org/docs/react-component.html)
 
+## ¿Cómo pensar y dividir los Componentes en React?
+
+Es importante partir del principio que la idea de React es crear componentes que puedan ser reutilizables, mantenibles y faciles de testear. Es muy fácil caer en la tentación de englobar toda la lógica y renderización en un solo componente. Dicho esto, hay algunos consejos que podemos seguir para evitar estas malas prácticas y sacarle el mayor rendimiento posible a esta libreria.
+
+- Dividir nuestra UI en una jerarquía de componentes, partiendo desde lo más global hacia lo mas específico.
+
+- Por lo general, hay componentes que siempre tendremos que crear en toda aplicación. Podemos mencionar un Header, un Toolbar, Sidebar, Input. Estos son componentes que siempre se tienen que hacer en toda aplicación.
+
+- Crear componentes pequeños. Podemos establecernos un máximo de líneas en cada componente. Si este se supera, podemos dividir ese componente en dos.
+
+- Cada componente debe tener UNA sola responsabilidad. Si vemos que un componente cumple mas de una función, separar esta funcionalidad en otro componente.
+
+- Siempre pensar en la reutilización. Si veo en muchas partes de mi aplicacion código repetido, probablemente sea una señal de que debamos crear un componente que represente eso que estamos repitiendo.
+
+[Pensando en React](https://reactjs.org/docs/thinking-in-react.html)
+
+
+## Plugin de React para Google Chrome
+
+React nos ofrece un plugin para hacer debug de nuestro código. Es una extensión que se instala desde el Web Store de Chrome. Una vez instalado, tendremos el icono react en el margen superior derecho como una nueva tab. Si este se encuentra coloreado de azul, significa que el sitio web en el que estamos está utilizando la libreria, por lo que podremos acceder a sus componentes y subcomponentes que estan siendo renderizados. Cuando inspeccionamos un elemento, veremos que se agregan dos nuevas tabs, "Profiler" y "Components". Cada una ofrece funciones específicas. Por ejemplo dentro de "Components", estará declarado la estructura de árbol que se esta usando para la página. En cada componente, podremos también ver sus props.
+
+[React Plugin](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=es)
+[Documentación React Plugin](https://reactjs.org/blog/2014/01/02/react-chrome-developer-tools.html)
 
 ## Referencias
 [Documentación Oficial](https://es.reactjs.org/)

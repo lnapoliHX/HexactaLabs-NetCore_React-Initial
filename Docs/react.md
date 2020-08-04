@@ -8,7 +8,8 @@
 Más información se puede encontrar en el siguiente link
 [React Docs](https://reactjs.org/docs/getting-started.html).
 
-[Vídeo introductorio](https://www.youtube.com/watch?v=Ke90Tje7VS0&t=4815s)
+[Vídeo introductorio](https://www.youtube.com/watch?v=Ke90Tje7VS0&t) 
+Aclaración: El vídeo se encuentra en inglés
 
 ## Filosofía
 

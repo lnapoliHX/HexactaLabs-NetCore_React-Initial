@@ -50,6 +50,14 @@ Así para generar esa acción solo hace falta tener el payload.
 
 [Acá](https://redux.js.org/basics/actions) se puede encontrar más detalles sobre las acciones.
 
+## Time Travel
+Teniendo instalado Redux Dev Tools (muy recomendado para hacer debug del estado de nuestra aplicación), tenemos acceso a hacer time travel. Esto basicamente nos permite en algún determinado momento, volver para atras e inspeccionar un estado de la aplicación previo al que nos encontramos actualmente, sin la necesidad de refrescar la página o reiniciar nuestra aplicación.
+
+¿Cómo lo usamos? Podemos hacer click en una de las acciones y veremos como el estado de nuestra aplicación se actualiza. Luego, podemos volver a hacer click en la misma acción previamente clickeada y veremos como retornamos al estado anterior.
+
+Es importante recordar que hay que instalar Redux DevTools para poder hacer uso de esta funcionalidad.
+[Acá](https://medium.com/the-web-tub/time-travel-in-react-redux-apps-using-the-redux-devtools-5e94eba5e7c0) hay un blog explicativo con más información. (Está en inglés) 
+
 ## Action thunks
 
 Es un middleware que se configura al store que permite extender la definición de una acción. Con él las acciones, además de ser objetos planos, pueden despachar otras acciones permitiendo escribir flujos más complejos contenidos en una sola función (thunk).

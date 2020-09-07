@@ -1,15 +1,14 @@
 # Description
-
-Aquí deberías agregar un resumen del trabajo que realizaste.
+Descomenté en Startup.cs la linea "services.AddTransient<ProviderService>();".
+Descomenté en ModelProfile.cs la línea "CreateMap<Provider, ProviderDTO>().ReverseMap();".
+Creé ProviderDto.cs con atributos: "Id", "Name"(Required), "Phone".
+Creé el ProviderController.cs con todas sus acciones correspondientes requeridos en el anunciado.
+Creé el ProviderService.cs.
 
 # Issues
 
-Aquí deberías contar si tuviste algún problema o en el caso de que reportaste un issue.
-
-Ej: 
-Related to #(issue)
-Fixes # (issue)
+Ninguno.
 
 # Opinion
 
-Si querés dejar algún comentario al respecto: improvements, mistakes, weaknesses.
+---

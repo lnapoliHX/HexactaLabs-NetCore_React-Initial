@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "Stock.Web/client-app/",
+			"problemMatcher": [],
+			"label": "npm: start - Stock.Web/client-app",
+			"detail": "react-scripts start"
+		}
+	]
+}

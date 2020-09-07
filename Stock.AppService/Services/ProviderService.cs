@@ -9,6 +9,7 @@ namespace Stock.AppService.Services
         public ProviderService(IRepository<Provider> repository)
             : base(repository)
         {
+
         }
     }
 }

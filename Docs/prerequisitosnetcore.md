@@ -4,7 +4,7 @@
 
 ## Backend
 
-### Visual Studio code
+### Visual Studio code (opción recomendada)
 1. Instalar Visual Studio Code [Link](https://code.visualstudio.com/)
 1. Presionar CTRL + SHIFT + P y escribir "Show Recommended Extensions"
 	1. Instalar las que dicen "Workspace Recommended"
@@ -30,7 +30,7 @@ Otra opción, es utilizar Visual Studio, pero solo está disponible para Windows
 	1. Hacer click en Install y avanzar con la instalacion. Tener en cuenta que podria pedir reiniciar la computadora, si despues de reiniciar no se continua la instalacion se debe ejecutar el instalador del paso 1 nuevamente.
 
 1. Instalar el último SDK de NetCore desde: [Link](https://dotnet.microsoft.com/download/dotnet-core)
-La versión que vamos a utilizar es la 3.1.
+La versión que vamos a utilizar es la *2.1*.
 
 1. Clonar el proyecto de GitHub en Visual Studio
 	1. Desde la URL del proyecto en github, click en Clone or Download y Open in Visual Studio.

@@ -81,7 +81,7 @@ namespace Stock.Api.Controllers
         {
             var provider = this.service.Get(id);
 
-            Expression<Func<Product, bool>> filter = x => x.Provider.Id.Equals(id);
+            Expression<Func<Provider, bool>> filter = x => x.Id.Equals(id);
 
             this.service.Delete(provider);
             return Ok();

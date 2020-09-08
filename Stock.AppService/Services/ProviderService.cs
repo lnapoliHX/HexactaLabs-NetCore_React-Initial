@@ -1,4 +1,7 @@
-﻿using Stock.AppService.Base;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using Stock.AppService.Base;
 using Stock.Model.Entities;
 using Stock.Repository.LiteDb.Interface;
 
@@ -18,6 +21,11 @@ namespace Stock.AppService.Services
             }
 
             throw new System.Exception("The name is already in use");
+        }
+
+        public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
+        {
+            return this.Repository.List(filter);
         }
 
         private bool NombreUnico(string name)

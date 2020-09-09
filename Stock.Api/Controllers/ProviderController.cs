@@ -1,12 +1,13 @@
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Stock.Api.DTOs;
-using Stock.AppService.Services;
-using Stock.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Stock.Api.DTOs;
+using Stock.Api.Extensions;
+using Stock.AppService.Services;
+using Stock.Model.Entities;
 
 namespace Stock.Api.Controllers
 {
@@ -98,6 +99,27 @@ namespace Stock.Api.Controllers
 				return Ok(new { Success = true, Message = "Provider succesfully deleted", data = id });
 			}
             catch { return NotFound(new { Success = false, Message = "Provider was unable to be deleted" }); }
+        }
+
+        [HttpPost("search")]
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
+        {
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+			
+			//Busqueda por nombre
+            if (!string.IsNullOrWhiteSpace(model.Name))
+            { filter = filter.AndOrCustom(x => x.Name.ToUpper().Contains(model.Name.ToUpper()), model.Condition.Equals(ActionDto.AND)); }
+			
+			//Busqueda por telefono
+            if (!string.IsNullOrWhiteSpace(model.Phone))
+            { filter = filter.AndOrCustom(p => p.Phone.Contains(model.Phone), model.Condition.Equals(ActionDto.AND)); }
+
+			//Busqueda por correo electronico
+            if (!string.IsNullOrWhiteSpace(model.Email))
+            { filter = filter.AndOrCustom(p => p.Email.ToUpper().Contains(model.Email.ToUpper()), model.Condition.Equals(ActionDto.AND)); }
+			
+            var vendor = this.service.Search(filter);
+            return Ok(vendor);
         }
     }
 }

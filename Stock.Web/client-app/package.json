@@ -3,21 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.4.0",
     "faker": "^4.1.0",
     "history": "^4.9.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.4.3",
     "react-table": "^6.10.0",
     "react-toastify": "^5.1.0",
     "react-widgets": "^4.4.11",
@@ -51,7 +51,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.13.0"
   },
   "proxy": "http://localhost:5000"

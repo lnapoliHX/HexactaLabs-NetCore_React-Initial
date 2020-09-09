@@ -71,19 +71,18 @@ namespace Stock.Api.Controllers
             this.service.Update(productType);
         }
 
-        /// <summary>
+               /// <summary>
         /// Permite borrar una instancia
         /// </summary>
         /// <param name="id">Identificador de la instancia a borrar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var productType = this.service.Get(id);
+            var store = this.service.Get(id);
 
-             Expression<Func<Product, bool>> filter = x => x.ProductType.Id.Equals(id);
-            
-            this.service.Delete(productType);
-            return Ok();
+            this.service.Delete(store);
+            return Ok(new { Success = true, Message = "", data = id });
         }
+
     }
 }

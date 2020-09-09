@@ -28,7 +28,8 @@ namespace Stock.Api.Controllers
         /// <summary>
         /// Permite crear una nueva instancia.
         /// </summary>
-        /// <returns>Una instancia</returns>        
+        /// <param name="value">Una instancia con los nuevos datos.</param>
+        /// <returns>Una instancia.</returns>        
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -50,7 +51,7 @@ namespace Stock.Api.Controllers
         /// <summary>
         /// Permite recuperar todas las instancias.
         /// </summary>
-        /// <returns>Todas las instancias</returns>
+        /// <returns>Todas las instancias.</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -68,7 +69,7 @@ namespace Stock.Api.Controllers
         /// <summary>
         /// Permite recuperar una instancia mediante un identificador.
         /// </summary>
-        /// <param name="id">Identificador de una entrada a recuperar</param>
+        /// <param name="id">Identificador de una entrada a recuperar.</param>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
@@ -86,7 +87,8 @@ namespace Stock.Api.Controllers
         /// <summary>
         /// Permite modificar una instancia cargada.
         /// </summary>
-        /// <param name="id">Identificador de una entrada a modificar</param>
+        /// <param name="id">Identificador de una entrada a modificar.</param>
+        /// <param name="value">Una instancia con los nuevos datos para modificar un proveedor previamente cargado.</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
@@ -97,9 +99,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite borrar una instancia
+        /// Permite borrar una instancia.
         /// </summary>
-        /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <param name="id">Identificador de la instancia a borrar.</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -112,7 +114,8 @@ namespace Stock.Api.Controllers
         /// <summary>
         /// Busca instancias que coincidan con un determinado nombre o email.
         /// </summary>
-        /// <return>Instancias que coincidan con las condiciones establecidas</return>
+        /// <param name="model">Una instancia con los datos para filtrar la busqueda.</param>
+        /// <return>Instancias que coincidan con las condiciones recibidas.</return>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {

@@ -1,20 +1,23 @@
+using Stock.Model.Entities;
 using System.Collections.Generic;
-using Stock.Model.Base;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Stock.Model.Entities
+namespace Stock.Api.DTOs
 {
-    [Table("provider")]
-    public class Provider : IEntity
+    public class ProviderDTO
     {
         public string Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
         
+        [Required]
         public string Phone { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
+        [Required]
         public List<Product> OfferedProducts { get; set; }
     }
 }

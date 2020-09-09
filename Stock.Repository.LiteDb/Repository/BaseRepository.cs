@@ -29,7 +29,8 @@ namespace Stock.Repository.LiteDb.Repository
 
         public void Delete(T entity)
         {
-            this.collection.Delete(x => x.Id == entity.Id);
+            if(entity != null)
+                this.collection.Delete(x => x.Id == entity.Id);
         }
 
         public T GetById(string id)
@@ -50,7 +51,8 @@ namespace Stock.Repository.LiteDb.Repository
 
         public void Update(T entity)
         {
-            this.collection.Update(entity);
+            if(entity != null)
+                this.collection.Update(entity);
         }
 
         private LiteCollection<T> GetCollection()

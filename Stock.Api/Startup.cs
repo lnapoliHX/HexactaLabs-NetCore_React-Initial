@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Stock.Api.Exceptions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
@@ -35,8 +36,8 @@ namespace Stock.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<StoreService>();
-            //services.AddTransient<ProductService>();
-            //services.AddTransient<ProviderService>();
+            services.AddTransient<ProductService>();
+            services.AddTransient<ProviderService>();
             services.AddTransient<ProductTypeService>();
             services.AddTransient<Repository.LiteDb.Configuration.ConfigurationProvider>();
             services.AddTransient<ILiteConfiguration, LiteConfiguration>();
@@ -51,13 +52,14 @@ namespace Stock.Api
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            
         }
 
         private void OnShutdown()

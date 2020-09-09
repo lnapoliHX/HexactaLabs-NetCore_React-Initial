@@ -41,6 +41,7 @@ Para injectar objetos, debemos utilizar los constructores de la clase. En los co
             : base(repository)
         {
         }
+        
     }
 ```
 En el ejemplo se puede ver que se esta inyectando un IRepository<ProductType> al servicio ProductTypeService y el contenedor puede saber que inyectar, dado que busca en la clase Startup que instancia debe injectar según el tipo. Esto se inica con esta linea :

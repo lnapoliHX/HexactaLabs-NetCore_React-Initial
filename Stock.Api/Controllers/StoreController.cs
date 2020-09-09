@@ -25,6 +25,10 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Permite crear un nuevo Store
+        /// </summary>
+        /// <param name="value">Un Store</param>
         [HttpPost]
         public ActionResult Post([FromBody] StoreDTO value)
         {
@@ -43,6 +47,10 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite recuperar todos los Stores
+        /// </summary>
+        /// <returns>Una colección de Stores</returns>
         [HttpGet]
         public ActionResult<IEnumerable<StoreDTO>> Get()
         {
@@ -57,6 +65,11 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite recuperar un Store mediante un identificador
+        /// </summary>
+        /// <param name="id">Identificador del Store a recuperar</param>
+        /// <returns>Un Store</returns>
         [HttpGet("{id}")]
         public ActionResult<StoreDTO> Get(string id)
         {
@@ -71,6 +84,11 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite editar un Store
+        /// </summary>
+        /// <param name="id">Identificador del Store a editar</param>
+        /// <param name="value">Un Store con los nuevos datos</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] StoreDTO value)
         {
@@ -81,9 +99,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite borrar una instancia
+        /// Permite borrar un Store
         /// </summary>
-        /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <param name="id">Identificador del Store a borrar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -93,6 +111,10 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
+        /// <summary>
+        /// Permite recuperar Store aplicando filtros
+        /// </summary>
+        /// <returns>Una colección de Store</returns>
         [HttpPost("search")]
         public ActionResult Search([FromBody] StoreSearchDTO model)
         {

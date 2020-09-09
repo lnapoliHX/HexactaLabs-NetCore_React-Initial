@@ -25,6 +25,10 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Permite crear un nuevo Provider
+        /// </summary>
+        /// <param name="value">Un Provider</param>
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -43,6 +47,10 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite recuperar todos los Providers
+        /// </summary>
+        /// <returns>Una colección de Providers</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -57,6 +65,11 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite recuperar un Provider mediante un identificador
+        /// </summary>
+        /// <param name="id">Identificador del Provider a recuperar</param>
+        /// <returns>Un Provider</returns>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
@@ -71,6 +84,11 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite editar un Provider
+        /// </summary>
+        /// <param name="id">Identificador del Provider a editar</param>
+        /// <param name="value">Un Provider con los nuevos datos</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
@@ -81,9 +99,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite borrar una instancia
+        /// Permite borrar un Provider
         /// </summary>
-        /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <param name="id">Identificador del Provider a borrar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -92,7 +110,11 @@ namespace Stock.Api.Controllers
             this.service.Delete(provider);
             return Ok(new { Success = true, Message = "", data = id });
         }
-    
+
+        /// <summary>
+        /// Permite recuperar Provider aplicando filtros
+        /// </summary>
+        /// <returns>Una colección de Provider</returns>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {

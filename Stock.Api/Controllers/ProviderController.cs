@@ -58,7 +58,7 @@ namespace Stock.Api.Controllers
             }
         }
         /// <summary>
-        /// Permite Crear un Provider
+        /// Permite crear un provider
         /// </summary>
         /// <param name ="value">Una Instancia</param> 
         [HttpPost]
@@ -74,6 +74,11 @@ namespace Stock.Api.Controllers
                 return Ok(new {Success = false, Message = "The name is already in used"});
             }
         }
+        /// <summary>
+        /// Permite editar una instancia
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a editar</param>
+        /// <param name="value">Una instancia con los nuevos datos</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
@@ -82,6 +87,10 @@ namespace Stock.Api.Controllers
             this.mapper.Map<ProviderDTO,Provider>(value,provider);
             this.service.Update(provider);
         }
+        /// <summary>
+        /// Permite borrar una instancia
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a borrar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -89,6 +98,10 @@ namespace Stock.Api.Controllers
             this.service.Delete(provider);
             return Ok(new{ Success = true, Message = "", data = id});
         }
+        /// <summary>
+        /// Permite recuperar todas las instancias que cumplan con los criterios de busqueda
+        /// </summary>
+        /// <param  name="model"> Criterio de Busqueda </param>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {

@@ -12,33 +12,33 @@ using Stock.Model.Entities;
 namespace Stock.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/store")]
+    [Route("api/provider")]
     [ApiController]
-    public class StoreController : ControllerBase
+    public class ProviderController : ControllerBase
     {
-        private StoreService service;
+        private ProviderService service;
         private readonly IMapper mapper;
 
-        public StoreController(StoreService service, IMapper mapper)
+        public ProviderController(ProviderService service, IMapper mapper)
         {
             this.service = service;
             this.mapper = mapper;
         }
 
         /// <summary>
-        /// Permite crear un nuevo Store
+        /// Permite crear un nuevo Provider
         /// </summary>
-        /// <param name="value">Un Store</param>
+        /// <param name="value">Un Provider</param>
         [HttpPost]
-        public ActionResult Post([FromBody] StoreDTO value)
+        public ActionResult Post([FromBody] ProviderDTO value)
         {
             TryValidateModel(value);
 
             try
             {
-                var store = this.mapper.Map<Store>(value);
-                this.service.Create(store);
-                value.Id = store.Id;
+                var provider = this.mapper.Map<Provider>(value);
+                this.service.Create(provider);
+                value.Id = provider.Id;
                 return Ok(new { Success = true, Message = "", data = value });
             }
             catch
@@ -48,16 +48,16 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar todos los Stores
+        /// Permite recuperar todos los Providers
         /// </summary>
-        /// <returns>Una colección de Stores</returns>
+        /// <returns>Una colección de Providers</returns>
         [HttpGet]
-        public ActionResult<IEnumerable<StoreDTO>> Get()
+        public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
             try
             {
                 var result = this.service.GetAll();
-                return this.mapper.Map<IEnumerable<StoreDTO>>(result).ToList();
+                return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
             }
             catch (Exception)
             {
@@ -66,17 +66,17 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar un Store mediante un identificador
+        /// Permite recuperar un Provider mediante un identificador
         /// </summary>
-        /// <param name="id">Identificador del Store a recuperar</param>
-        /// <returns>Un Store</returns>
+        /// <param name="id">Identificador del Provider a recuperar</param>
+        /// <returns>Un Provider</returns>
         [HttpGet("{id}")]
-        public ActionResult<StoreDTO> Get(string id)
+        public ActionResult<ProviderDTO> Get(string id)
         {
             try
             {
                 var result = this.service.Get(id);
-                return this.mapper.Map<StoreDTO>(result);
+                return this.mapper.Map<ProviderDTO>(result);
             }
             catch (Exception)
             {
@@ -85,40 +85,40 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite editar un Store
+        /// Permite editar un Provider
         /// </summary>
-        /// <param name="id">Identificador del Store a editar</param>
-        /// <param name="value">Un Store con los nuevos datos</param>
+        /// <param name="id">Identificador del Provider a editar</param>
+        /// <param name="value">Un Provider con los nuevos datos</param>
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] StoreDTO value)
+        public void Put(string id, [FromBody] ProviderDTO value)
         {
-            var store = this.service.Get(id);
+            var provider = this.service.Get(id);
             TryValidateModel(value);
-            this.mapper.Map<StoreDTO, Store>(value, store);
-            this.service.Update(store);
+            this.mapper.Map<ProviderDTO, Provider>(value, provider);
+            this.service.Update(provider);
         }
 
         /// <summary>
-        /// Permite borrar un Store
+        /// Permite borrar un Provider
         /// </summary>
-        /// <param name="id">Identificador del Store a borrar</param>
+        /// <param name="id">Identificador del Provider a borrar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var store = this.service.Get(id);
+            var provider = this.service.Get(id);
 
-            this.service.Delete(store);
+            this.service.Delete(provider);
             return Ok(new { Success = true, Message = "", data = id });
         }
 
         /// <summary>
-        /// Permite recuperar Store aplicando filtros
+        /// Permite recuperar Provider aplicando filtros
         /// </summary>
-        /// <returns>Una colección de Store</returns>
+        /// <returns>Una colección de Provider</returns>
         [HttpPost("search")]
-        public ActionResult Search([FromBody] StoreSearchDTO model)
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
-            Expression<Func<Store, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
 
             if (!string.IsNullOrWhiteSpace(model.Name))
             {
@@ -127,15 +127,15 @@ namespace Stock.Api.Controllers
                     model.Condition.Equals(ActionDto.AND));
             }
 
-            if (!string.IsNullOrWhiteSpace(model.Address))
+            if (!string.IsNullOrWhiteSpace(model.Email))
             {
                 filter = filter.AndOrCustom(
-                    x => x.Address.ToUpper().Contains(model.Address.ToUpper()),
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
                     model.Condition.Equals(ActionDto.AND));
             }
 
-            var stores = this.service.Search(filter);
-            return Ok(stores);
+            var providers = this.service.Search(filter);
+            return Ok(providers);
         }
     }
 }

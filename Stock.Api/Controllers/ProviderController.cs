@@ -26,7 +26,8 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>Permite recuperar todas las instancias del Proveedor</summary>
-        /// <returns>Una colección de instancias de tipo Proveedor</returns>
+        /// <returns>Devuelve una colección de instancias de tipo Proveedor</returns>
+		/// <exception cref="System.Exception">Arroja error de codigo 500 cuando la operacion no pudo ser llevada a cabo</exception>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -35,25 +36,30 @@ namespace Stock.Api.Controllers
                 var result = this.service.GetAll();
                 return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
             }
-            catch (Exception) { return StatusCode(500); }
+            catch (System.Exception) { return StatusCode(500); }
         }
 
         /// <summary>Permite recuperar una instancia de Proveedor utilizando un ID</summary>
         /// <param name="id">Identificador de la instancia a recuperar</param>
         /// <returns>Devuelve una instancia de proveedor acorde a su identificador</returns>
+		/// <exception cref="System.Exception">Arroja error cuando los criterios provistos no son suficientes para encontrar el proveedor</exception>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
             try
             {
-                var result = this.service.Get(id);
-                return this.mapper.Map<ProviderDTO>(result);
+                var vendor = this.service.Get(id);
+				if (vendor == null) { throw new System.Exception("There is no provider found by given ID"); }
+                return this.mapper.Map<ProviderDTO>(vendor);
             }
-            catch (Exception) { return NoContent(); }
+            catch (System.Exception err) { return NotFound(new { Success = false, Message = err.Message.ToString() }); }
         }
 
         /// <summary>Permite crear una nueva instancia de tipo Proveedor</summary>
-        /// <param name="value">Una instancia</param>
+        /// <param name="value">Instancia con los nuevos datos</param>
+        /// <returns>Devuelve una notificacion de nueva instancia creada</returns>
+        /// <remarks>En caso de no proporcionar un ID manualmente, el sistema lo calcula por si mismo</remarks>
+		/// <exception cref="System.Exception">Arroja error cuando el telefono o correo electronicos son invalidos</exception>
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -66,12 +72,15 @@ namespace Stock.Api.Controllers
                 value.Id = vendor.Id;
                 return Ok(new { Success = true, Message = "Provider succesfully created", data = value });
             }
-            catch (System.Exception err) { return Ok(new { Success = false, Message = err.Message.ToString() }); }
+            catch (System.Exception err) { return NotFound(new { Success = false, Message = err.Message.ToString() }); }
         }
 
         /// <summary>Permite editar una instancia de tipo Proveedor</summary>
-        /// <param name="id">Identificador de la instancia a editar</param>
-        /// <param name="value">Una instancia con los nuevos datos</param>
+        /// <param name="id">Identificador de la instancia a modificar</param>
+        /// <param name="value">Instancia con los nuevos datos</param>
+        /// <returns>Devuelve una notificacion de instancia modificada</returns>
+		/// <exception cref="System.Exception">Arroja error cuando el identificador no es suficiente para encontrar el proveedor,
+		/// o cuando el telefono o direccion de correo electronico es invalida</exception>
         [HttpPut("{id}")]
         public ActionResult Put(string id, [FromBody] ProviderDTO value)
         {
@@ -79,16 +88,20 @@ namespace Stock.Api.Controllers
             {
                 var vendor = this.service.Get(id);
                 TryValidateModel(value);
+				if (vendor == null) { throw new System.Exception("There is no provider found by given ID"); }
                 this.mapper.Map<ProviderDTO, Provider>(value, vendor);
+                vendor.Id = id;
                 this.service.Update(vendor);
                 return Ok(new { Success = true, Message = "Provider succesfully updated", data = value });
             }
 
-            catch (System.Exception) { return NotFound(new { Success = false, Message = "Provider not found" }); }
+            catch (System.Exception err) { return NotFound(new { Success = false, Message = err.Message.ToString() }); }
         }
 
         /// <summary>Permite borrar una instancia de Proveedor</summary>
         /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <returns>Devuelve una notificacion de instancia eliminada</returns>
+		/// <exception cref="System.Exception">Arroja error cuando el identificador no es suficiente para encontrar el proveedor</exception>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -98,28 +111,37 @@ namespace Stock.Api.Controllers
 				this.service.Delete(vendor);
 				return Ok(new { Success = true, Message = "Provider succesfully deleted", data = id });
 			}
-            catch { return NotFound(new { Success = false, Message = "Provider was unable to be deleted" }); }
+            catch(System.Exception) { return NotFound(new { Success = false, Message = "Provider was unable to be deleted" }); }
         }
 
+        /// <summary>Permite efectuar una busqueda personalizada de Proveedores</summary>
+        /// <param name="model">Atributo de Proveedor sobre el cual efectuar la busqueda</param>
+        /// <returns>Devuelve la instancia encontrada</returns>
+		/// <exception cref="System.Exception">Arroja error cuando los criterios provistos no son suficientes para encontrar el proveedor</exception>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
-            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
-			
-			//Busqueda por nombre
-            if (!string.IsNullOrWhiteSpace(model.Name))
-            { filter = filter.AndOrCustom(x => x.Name.ToUpper().Contains(model.Name.ToUpper()), model.Condition.Equals(ActionDto.AND)); }
-			
-			//Busqueda por telefono
-            if (!string.IsNullOrWhiteSpace(model.Phone))
-            { filter = filter.AndOrCustom(p => p.Phone.Contains(model.Phone), model.Condition.Equals(ActionDto.AND)); }
+			try
+			{
+				Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+				
+				//Busqueda por nombre
+				if (!string.IsNullOrWhiteSpace(model.Name))
+				{ filter = filter.AndOrCustom(x => x.Name.ToUpper().Contains(model.Name.ToUpper()), model.Condition.Equals(ActionDto.AND)); }
+				
+				//Busqueda por telefono
+				if (!string.IsNullOrWhiteSpace(model.Phone))
+				{ filter = filter.AndOrCustom(p => p.Phone.Contains(model.Phone), model.Condition.Equals(ActionDto.AND)); }
 
-			//Busqueda por correo electronico
-            if (!string.IsNullOrWhiteSpace(model.Email))
-            { filter = filter.AndOrCustom(p => p.Email.ToUpper().Contains(model.Email.ToUpper()), model.Condition.Equals(ActionDto.AND)); }
-			
-            var vendor = this.service.Search(filter);
-            return Ok(vendor);
+				//Busqueda por correo electronico
+				if (!string.IsNullOrWhiteSpace(model.Email))
+				{ filter = filter.AndOrCustom(p => p.Email.ToUpper().Contains(model.Email.ToUpper()), model.Condition.Equals(ActionDto.AND)); }
+				
+				var vendor = this.service.Search(filter);
+				if (vendor == null) { throw new System.Exception("There is no provider found by given criteria"); }
+				return Ok(vendor);
+			}
+			catch (System.Exception err) { return NotFound(new { Success = false, Message = err.Message.ToString() }); }
         }
     }
 }

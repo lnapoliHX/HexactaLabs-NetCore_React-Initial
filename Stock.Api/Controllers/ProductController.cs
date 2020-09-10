@@ -61,9 +61,9 @@ namespace Stock.Api.Controllers
 
             try
             {
-                var vendor = this.mapper.Map<Product>(value);
-                this.service.Create(vendor);
-                value.Id = vendor.Id;
+                var product = this.mapper.Map<Product>(value);
+                this.service.Create(product);
+                value.Id = product.Id;
                 return Ok(new { Success = true, Message = "Product succesfully created", data = value });
             }
             catch (System.Exception err) { return Ok(new { Success = false, Message = err.Message.ToString() }); }
@@ -77,14 +77,16 @@ namespace Stock.Api.Controllers
         {
             try
             {
-                var vendor = this.service.Get(id);
+                var product = this.service.Get(id);
+                if (product == null) { throw new System.Exception("Product not found"); }
                 TryValidateModel(value);
-                this.mapper.Map<ProductDTO, Product>(value, vendor);
-                this.service.Update(vendor);
+                this.mapper.Map<ProductDTO, Product>(value, product);
+                product.Id = id;
+                this.service.Update(product);
                 return Ok(new { Success = true, Message = "Product succesfully updated", data = value });
             }
 
-            catch (System.Exception) { return NotFound(new { Success = false, Message = "Product not found" }); }
+            catch (System.Exception err) { return NotFound(new { Success = false, Message = err.Message.ToString()}); }
         }
 		
         /// <summary>Permite borrar una instancia de Producto utilizando un identificador</summary>

@@ -1,6 +1,9 @@
 using Stock.AppService.Base;
 using Stock.Model.Entities;
 using Stock.Repository.LiteDb.Interface;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System;
 
 namespace Stock.AppService.Services
 {
@@ -10,6 +13,9 @@ namespace Stock.AppService.Services
             : base(repository)
         {
         }
-        
+        public IEnumerable<Provider> getOne(Expression<Func<Provider, bool>> filter)
+        {
+            return this.Repository.List(filter);
+        }
     }
 }

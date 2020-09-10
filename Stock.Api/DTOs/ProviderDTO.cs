@@ -14,7 +14,6 @@ namespace Stock.Api.DTOs
         [Required]
         public string Phone { get; set; }
 
-        [Required]
         public string Email { get; set; }
 
         [Required]

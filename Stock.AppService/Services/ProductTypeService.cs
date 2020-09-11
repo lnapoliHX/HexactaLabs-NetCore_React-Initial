@@ -4,8 +4,8 @@ using Stock.Repository.LiteDb.Interface;
 
 namespace Stock.AppService.Services
 {
-    public class ProductTypeService: BaseService<ProductType>
-    {                
+    public class ProductTypeService : BaseService<ProductType>
+    {
         public ProductTypeService(IRepository<ProductType> repository)
             : base(repository)
         {

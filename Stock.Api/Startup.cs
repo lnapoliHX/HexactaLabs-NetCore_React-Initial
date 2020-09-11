@@ -36,7 +36,7 @@ namespace Stock.Api
             services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<StoreService>();
             //services.AddTransient<ProductService>();
-            //services.AddTransient<ProviderService>();
+            services.AddTransient<ProviderService>();
             services.AddTransient<ProductTypeService>();
             services.AddTransient<Repository.LiteDb.Configuration.ConfigurationProvider>();
             services.AddTransient<ILiteConfiguration, LiteConfiguration>();
@@ -62,13 +62,13 @@ namespace Stock.Api
 
         private void OnShutdown()
         {
-           // MySqlConnection.ClearAllPools();
+            // MySqlConnection.ClearAllPools();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
-            IApplicationBuilder app, 
-            IHostingEnvironment env, 
+            IApplicationBuilder app,
+            IHostingEnvironment env,
             IApplicationLifetime applicationLifetime,
             ILoggerFactory loggerFactory)
         {
@@ -95,10 +95,10 @@ namespace Stock.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock API V1");
-               // c.RoutePrefix = "docs";
+                // c.RoutePrefix = "docs";
             });
 
-            applicationLifetime.ApplicationStopping.Register(OnShutdown);                        
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
             app.UseMvc();
         }
     }

@@ -17,7 +17,7 @@ namespace Stock.Api.Controllers
     {
         private readonly ProductTypeService service;
         private readonly IMapper mapper;
-        
+
         public ProductTypeController(ProductTypeService service, IMapper mapper)
         {
             this.service = service;
@@ -80,8 +80,8 @@ namespace Stock.Api.Controllers
         {
             var productType = this.service.Get(id);
 
-             Expression<Func<Product, bool>> filter = x => x.ProductType.Id.Equals(id);
-            
+            Expression<Func<Product, bool>> filter = x => x.ProductType.Id.Equals(id);
+
             this.service.Delete(productType);
             return Ok();
         }

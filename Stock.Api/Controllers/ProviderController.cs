@@ -23,6 +23,7 @@ namespace Stock.Api.Controllers
             this.service = service;
             this.mapper = mapper;
         }
+
         /// <summary>
         /// Permite recuperar todas las instancias
         /// </summary>
@@ -39,6 +40,7 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
+
         /// <summary>
         /// Permite recuperar una instancia mediante un identificador
         /// </summary>
@@ -57,6 +59,7 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
+
         /// <summary>
         /// Permite crear un provider
         /// </summary>
@@ -74,6 +77,7 @@ namespace Stock.Api.Controllers
                 return Ok(new {Success = false, Message = e.Message});
             }
         }
+
         /// <summary>
         /// Permite editar una instancia
         /// </summary>
@@ -87,6 +91,7 @@ namespace Stock.Api.Controllers
             this.mapper.Map<ProviderDTO,Provider>(value,provider);
             this.service.Update(provider);
         }
+
         /// <summary>
         /// Permite borrar una instancia
         /// </summary>
@@ -98,6 +103,7 @@ namespace Stock.Api.Controllers
             this.service.Delete(provider);
             return Ok(new{ Success = true, Message = "", data = id});
         }
+        
         /// <summary>
         /// Permite recuperar todas las instancias que cumplan con los criterios de busqueda
         /// </summary>

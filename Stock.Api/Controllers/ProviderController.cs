@@ -87,13 +87,18 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var Id = this.service.Get(id);
-
-            Expression<Func<Provider, bool>> filter = x => x.Id.Equals(id);
-
-            this.service.Delete(Id);
-
-            return Ok(new { Success = true, Message = "", data = id });
+            TryValidateModel(id);
+            try
+            {
+                var provider = this.service.Get(id);
+                this.service.Delete(provider);
+                id = provider.Id;
+                return Ok(new { Success = true, Message = "", data = id });
+            }
+            catch
+            {
+                return Ok(new { Success = false, Message = "El Provider id no existe" });
+            }
         }
 
         [HttpPost("search")]
@@ -108,10 +113,10 @@ namespace Stock.Api.Controllers
                     model.Condition.Equals(ActionDto.AND));
             }
 
-            if (!string.IsNullOrWhiteSpace(model.Name))
+            if (!string.IsNullOrWhiteSpace(model.Email))
             {
                 filter = filter.AndOrCustom(
-                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
                     model.Condition.Equals(ActionDto.AND));
             }
 

@@ -37,6 +37,7 @@ $tf/
 Stock.Api/*.db
 
 #Environment
-.github
-.vscode
+.github/
+.vscode/
 Docs/
+

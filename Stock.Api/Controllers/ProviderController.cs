@@ -24,6 +24,10 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Permite Agregar una instancia
+        /// </summary>
+        /// <param name="value">Una instancia</param>
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -42,6 +46,9 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite Recuperar todas las instancias
+        /// </summary>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -56,6 +63,10 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite Recuperar una instancia mediante un identificador
+        /// </summary>
+        /// <param name="id">Indentificador de la instancia a Recuperar</param>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
@@ -70,6 +81,11 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite Actualizar una instancia
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a Actualizar</param>
+        /// <param name="value">Una instancia con nuevos datos</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
@@ -79,6 +95,10 @@ namespace Stock.Api.Controllers
             this.service.Update(provider);
         }
 
+        /// <summary>
+        /// Permite Eliminar una instancia
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a Eliminar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -87,6 +107,11 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
+
+        /// <summary>
+        /// Permite Buscar una instancia
+        /// </summary>
+        /// <param name="model">una instancia</param>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {

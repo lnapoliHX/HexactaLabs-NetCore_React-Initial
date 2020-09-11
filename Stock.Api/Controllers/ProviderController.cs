@@ -70,8 +70,8 @@ namespace Stock.Api.Controllers
                 value.Id = provider.Id;
                 return Ok(new {Success = true, Message = "", data = value});
             }
-            catch{
-                return Ok(new {Success = false, Message = "The name is already in used"});
+            catch (Exception e){ 
+                return Ok(new {Success = false, Message = e.Message});
             }
         }
         /// <summary>

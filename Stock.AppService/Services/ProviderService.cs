@@ -14,14 +14,23 @@ namespace Stock.AppService.Services
         }
         public new Provider Create(Provider entity)
         {
-            if (this.NombreUnico(entity.Name))
+            if (this.UniqueName(entity.Name))
             {
                 return base.Create(entity);
             }
 
             throw new System.Exception("The name is already in use");
         }
-        private bool NombreUnico(string name)
+
+        public new Provider Update(Provider entity)
+        {
+            if (this.UniqueName(entity.Name))
+            {
+                return base.Update(entity);
+            }
+            throw new System.Exception("The name is already in use, try to modify the item with another name");
+        }
+        private bool UniqueName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {

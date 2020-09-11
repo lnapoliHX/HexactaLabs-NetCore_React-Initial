@@ -29,10 +29,15 @@ namespace Stock.Api.Controllers
             /// </summary>
             /// <returns>Una colección de instancias</returns>
             [HttpGet]
-
             public ActionResult<IEnumerable<ProviderDTO>> Get()
             {
-                return this.mapper.Map<IEnumerable<ProviderDTO>>(this.service.GetAll()).ToList();
+                try{
+                    var result = this.service.GetAll();
+                    return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
+                }catch{
+                    return StatusCode(500);
+                }
+                
             }
 
             /// <summary>
@@ -40,11 +45,15 @@ namespace Stock.Api.Controllers
             /// </summary>
             /// <param name="value">Una instancia</param>
             [HttpPost]
-            public Provider Post([FromBody] ProviderDTO value)
+            public ActionResult Post([FromBody] ProviderDTO value)
             {
-                TryValidateModel(value);
-                var Provider = this.service.Create(this.mapper.Map<Provider>(value));
-                return this.mapper.Map<Provider>(Provider);
+                try{
+                    TryValidateModel(value);
+                    var Provider = this.service.Create(this.mapper.Map<Provider>(value));
+                    return Ok(new { Success = true, Message = "", data = value });
+                }catch{
+                    return Ok(new { Success = false, Message = "Invalid, try with another name." });
+                }
             }
 
             /// <summary>
@@ -54,12 +63,10 @@ namespace Stock.Api.Controllers
             [HttpDelete("{id}")]
             public ActionResult Delete(string id)
             {
-            var Provider = this.service.Get(id);
-
-             Expression<Func<Product, bool>> filter = x => x.Provider.Id.Equals(id);
-            
-            this.service.Delete(Provider);
-            return Ok();
+                    var Provider = this.service.Get(id);
+                               
+                    this.service.Delete(Provider);
+                    return Ok(new { Success = true, Message = "", data = id });
             }
 
             /// <summary>

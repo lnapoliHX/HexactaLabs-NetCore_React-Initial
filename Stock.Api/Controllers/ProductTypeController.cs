@@ -78,9 +78,8 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var store = this.service.Get(id);
-
-            this.service.Delete(store);
+            var productType = this.service.Get(id);
+            this.service.Delete(productType);
             return Ok(new { Success = true, Message = "", data = id });
         }
 

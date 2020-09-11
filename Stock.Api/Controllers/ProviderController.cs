@@ -84,12 +84,19 @@ namespace Stock.Api.Controllers
         /// <param name="id">Identificador de la instancia a editar</param>
         /// <param name="value">Una instancia con los nuevos datos</param>
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] ProviderDTO value)
+        public ActionResult Put(string id, [FromBody] ProviderDTO value)
         {
-            var provider = this.service.Get(id);
-            TryValidateModel(value);
-            this.mapper.Map<ProviderDTO,Provider>(value,provider);
-            this.service.Update(provider);
+            try{
+                var provider = this.service.Get(id);
+                TryValidateModel(value);
+                this.mapper.Map<ProviderDTO,Provider>(value,provider);
+                this.service.Update(provider);
+                return Ok(new{Succes = true, Message = "", data = value});
+            }
+            catch (Exception e)
+            {
+                return Ok(new {Success = false, Message = e.Message});
+            }
         }
 
         /// <summary>
@@ -99,11 +106,18 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var provider = this.service.Get(id);
-            this.service.Delete(provider);
-            return Ok(new{ Success = true, Message = "", data = id});
+            try
+            {
+                var provider = this.service.Get(id);
+                this.service.Delete(provider);
+                return Ok(new{ Success = true, Message = "", data = id});
+            }
+            catch (Exception e)
+            {
+                return Ok(new{Success = false, Message = e.Message});
+            }    
         }
-        
+
         /// <summary>
         /// Permite recuperar todas las instancias que cumplan con los criterios de busqueda
         /// </summary>

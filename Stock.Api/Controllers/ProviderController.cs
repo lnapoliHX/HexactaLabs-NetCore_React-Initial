@@ -85,5 +85,22 @@ namespace Stock.Api.Controllers
             this.service.Delete(provider);
             return Ok();
         }
+
+         [HttpPost("search")]
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
+        {
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Name);
+
+            if (!string.IsNullOrWhiteSpace(model.Name))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+         
+            var provideres = this.service.Search(filter);
+            return Ok(provideres);
+        }
     }
 }

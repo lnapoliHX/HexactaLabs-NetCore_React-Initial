@@ -8,6 +8,9 @@ using Stock.Api.DTOs;
 using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
+using System.Data;
+
+
 
 
 namespace Stock.Api.Controllers
@@ -19,7 +22,7 @@ namespace Stock.Api.Controllers
     {
         private readonly ProviderService service;
         private readonly IMapper mapper;
-        
+
         public ProviderController(ProviderService service, IMapper mapper)
         {
             this.service = service;
@@ -33,15 +36,17 @@ namespace Stock.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
-             try
+            try
             {
                 var result = this.service.GetAll();
-                return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
+                var lista = this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
+                return lista;
             }
-            catch (Exception)
+            catch (DuplicateNameException)
             {
                 return StatusCode(500);
-            }
+            };
+
         }
 
         /// <summary>
@@ -52,14 +57,22 @@ namespace Stock.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
-           try
+            try
             {
                 var result = this.service.Get(id);
-                return this.mapper.Map<ProviderDTO>(result);
+                var datos = this.mapper.Map<ProviderDTO>(result);
+                if (datos != null)
+                {
+                    return Ok(new { Succes = true, data = datos });
+                }
+                else
+                {
+                    return BadRequest(new { Success = false, Message = " No Encontrado" });
+                }
             }
-            catch (Exception)
+            catch (AutoMapperMappingException)
             {
-                return StatusCode(500);
+                return BadRequest(new { Success = false, Message = "No se encontro el proveedor" });
             }
         }
 
@@ -79,9 +92,9 @@ namespace Stock.Api.Controllers
                 value.Id = provider.Id;
                 return Ok(new { Success = true, Message = "", data = value });
             }
-            catch (System.Exception)
+            catch (DuplicateNameException)
             {
-                return Ok(new { Success = false, Message = "The name is already in use" });
+                return BadRequest(new { Success = false, Message = "Este Proveedor ya fue creado" });
             }
         }
 
@@ -90,13 +103,34 @@ namespace Stock.Api.Controllers
         /// </summary>
         /// <param name="id">Identificador de la instancia a editar</param>
         /// <param name="value">Una instancia con los nuevos datos</param>
+
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] ProviderDTO value)
+        [ResponseCache]
+        public ActionResult Put(string id, [FromBody] ProviderDTO value)
         {
+
             var provider = this.service.Get(id);
             TryValidateModel(value);
-            this.mapper.Map<ProviderDTO, Provider>(value, provider);
-            this.service.Update(provider);
+            try
+            {
+                this.mapper.Map<ProviderDTO, Provider>(value, provider);
+                if (provider == null)
+                {
+                    return StatusCode(404);
+                }
+                else
+                {
+                    this.service.Update(provider);
+
+                    return Ok(new { Success = true, Message = "Proveedor Actualizado con Exito" });
+                }
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest(new { Success = false, Message = "No se Pudo actualizar", data = "" });
+
+            };
+
         }
 
         /// <summary>
@@ -107,14 +141,30 @@ namespace Stock.Api.Controllers
         public ActionResult Delete(string id)
         {
             var provider = this.service.Get(id);
+            try
+            {
+                this.service.Delete(provider);
+                return Ok(new { Success = true, Message = "Eliminado con Exito", data = id });
+            }
+            catch (DataException)
+            {
+                return BadRequest(new { Success = false, Message = "No se pudo eliminar el provedor", data = "" });
+            }
 
-            this.service.Delete(provider);
-            return Ok(new { Success = true, Message = "", data = id });
         }
+
+
+
+        /// <summary>
+        /// Permite Buscar una instancia entre las creadas
+        /// </summary>
+        /// <param name="model">Se extrae del modelo el nombre y el Email</param>
+
+
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
-           Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
 
             if (!string.IsNullOrWhiteSpace(model.Name))
             {
@@ -129,9 +179,17 @@ namespace Stock.Api.Controllers
                     x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
                     model.Condition.Equals(ActionDto.AND));
             }
+            try
+            {
+                var providers = this.service.Search(filter);
+                return Ok(providers);
+            }
+            catch (DataException)
+            {
+                return BadRequest(new { Success = true, Message = "No se Encontro el proveedor" }); ;
+            }
 
-            var providers = this.service.Search(filter);
-            return Ok(providers);
+
         }
     }
 }

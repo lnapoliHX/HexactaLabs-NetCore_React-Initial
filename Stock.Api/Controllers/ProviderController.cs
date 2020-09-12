@@ -25,6 +25,8 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>Permite crear una nueva instancia</summary>
+        /// <param name="value">Una instancia</param>
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -43,6 +45,8 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>Permite recuperar todas las instancias</summary>
+        /// <returns>Devuelve una colección de instancias</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -57,7 +61,9 @@ namespace Stock.Api.Controllers
             }
         }
 
-
+        /// <summary>Permite recuperar una instancia mediante un identificador</summary>
+        /// <param name="id">Identificador de la instancia a recuperar</param>
+        /// <returns>Devuelve una instancia</returns>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
@@ -72,6 +78,9 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>Permite editar una instancia</summary>
+        /// <param name="id">Identificador de la instancia a editar</param>
+        /// <param name="value">Retorna una instancia con los nuevos datos</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
@@ -81,9 +90,7 @@ namespace Stock.Api.Controllers
             this.service.Update(provider);
         }
 
-        /// <summary>
-        /// Permite borrar una instancia
-        /// </summary>
+        /// <summary>Permite borrar una instancia</summary>
         /// <param name="id">Identificador de la instancia a borrar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
@@ -94,7 +101,9 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
-
+        /// <summary>Permite buscar de forma personalizada</summary>
+        /// <param name="model">Atributo utilizado para la busqueda</param>
+        /// <returns>Devuelve la instancia encontrada</returns>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {

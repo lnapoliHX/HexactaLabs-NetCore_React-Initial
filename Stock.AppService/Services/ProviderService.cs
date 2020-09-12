@@ -16,14 +16,14 @@ namespace Stock.AppService.Services
         }
         public new Provider Create(Provider entity)
         {
-            if (this.NombreUnico(entity.Name))
+            if (!this.IsRepeated(entity.Name))
             {
                 return base.Create(entity);
             }
 
-            throw new System.Exception("El nombre ya está en uso");
+            throw new System.ValidException("The name is already taken.");
         }
-        private bool NombreUnico(string name)
+        private bool IsRepeated(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {

@@ -8,10 +8,10 @@ namespace Stock.Api.MapperProfiles
     {
         public ModelProfile()
         {
-            CreateMap<ProductType, ProductTypeDTO>()
+            //CreateMap<ProductType, ProductTypeDTO>()
                 //.IgnoreAllNonExisting()
-                .ReverseMap()
-                .ForMember(s => s.Id, opt => opt.Ignore());
+               // .ReverseMap()
+              //  .ForMember(s => s.Id, opt => opt.Ignore());
 
             // CreateMap<Product, ProductDTO>()
             //     .ForMember(d => d.ProductTypeId, opt => opt.MapFrom(s => s.ProductType.Id))
@@ -20,8 +20,7 @@ namespace Stock.Api.MapperProfiles
             //     .ForMember(s => s.Id, opt => opt.Ignore())
             //     .ForMember(s => s.ProductType, opt => opt.Ignore());       
 
-            // CreateMap<Provider, ProviderDTO>()
-            //     .ReverseMap();         
+             CreateMap<Provider, ProviderDTO>().ReverseMap();         
         }        
     }
 

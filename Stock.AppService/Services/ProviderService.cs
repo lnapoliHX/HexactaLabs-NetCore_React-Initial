@@ -33,6 +33,11 @@ namespace Stock.AppService.Services
 
             return this.Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
         }
+
+        public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
+        {
+            return this.Repository.List(filter);
+        }
         
     }
 }

@@ -35,9 +35,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -50,9 +47,6 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-plugin-react": "^7.13.0"
-  },
+  "devDependencies": {},
   "proxy": "http://localhost:5000"
 }

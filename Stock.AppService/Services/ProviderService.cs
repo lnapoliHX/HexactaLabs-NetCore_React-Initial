@@ -18,7 +18,7 @@ namespace Stock.AppService.Services
             {
                 return base.Create(entity);
             }
-            throw new System.Exception("The name is already in used");
+            throw new System.ArgumentException("The name is already in used"); 
 
         }
 
@@ -28,7 +28,7 @@ namespace Stock.AppService.Services
             {
                 return base.Update(entity);
             }
-            throw new SystemException("The name is already in used");
+            throw new System.ArgumentException("The name is already in used");
         }
 
         private bool isUniqueName(string name)
@@ -46,7 +46,7 @@ namespace Stock.AppService.Services
             {
                 return false;
             }
-            return this.Repository.List(x=> x.Name.ToUpper().Equals(name.ToUpper()) && !(x.Id != id)).Count == 0;
+            return this.Repository.List(x=> x.Name.ToUpper().Equals(name.ToUpper()) && (x.Id != id)).Count == 0;
         }
 
         public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)

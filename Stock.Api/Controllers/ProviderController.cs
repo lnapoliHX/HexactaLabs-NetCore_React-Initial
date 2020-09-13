@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stock.Api.DTOs;
 using Stock.Api.Extensions;
@@ -35,9 +36,9 @@ namespace Stock.Api.Controllers
                 var result = this.service.GetAll();
                 return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
             }
-            catch(Exception)
+            catch
             {
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -54,9 +55,9 @@ namespace Stock.Api.Controllers
                 var result = this.service.Get(id);
                 return this.mapper.Map<ProviderDTO>(result);
             }
-            catch (Exception)
+            catch
             {
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -73,8 +74,12 @@ namespace Stock.Api.Controllers
                 value.Id = provider.Id;
                 return Ok(new {Success = true, Message = "", data = value});
             }
-            catch (Exception e){ 
+            catch (ArgumentException e)
+            {
                 return Ok(new {Success = false, Message = e.Message});
+            }
+            catch { 
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -93,9 +98,13 @@ namespace Stock.Api.Controllers
                 this.service.Update(provider);
                 return Ok(new{Succes = true, Message = "", data = value});
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return Ok(new {Success = false, Message = e.Message});
+                return Ok(new{Succes = false, Message = e.Message});
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -112,9 +121,9 @@ namespace Stock.Api.Controllers
                 this.service.Delete(provider);
                 return Ok(new{ Success = true, Message = "", data = id});
             }
-            catch (Exception e)
+            catch
             {
-                return Ok(new{Success = false, Message = e.Message});
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }    
         }
 
@@ -140,9 +149,15 @@ namespace Stock.Api.Controllers
                     x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
                     model.Condition.Equals(ActionDto.AND));
             }
+            try{
+                var providers = this.service.Search(filter);
+                return Ok(providers);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
 
-            var providers = this.service.Search(filter);
-            return Ok(providers);
         }
     }
 }

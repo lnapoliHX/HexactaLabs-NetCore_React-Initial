@@ -25,6 +25,9 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Permite agregar un store
+        /// </summary>
         [HttpPost]
         public ActionResult Post([FromBody] StoreDTO value)
         {
@@ -43,6 +46,9 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite listar stores
+        /// </summary>
         [HttpGet]
         public ActionResult<IEnumerable<StoreDTO>> Get()
         {
@@ -57,6 +63,10 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite buscar un store en particular
+        /// </summary>
+        /// <param name="id">Identificador del store a buscar</param>
         [HttpGet("{id}")]
         public ActionResult<StoreDTO> Get(string id)
         {
@@ -71,6 +81,10 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite editar un store
+        /// </summary>
+        /// <param name="id">Identificador del store a editar</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] StoreDTO value)
         {
@@ -81,9 +95,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite borrar una instancia
+        /// Permite borrar un store
         /// </summary>
-        /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <param name="id">Identificador del store a borrar</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -93,6 +107,9 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
+        /// <summary>
+        /// Permite filtrar un store
+        /// </summary>
         [HttpPost("search")]
         public ActionResult Search([FromBody] StoreSearchDTO model)
         {

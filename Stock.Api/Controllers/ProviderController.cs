@@ -25,6 +25,10 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Permite Agregar un proveedor
+        /// </summary>
+        /// <param name="value">Valores de la instancia a agregar</param>
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -43,6 +47,10 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite recuperar de la base de datos todos los proveedores existentes
+        /// </summary>
+
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -56,6 +64,11 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
+        /// <summary>
+        /// Permite recuperar un proveedor por su id
+        /// </summary>
+        /// <param name="id">Identificador de la instancia GET</param>
+
 
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
@@ -70,6 +83,12 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// Permite cambiar los datos un proveedor por su id
+        /// </summary>
+        /// <param name="id">Identificador de la instancia Actualizar</param>
+        /// <param name="value">json con todos los datos actualizados</param>
 
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
@@ -100,6 +119,10 @@ namespace Stock.Api.Controllers
                 return Ok(new { Success = false, Message = "El Provider id no existe" });
             }
         }
+        /// <summary>
+        /// Permite buscar la informacion de un proveedor por su nombre o email.
+        /// </summary>
+        /// <param string="search">Identificador de la instancia Search</param>
 
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)

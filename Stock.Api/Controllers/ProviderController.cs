@@ -48,7 +48,7 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar de la base de datos todos los proveedores existentes
+        /// Permite recuperar de la base de datos de la instancia
         /// </summary>
 
         [HttpGet]
@@ -65,7 +65,7 @@ namespace Stock.Api.Controllers
             }
         }
         /// <summary>
-        /// Permite recuperar un proveedor por su id
+        /// Permite recuperar una instancia por su identificador
         /// </summary>
         /// <param name="id">Identificador de la instancia GET</param>
 
@@ -85,9 +85,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite cambiar los datos un proveedor por su id
+        /// Permite cambiar los datos un instancia recuperada por su id
         /// </summary>
-        /// <param name="id">Identificador de la instancia Actualizar</param>
+        /// <param name="id">Identificador de la instancia UPDATE</param>
         /// <param name="value">json con todos los datos actualizados</param>
 
         [HttpPut("{id}")]
@@ -120,7 +120,7 @@ namespace Stock.Api.Controllers
             }
         }
         /// <summary>
-        /// Permite buscar la informacion de un proveedor por su nombre o email.
+        /// Permite buscar la informacion de la instancia por su nombre o email.
         /// </summary>
         /// <param string="search">Identificador de la instancia Search</param>
 

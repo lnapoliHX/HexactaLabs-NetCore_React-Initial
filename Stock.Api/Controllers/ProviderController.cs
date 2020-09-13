@@ -8,6 +8,7 @@ using Stock.Api.DTOs;
 using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Stock.Api.Controllers
 {
@@ -60,7 +61,7 @@ namespace Stock.Api.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -75,7 +76,7 @@ namespace Stock.Api.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 

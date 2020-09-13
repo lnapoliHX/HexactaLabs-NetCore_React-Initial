@@ -14,7 +14,7 @@ namespace Stock.AppService.Services
 
         public new Provider Create(Provider entity)
         {
-            if(this.NombreUnico(entity.Name))
+            if(this.isUniqueName(entity.Name))
             {
                 return base.Create(entity);
             }
@@ -22,13 +22,31 @@ namespace Stock.AppService.Services
 
         }
 
-        private bool NombreUnico(string name)
+        public new Provider Update(Provider entity)
+        {
+            if(this.isUniqueNameUpdate(entity.Name,entity.Id))
+            {
+                return base.Update(entity);
+            }
+            throw new SystemException("The name is already in used");
+        }
+
+        private bool isUniqueName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 return false;
             }
             return this.Repository.List(x=> x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
+        }
+
+        private bool isUniqueNameUpdate(string name, string id)
+        {
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(id))
+            {
+                return false;
+            }
+            return this.Repository.List(x=> x.Name.ToUpper().Equals(name.ToUpper()) && !(x.Id != id)).Count == 0;
         }
 
         public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)

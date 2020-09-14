@@ -4,7 +4,6 @@ namespace Stock.Api.DTOs.Provider
 {
     public class ProviderQueryDto
     {
-        [RegularExpression("^[a-zA-Z]+$")]
         public string Name { get; set; }
 
         [EmailAddress]

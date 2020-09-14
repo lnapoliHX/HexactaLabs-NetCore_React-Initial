@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Stock.Api.Domain\Stock.Api.Domain.csproj" />
     <ProjectReference Include="..\Stock.Model\Stock.Model.csproj" />
     <ProjectReference Include="..\Stock.Repository.LiteDb\Stock.Repository.LiteDb.csproj" />
   </ItemGroup>
-
 </Project>

@@ -6,7 +6,7 @@ using Stock.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+
 
 namespace Stock.Api.Controllers
 {
@@ -39,10 +39,24 @@ namespace Stock.Api.Controllers
         /// </summary>
         /// <param name="id">Identificador de la instancia a recuperar</param>
         /// <returns>Una instancia</returns>
+        
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
-            return this.mapper.Map<ProviderDTO>(this.service.Get(id));
+           //  var provider = this.service.Get(id);
+
+            try
+            {
+                var provider = this.service.Get(id);
+                var providerDTO = this.mapper.Map<ProviderDTO>(provider);
+
+                return Ok(new { Success = true, Message = "", data = providerDTO });  
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { Success = false, Message = ex.Message, data = "" });
+            }
+
         }
 
         /// <summary>
@@ -50,11 +64,20 @@ namespace Stock.Api.Controllers
         /// </summary>
         /// <param name="value">Una instancia</param>
         [HttpPost]
-        public Provider Post([FromBody] ProviderDTO value)
+        public ActionResult Post([FromBody] ProviderDTO value)
         {
             TryValidateModel(value);
-            var provider = this.service.Create(this.mapper.Map<Provider>(value));
-            return this.mapper.Map<Provider>(provider);
+
+            try
+            {
+                var provider = this.service.Create(this.mapper.Map<Provider>(value));
+                value.Id = provider.Id;
+                return Ok(new { Success = true, Message = "", data = value });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { Success = false, Message = ex.Message ,data = "" });
+            }
         }
 
         /// <summary>
@@ -62,6 +85,7 @@ namespace Stock.Api.Controllers
         /// </summary>
         /// <param name="id">Identificador de la instancia a editar</param>
         /// <param name="value">Una instancia con los nuevos datos</param>
+        
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
@@ -69,26 +93,27 @@ namespace Stock.Api.Controllers
             TryValidateModel(value);
             this.mapper.Map<ProviderDTO, Provider>(value, provider);
             this.service.Update(provider);
+
         }
 
         /// <summary>
         /// Permite borrar una instancia
         /// </summary>
         /// <param name="id">Identificador de la instancia a borrar</param>
+        
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var provider = this.service.Get(id);
-
-            if (provider == null)
+            try
             {
-                return NotFound();
+                var provider = this.service.Delete(id);
+                return Ok(new { Success = true, Message = "", data = id });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { Success = false, Message = ex.Message, data = "" });
             }
 
-            Expression<Func<Provider, bool>> filter = x => x.Id.Equals(id);
-
-            this.service.Delete(provider);
-            return Ok();
         }
     }
 }

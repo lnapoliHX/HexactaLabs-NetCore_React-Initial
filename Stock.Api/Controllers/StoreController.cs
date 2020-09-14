@@ -25,6 +25,11 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Permite Agregar una tienda
+        /// </summary>
+        /// <param name="value">Identificador de la instancia a agregar</param>
+
         [HttpPost]
         public ActionResult Post([FromBody] StoreDTO value)
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using LiteDB;
 using Stock.Repository.LiteDb.Interface;
 using Stock.Model.Base;
@@ -21,7 +22,7 @@ namespace Stock.Repository.LiteDb.Repository
         }
 
         public T Add(T entity)
-        {   
+        {
             entity.Id = Guid.NewGuid().ToString();
             this.collection.Insert(entity);
             return entity;

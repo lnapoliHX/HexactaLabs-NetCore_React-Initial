@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Stock.Model.Base;
 using Stock.Repository.LiteDb.Interface;
 
@@ -26,7 +27,7 @@ namespace Stock.AppService.Base
 
         public TEntity Get(string id)
         {
-            return this.Repository.GetById(id);            
+            return this.Repository.GetById(id);
         }
 
         public void Delete(TEntity entity)

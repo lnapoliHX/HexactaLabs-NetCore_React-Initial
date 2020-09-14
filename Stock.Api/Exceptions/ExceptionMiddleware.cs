@@ -5,6 +5,7 @@ using Stock.Repository.LiteDb.Exceptions;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Stock.Api.Domain.Exceptions;
 
 namespace Stock.Api.Exceptions
 {
@@ -25,6 +26,11 @@ namespace Stock.Api.Exceptions
             {
                 await next(httpContext);
             }
+            catch (BusinessException ex)
+            {
+                logger.LogError($"Something went wrong: {ex}");
+                await HandleBusinessExceptionAsync(httpContext, ex);
+            }
             catch (ModelException ex)
             {
                 logger.LogError($"Something went wrong: {ex}");
@@ -40,6 +46,19 @@ namespace Stock.Api.Exceptions
                 logger.LogError($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext, ex);
             }
+        }
+
+        private static Task HandleBusinessExceptionAsync(HttpContext context, BusinessException exception)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode =
+                exception != null ? (int)exception.HttpErrorCode : (int)HttpStatusCode.InternalServerError;
+
+            return context.Response.WriteAsync(new ErrorDetails()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = string.IsNullOrEmpty(exception?.Message) ? "Internal Server Error" : exception.Message
+            }.ToString());
         }
 
         private static Task HandleModelExceptionAsync(HttpContext context, ModelException exception)
@@ -72,10 +91,10 @@ namespace Stock.Api.Exceptions
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             return context.Response.WriteAsync(new ErrorDetails()
-                {
-                    StatusCode = context.Response.StatusCode,
-                    Message = "Internal Server Error"
-                }.ToString());
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = "Internal Server Error"
+            }.ToString());
         }
     }
 }

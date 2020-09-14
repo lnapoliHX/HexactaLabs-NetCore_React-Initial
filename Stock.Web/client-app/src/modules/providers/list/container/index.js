@@ -16,7 +16,13 @@ const defaultState = {
 class ProvidersPage extends React.Component {
   constructor() {
     super();
-    this.state = {...defaultState};
+    this.state = {
+      filters: {
+        name: "",
+        email: "",
+        condition: "AND"
+      }
+    };
   }
 
   filterChanged = event => {
@@ -26,12 +32,7 @@ class ProvidersPage extends React.Component {
     };
     this.setState({ filters: newFilters });
   };
-
-  filterReset = e => {
-    this.props.fetchByFilters({...defaultState.filters});
-    this.setState({...defaultState});
-  }
-
+  
   render() {
     return (
       <Presentation
@@ -41,7 +42,7 @@ class ProvidersPage extends React.Component {
         filters={this.state.filters}
         handleFilter={this.filterChanged}
         submitFilter={() => this.props.fetchByFilters(this.state.filters)}
-        clearFilter={this.filterReset}
+        clearFilter={this.props.getAll}
         {...this.props}
       />
     );

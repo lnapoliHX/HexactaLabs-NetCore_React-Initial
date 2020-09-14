@@ -13,7 +13,6 @@ namespace Stock.Api.DTOs
         
         public string Phone { get; set; }
 
-        [Required]
         public string Email { get; set; }
 
         public List<Product> OfferedProducts { get; set; }

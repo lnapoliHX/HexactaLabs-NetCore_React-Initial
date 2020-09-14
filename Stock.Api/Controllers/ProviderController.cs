@@ -60,26 +60,29 @@ namespace Stock.Api.Controllers
 
 
         [HttpPost("search")]
-        public ActionResult getOne([FromBody] ProviderDTO model)
+        public ActionResult Search([FromBody] ProviderDTO model)
         {
             Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
 
-            if (!string.IsNullOrWhiteSpace(model.Name))
-            {
+            try{
                 filter = filter.AndOrCustom(
                     x => x.Name.ToUpper().Contains(model.Name.ToUpper()));
-            }
-
-            if (!string.IsNullOrWhiteSpace(model.Email))
-            {
+            
                 filter = filter.AndOrCustom(
                     x => x.Email.ToUpper().Contains(model.Email.ToUpper()));
+              
+                var provider = this.mapper.Map<IEnumerable<ProviderDTO>>(this.service.Search(filter));
+
+                return Ok(provider);
+            
+            }catch(Exception){
+                return Ok(new { Success = false, Message = "The name or email are invalid"});
             }
 
-            var provider = this.service.getOne(filter);
-            return Ok(provider);
+            
             
         }
+
         /// <summary>
         /// Permite editar una instancia
         /// </summary>

@@ -5,14 +5,6 @@ import PropTypes from "prop-types";
 import { getProviders, getAll, fetchByFilters } from "../index";
 import Presentation from "../presentation";
 
-const defaultState = { 
-  filters: {
-    name: "",
-    email: "",
-    condition: "AND"
-  }
-};
-
 class ProvidersPage extends React.Component {
   constructor() {
     super();
@@ -32,7 +24,7 @@ class ProvidersPage extends React.Component {
     };
     this.setState({ filters: newFilters });
   };
-  
+
   render() {
     return (
       <Presentation

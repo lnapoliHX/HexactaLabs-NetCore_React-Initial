@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stock.Api.DTOs;
 using Stock.Api.Extensions;
@@ -40,7 +41,7 @@ namespace Stock.Api.Controllers
                 var provider = this.mapper.Map<Provider>(value);
                 this.service.Create(provider);
                 value.Id = provider.Id;
-                return Ok(new { Success = true, Message = "Successfully Created", data = value });
+                return Ok(new { Success = true, Message = "Provider successfully created", data = value });
             }
             catch (ValidationException ex)
             {
@@ -48,7 +49,7 @@ namespace Stock.Api.Controllers
             }
             catch (Exception)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -60,11 +61,11 @@ namespace Stock.Api.Controllers
             try
             {
                 var result = this.service.GetAll();
-                return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
+                return Ok(this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList());
             }
             catch (Exception)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -77,11 +78,11 @@ namespace Stock.Api.Controllers
             try
             {
                 var result = this.service.Get(id);
-                return this.mapper.Map<ProviderDTO>(result);
+                return Ok(this.mapper.Map<ProviderDTO>(result));
             }
             catch (Exception)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -98,7 +99,7 @@ namespace Stock.Api.Controllers
                 var provider = this.service.Get(id);                
                 this.mapper.Map<ProviderDTO, Provider>(value, provider);
                 this.service.Update(provider);
-                return Ok(new { Success = true, Message = "Successfully Updated", data = value });
+                return Ok(new { Success = true, Message = "Provider successfully updated", data = value });
             }
             catch (ValidationException ex)
             {
@@ -106,7 +107,7 @@ namespace Stock.Api.Controllers
             }
             catch (Exception)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -119,11 +120,11 @@ namespace Stock.Api.Controllers
             try 
             {
                 this.service.Delete(this.service.Get(id));
-                return Ok(new { Success = true, Message = "Successfully Deleted", data = id });            
+                return Ok(new { Success = true, Message = "Provider successfully deleted", data = id });            
             }
             catch (Exception) 
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -156,7 +157,7 @@ namespace Stock.Api.Controllers
             }
             catch (Exception) 
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }            
         }
     }

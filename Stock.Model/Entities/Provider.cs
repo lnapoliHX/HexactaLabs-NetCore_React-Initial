@@ -13,6 +13,6 @@ namespace Stock.Model.Entities
 
         public string Email { get; set; }
 
-        public List<Product> OfferedProducts { get; set; }
+        //public List<Product> OfferedProducts { get; set; }
     }
 }

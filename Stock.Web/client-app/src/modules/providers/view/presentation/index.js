@@ -10,10 +10,6 @@ const ProviderView = props => {
 		</div>
 		<div className="info-box">
 			<Row>
-				<Col lg="2">Id</Col>
-				<Col>{props.provider.id}</Col>
-			</Row>
-			<Row>
 				<Col lg="2">Email</Col>
 				<Col>{props.provider.email}</Col>
 			</Row>

@@ -5,16 +5,18 @@ import PropTypes from "prop-types";
 import { getProviders, getAll, fetchByFilters } from "../index";
 import Presentation from "../presentation";
 
+const defaultState = { 
+  filters: {
+    name: "",
+    email: "",
+    condition: "AND"
+  }
+};
+
 class ProvidersPage extends React.Component {
   constructor() {
     super();
-    this.state = {
-      filters: {
-        name: "",
-        email: "",
-        condition: "AND"
-      }
-    };
+    this.state = {...defaultState};
   }
 
   filterChanged = event => {
@@ -25,6 +27,11 @@ class ProvidersPage extends React.Component {
     this.setState({ filters: newFilters });
   };
 
+  filterReset = e => {
+    this.props.fetchByFilters({...defaultState.filters});
+    this.setState({...defaultState});
+  }
+
   render() {
     return (
       <Presentation
@@ -34,7 +41,7 @@ class ProvidersPage extends React.Component {
         filters={this.state.filters}
         handleFilter={this.filterChanged}
         submitFilter={() => this.props.fetchByFilters(this.state.filters)}
-        clearFilter={this.props.getAll}
+        clearFilter={this.filterReset}
         {...this.props}
       />
     );

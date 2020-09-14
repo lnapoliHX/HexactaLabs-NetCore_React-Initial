@@ -17,7 +17,7 @@
     "react-icons": "^3.7.0",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "3.0.1",
     "react-table": "^6.10.0",
     "react-toastify": "^5.1.0",
     "react-widgets": "^4.4.11",

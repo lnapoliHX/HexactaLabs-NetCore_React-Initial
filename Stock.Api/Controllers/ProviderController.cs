@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,22 +34,10 @@ namespace Stock.Api.Controllers
         public ActionResult Post([FromBody] ProviderDTO value)
         {
             TryValidateModel(value);
-
-            try
-            {
-                var provider = this.mapper.Map<Provider>(value);
-                this.service.Create(provider);
-                value.Id = provider.Id;
-                return Ok(new { Success = true, Message = "Provider successfully created", data = value });
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(new { Success = false, Message = ex.Message });
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var provider = this.mapper.Map<Provider>(value);
+            this.service.Create(provider);
+            value.Id = provider.Id;
+            return Ok(new { Success = true, Message = "Provider successfully created", data = value });
         }
 
         /// <summary> Permite obtener todas las instancias </summary>
@@ -58,15 +45,8 @@ namespace Stock.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
-            try
-            {
-                var result = this.service.GetAll();
-                return Ok(this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList());
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var result = this.service.GetAll();
+            return Ok(this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList());
         }
 
         /// <summary> Permite obtener una instancia por identificador </summary>
@@ -75,15 +55,8 @@ namespace Stock.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
-            try
-            {
-                var result = this.service.Get(id);
-                return Ok(this.mapper.Map<ProviderDTO>(result));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var result = this.service.Get(id);
+            return Ok(this.mapper.Map<ProviderDTO>(result));
         }
 
         /// <summary> Permite actualizar una instancia por identificador </summary>
@@ -93,22 +66,10 @@ namespace Stock.Api.Controllers
         public ActionResult Put(string id, [FromBody] ProviderDTO value)
         {
             TryValidateModel(value);
-
-            try
-            {
-                var provider = this.service.Get(id);                
-                this.mapper.Map<ProviderDTO, Provider>(value, provider);
-                this.service.Update(provider);
-                return Ok(new { Success = true, Message = "Provider successfully updated", data = value });
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(new { Success = false, Message = ex.Message });
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var provider = this.service.Get(id);
+            this.mapper.Map<ProviderDTO, Provider>(value, provider);
+            this.service.Update(provider);
+            return Ok(new { Success = true, Message = "Provider successfully updated", data = value });
         }
 
         /// <summary> Permite borrar una instancia </summary>
@@ -117,15 +78,8 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            try 
-            {
-                this.service.Delete(this.service.Get(id));
-                return Ok(new { Success = true, Message = "Provider successfully deleted", data = id });            
-            }
-            catch (Exception) 
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            this.service.Delete(this.service.Get(id));
+            return Ok(new { Success = true, Message = "Provider successfully deleted", data = id });   
         }
 
         /// <summary> Permite obtener instancias en base a filtros de busqueda </summary>
@@ -134,31 +88,24 @@ namespace Stock.Api.Controllers
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
-            try
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+
+            if (!string.IsNullOrWhiteSpace(model.Name))
             {
-                Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
-
-                if (!string.IsNullOrWhiteSpace(model.Name))
-                {
-                    filter = filter.AndOrCustom(
-                        x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
-                        model.Condition.Equals(ActionDto.AND));
-                }
-
-                if (!string.IsNullOrWhiteSpace(model.Email))
-                {
-                    filter = filter.AndOrCustom(
-                        x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
-                        model.Condition.Equals(ActionDto.AND));
-                }
-
-                var stores = this.service.Search(filter);
-                return Ok(stores);
+                filter = filter.AndOrCustom(
+                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
             }
-            catch (Exception) 
+
+            if (!string.IsNullOrWhiteSpace(model.Email))
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }            
+                filter = filter.AndOrCustom(
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            var stores = this.service.Search(filter);
+            return Ok(stores);          
         }
     }
 }

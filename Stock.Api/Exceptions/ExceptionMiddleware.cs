@@ -35,6 +35,11 @@ namespace Stock.Api.Exceptions
                 logger.LogError($"Something went wrong: {ex}");
                 await HandleRepositoryExceptionAsync(httpContext, ex);
             }
+            catch (ValidationException ex) 
+            {
+                logger.LogError($"Something went wrong: {ex}");
+                await HandleValidationExceptionAsync(httpContext, ex);
+            }
             catch (Exception ex)
             {
                 logger.LogError($"Something went wrong: {ex}");
@@ -66,16 +71,28 @@ namespace Stock.Api.Exceptions
             }.ToString());
         }
 
+        private static Task HandleValidationExceptionAsync(HttpContext context, ValidationException exception)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            return context.Response.WriteAsync(new ErrorDetails()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = exception.Message
+            }.ToString());
+        }
+
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             return context.Response.WriteAsync(new ErrorDetails()
-                {
-                    StatusCode = context.Response.StatusCode,
-                    Message = "Internal Server Error"
-                }.ToString());
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = "Internal Server Error"
+            }.ToString());
         }
     }
 }

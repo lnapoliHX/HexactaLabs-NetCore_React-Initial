@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Stock.Api.DTOs;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
@@ -11,7 +12,7 @@ using System.Linq.Expressions;
 namespace Stock.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/producttype")]
+    [Route("api/productType")]
     [ApiController]
     public class ProductTypeController : ControllerBase
     {
@@ -25,65 +26,141 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar todas las instancias
+        /// Permite recuperar todos los Tipos de Productos
         /// </summary>
-        /// <returns>Una colección de instancias</returns>
+        /// <returns>Una colección de Tipos de Productos o un código en caso de error</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProductTypeDTO>> Get()
         {
-            return this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList();
+            try
+            {
+                var result = this.service.GetAll();
+                return Ok(new {Success = true, Message = "List of all Product Types", 
+                                ProductTypes = this.mapper.
+                                               Map<IEnumerable<ProductTypeDTO>>(result).ToList()} );
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
+        /*
+        {
+            return this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList();
+        } */
 
         /// <summary>
-        /// Permite recuperar una instancia mediante un identificador
+        /// Permite recuperar las propiedades de un Tipo de Producto mediante su Id
         /// </summary>
-        /// <param name="id">Identificador de la instancia a recuperar</param>
-        /// <returns>Una instancia</returns>
+        /// <param name="id">Identificador del Tipo de Producto a recuperar</param>
+        /// <returns>Una instancia de Tipo de Producto o un código en caso de error</returns>
         [HttpGet("{id}")]
         public ActionResult<ProductTypeDTO> Get(string id)
         {
-            return this.mapper.Map<ProductTypeDTO>(this.service.Get(id));
+            try
+            {
+                var result = this.service.Get(id);
+                return Ok(new { Success = true, 
+                                Message = "Product Type Obtained!", 
+                                ProductType = this.mapper.Map<ProductTypeDTO>(result) });
+
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
+        // {
+        //     return this.mapper.Map<ProductTypeDTO>(this.service.Get(id));
+        // }
 
         /// <summary>
-        /// Permite crear una nueva instancia
+        /// Permite agregar un nuevo Tipo de Producto al repositorio
         /// </summary>
-        /// <param name="value">Una instancia</param>
+        /// <param name="value">Propiedades del Tipo de Producto</param>
+        /// <returns>Exito o Error y el Tipo de Producto que se intentó crear</returns>
         [HttpPost]
-        public ProductType Post([FromBody] ProductTypeDTO value)
+        public ActionResult Post([FromBody] ProductTypeDTO value)
         {
             TryValidateModel(value);
-            var productType = this.service.Create(this.mapper.Map<ProductType>(value));
-            return this.mapper.Map<ProductType>(productType);
+
+            try
+            {
+                var productType = this.mapper.Map<ProductType>(value);
+                this.service.Create(productType);
+                value.Id = productType.Id;
+                return Ok(new { Success = true, Message = "Product Type Created!", 
+                                ProductType = value });
+            }
+            catch
+            {
+                return Ok(new { Success = false, 
+                                Message = "The initials or description are already in use!!!", 
+                                ProductType = value });
+            }
         }
+        // {
+        //     TryValidateModel(value);
+        //     var productType = this.service.Create(this.mapper.Map<ProductType>(value));
+        //     return this.mapper.Map<ProductType>(productType);
+        // }
 
         /// <summary>
-        /// Permite editar una instancia
+        /// Permite actualizar las propiedades de un Tipo de Producto
         /// </summary>
-        /// <param name="id">Identificador de la instancia a editar</param>
-        /// <param name="value">Una instancia con los nuevos datos</param>
+        /// <param name="id">Identificador del Tipo de Producto a actualizar</param>
+        /// <param name="value">Propiedades del Tipo de Producto</param>
+        /// <returns>Exito o Error y el Tipo de Producto que se intentó actualizar</returns>
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] ProductTypeDTO value)
+        public ActionResult Put(string id, [FromBody] ProductTypeDTO value)
         {
-            var productType = this.service.Get(id);
             TryValidateModel(value);
-            this.mapper.Map<ProductTypeDTO, ProductType>(value, productType);
-            this.service.Update(productType);
+
+            var productType = this.service.Get(id);
+            try
+            {
+                this.mapper.Map<ProductTypeDTO, ProductType>(value, productType);
+                this.service.Update(productType);
+                return Ok(new { Success = true, Message = "Product Type Updated!", 
+                                ProductType = productType });
+            }
+            catch
+            {
+                return Ok(new { Success = false, 
+                                Message = "The initials or description are already in use!!!", 
+                                ProductType = productType });
+            }
+            
         }
+        // {
+        //     var productType = this.service.Get(id);
+        //     TryValidateModel(value);
+        //     this.mapper.Map<ProductTypeDTO, ProductType>(value, productType);
+        //     this.service.Update(productType);
+        // }
 
         /// <summary>
-        /// Permite borrar una instancia
+        /// Permite borrar un Tipo de Producto
         /// </summary>
-        /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <param name="id">Identificador del Tipo de Producto a borrar</param>
+        /// <returns>Exito y el Id del Tipo de Producto eliminado o un código en caso de error</returns>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
             var productType = this.service.Get(id);
 
-             Expression<Func<Product, bool>> filter = x => x.ProductType.Id.Equals(id);
+            //Expression<Func<Product, bool>> filter = x => x.ProductType.Id.Equals(id);
             
-            this.service.Delete(productType);
-            return Ok();
+            try
+            {          
+                this.service.Delete(productType);
+                return Ok(new { Success = true, Message = "Product Type Deleted!", data = id });
+            }
+            catch
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+            //return Ok();
         }
     }
 }

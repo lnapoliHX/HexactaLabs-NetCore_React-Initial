@@ -1,0 +1,12 @@
+Api Server:
+
+Ir a "..\HexactaLabs-NetCore_React-Initial" y ejecutar:
+
+	>dotnet run --project Stock.Api/Stock.Api.csproj
+
+Web Server
+
+Ir a "..\HexactaLabs-NetCore_React-Initial\Stock.Web\client-app" y ejcutar:
+
+	>npm start
+

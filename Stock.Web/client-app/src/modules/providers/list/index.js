@@ -107,7 +107,7 @@ export function getAll() {
     return api
       .get("/provider")
       .then(response => {
-        dispatch(setProviders(response.data));
+        dispatch(setProviders(response.data.providers));
         return dispatch(setLoading(false));
       })
       .catch(error => {
@@ -126,7 +126,7 @@ export function fetchByFilters(filters) {
     return api
       .post("/provider/search", pickBy(filters))
       .then(response => {
-        dispatch(setProviders(response.data));
+        dispatch(setProviders(response.data.providers));
       })
       .catch(error => {
         apiErrorToast(error);

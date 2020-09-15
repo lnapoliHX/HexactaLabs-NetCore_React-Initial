@@ -1,0 +1,35 @@
+.productType__button {
+  font-size: 1em;
+}
+
+.productType__button-icon {
+  font-size: 0.8em;
+  margin-right: 4px;
+}
+
+.productType-form__button,
+.productType-list__button {
+  margin: 0 2px 0;
+}
+
+.productType-list__button {
+  display: inline-block;
+  padding: 0 5px 0;
+  border: 1px solid transparent;
+  border-radius: 20%;
+  background-color: #007bff;
+  color: white;
+}
+
+.productType-list__button:hover {
+  color: white;
+  background-color: #0069d9;
+}
+
+.productType-list__button-icon {
+  margin-top: -4px;
+}
+
+.productType-view__button-row {
+  float: right;
+}

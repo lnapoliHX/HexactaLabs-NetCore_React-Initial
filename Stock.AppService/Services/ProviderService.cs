@@ -7,14 +7,14 @@ using Stock.Repository.LiteDb.Interface;
 
 namespace Stock.AppService.Services
 {
-    public class StoreService : BaseService<Store>
+    public class ProviderService : BaseService<Provider>
     {
-        public StoreService(IRepository<Store> repository) : base(repository)
+        public ProviderService(IRepository<Provider> repository) : base(repository)
         {    
               
         }
 
-        public new Store Create(Store entity)
+        public new Provider Create(Provider entity)
         {
             if (this.NombreUnico(entity.Id, entity.Name))
             {
@@ -35,7 +35,7 @@ namespace Stock.AppService.Services
                                              !x.Id.Equals(id)).Count == 0;
         }
 
-        public new Store Update(Store entity)
+        public new Provider Update(Provider entity)
         {
             if (this.NombreUnico(entity.Id, entity.Name))
             {
@@ -45,7 +45,7 @@ namespace Stock.AppService.Services
             throw new System.Exception("The name is already in use");
         }
        
-        public IEnumerable<Store> Search(Expression<Func<Store, bool>> filter)
+        public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
         {
             return this.Repository.List(filter);
         }

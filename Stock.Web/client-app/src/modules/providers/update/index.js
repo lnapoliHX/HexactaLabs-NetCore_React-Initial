@@ -17,11 +17,16 @@ export function update(provider) {
     dispatch(setLoading(true));
     return api
       .put(`/provider/${provider.id}`, provider)
-      .then(() => {
-        toast.success("El proveedor se editó con éxito");
-        dispatch(success(provider));
-        dispatch(setLoading(false));
-        return dispatch(goBack());
+      .then(response => {
+        if (response.data.success) {
+          toast.success("El proveedor se editó con éxito");
+          dispatch(success(response.data.provider));
+          dispatch(setLoading(false));
+          return dispatch(goBack()); 
+        } else {
+          toast.error("El Proveedor ya existe.");
+          return dispatch(setLoading(false));  
+        }
       })
       .catch(error => {
         apiErrorToast(error);

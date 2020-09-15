@@ -18,10 +18,16 @@ export function create(store) {
     return api
       .post(`/store/`, store)
       .then(response => {
-        toast.success("La tienda se creó con éxito");
-        dispatch(success(response.data.data));
-        dispatch(setLoading(false));
-        return dispatch(goBack());
+        if (response.data.success) {
+          toast.success("La tienda se creó con éxito");
+          dispatch(success(response.data.store));
+          dispatch(setLoading(false));
+          return dispatch(goBack());  
+        } else {
+          //apiErrorToast(error);
+          toast.error("La tienda ya existe.");
+          return dispatch(setLoading(false));  
+        }
       })
       .catch(error => {
         apiErrorToast(error);

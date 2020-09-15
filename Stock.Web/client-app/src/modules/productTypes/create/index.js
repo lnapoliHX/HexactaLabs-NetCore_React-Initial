@@ -1,30 +1,31 @@
-import { toast } from "react-toastify";
-import { goBack } from "connected-react-router";
 import api from "../../../common/api";
+import { goBack } from "connected-react-router";
 import { apiErrorToast } from "../../../common/api/apiErrorToast";
 import { setLoading, ActionTypes } from "../list";
+import { toast } from "react-toastify";
 
 /* Actions */
-function success(store) {
+function success(productType) {
   return {
-    type: ActionTypes.UPDATE,
-    store
+    type: ActionTypes.CREATE,
+    productType
   };
 }
 
-export function update(store) {
+export function create(productType) {
   return function(dispatch) {
     dispatch(setLoading(true));
     return api
-      .put(`/store/${store.id}`, store)
+      .post(`/productType/`, productType)
       .then(response => {
         if (response.data.success) {
-          toast.success("La tienda se editó con éxito");
-          dispatch(success(response.data.store));
+          toast.success("El Tipo de Producto se creó con éxito");
+          dispatch(success(response.data.productType));
           dispatch(setLoading(false));
-          return dispatch(goBack()); 
+          return dispatch(goBack());  
         } else {
-          toast.error("La tienda ya existe.");
+          //apiErrorToast(error);
+          toast.error("El Tipo de Producto ya existe.");
           return dispatch(setLoading(false));  
         }
       })

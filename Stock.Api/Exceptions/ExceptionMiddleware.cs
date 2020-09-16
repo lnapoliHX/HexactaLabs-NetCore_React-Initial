@@ -35,6 +35,11 @@ namespace Stock.Api.Exceptions
                 logger.LogError($"Something went wrong: {ex}");
                 await HandleRepositoryExceptionAsync(httpContext, ex);
             }
+            catch (ValidationException ex) 
+            {
+                logger.LogError($"Something went wrong: {ex}");
+                await HandleValidationExceptionAsync(httpContext, ex);
+            }
             catch (Exception ex)
             {
                 logger.LogError($"Something went wrong: {ex}");

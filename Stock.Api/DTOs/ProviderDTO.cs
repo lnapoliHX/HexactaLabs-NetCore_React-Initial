@@ -9,8 +9,10 @@ namespace Stock.Api.DTOs
 
         public string Id { get; set; }
 
+        [Required]
         public string Phone { get; set; }
 
+        [Required]
         public string Email { get; set; }
 
     }

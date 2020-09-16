@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Stock.AppService.Base;
 using Stock.Model.Entities;
+using Stock.Model.Exceptions;
 using Stock.Repository.LiteDb.Interface;
 
 namespace Stock.AppService.Services
@@ -16,21 +18,19 @@ namespace Stock.AppService.Services
 
         public new Provider Create(Provider entity)
         {
-            if (this.NombreUnico(entity.Name))
-            {
-                return base.Create(entity);
-            }
+            this.NombreUnico(entity.Name);
+            return base.Create(entity);
 
-            throw new System.Exception("The name is already in use");
         }
-        private bool NombreUnico(string name)
+        private void NombreUnico(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return false;
+                throw new ValidationException("The name can't be empty");
             }
-
-            return this.Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
+            if (this.Repository.List().Any(provider => provider.Equals(name))) {
+                throw new ValidationException("The name is already in use");
+            }
         }
 
         public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)

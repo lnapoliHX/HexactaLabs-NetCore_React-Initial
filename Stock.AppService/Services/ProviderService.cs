@@ -21,7 +21,7 @@ namespace Stock.AppService.Services
                 return base.Create(entity);
             }
 
-            throw new System.Exception("The name is already in use");      
+            throw new System.Exception("The name is already in use");
         }
 
         private bool NombreUnico(string name)
@@ -33,7 +33,7 @@ namespace Stock.AppService.Services
 
             return this.Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
         }
-        
+
         public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
         {
             return this.Repository.List(filter);

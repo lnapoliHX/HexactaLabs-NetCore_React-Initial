@@ -13,9 +13,9 @@ namespace Stock.Api.Controllers
 {
 
     [Produces("application/json")]
-        [Route("api/provider")]
-        [ApiController]
-    public class ProviderController: ControllerBase
+    [Route("api/provider")]
+    [ApiController]
+    public class ProviderController : ControllerBase
     {
         private ProviderService service;
         private readonly IMapper mapper;
@@ -68,7 +68,7 @@ namespace Stock.Api.Controllers
             }
         }
 
-        
+
         /// <summary>
         /// Permite editar una instancia
         /// </summary>
@@ -96,6 +96,10 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
+        /// <summary>
+        /// Permite buscar una instancia
+        /// </summary>
+        /// <returns>Devuelve la instancia encontrada</returns>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
@@ -119,6 +123,6 @@ namespace Stock.Api.Controllers
             return Ok(providers);
         }
 
-        
+
     }
 }

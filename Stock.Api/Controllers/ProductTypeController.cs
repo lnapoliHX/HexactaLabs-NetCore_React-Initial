@@ -24,9 +24,9 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
-        /// <summary>
+        ///<summary>
         /// Permite recuperar todas las instancias
-        /// </summary>
+        ///</summary>
         /// <returns>Una colección de instancias</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProductTypeDTO>> Get()

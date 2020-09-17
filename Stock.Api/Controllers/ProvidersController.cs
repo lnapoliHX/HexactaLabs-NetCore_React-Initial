@@ -25,6 +25,10 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
+        ///<summary>
+        ///Permite crear un nuevo proveedor
+        ///</summary>
+        /// <param name="value">Una instancia</param>
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -43,6 +47,10 @@ namespace Stock.Api.Controllers
             }
         }
 
+        ///<summary>
+        /// Permite recuperar todas las instancias
+        ///</summary>
+        /// <returns>Una colección de instancias</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -57,7 +65,13 @@ namespace Stock.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite recuperar una instancia mediante un identificador
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a recuperar</param>
+        /// <returns>Una instancia</returns>
         [HttpGet("{id}")]
+
         public ActionResult<ProviderDTO> Get(string id)
         {
             try
@@ -70,6 +84,12 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// Permite editar una instancia
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a editar</param>
+        /// <param name="value">Una instancia con los nuevos datos</param>
 
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
@@ -93,7 +113,11 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
+        ///<summary>
+        ///Permite realizar la busqueda de un proveedor
+        ///</summary>
         [HttpPost("search")]
+        
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
             Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);

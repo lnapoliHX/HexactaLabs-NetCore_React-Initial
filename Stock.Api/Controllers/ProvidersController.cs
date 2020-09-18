@@ -8,6 +8,7 @@ using Stock.Api.DTOs;
 using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Stock.Api.Controllers
 {
@@ -57,11 +58,14 @@ namespace Stock.Api.Controllers
             try
             {
                 var result = this.service.GetAll();
-                return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
+                //return this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
+                return Ok(this.mapper.Map<IEnumerable<ProviderDTO>>(result).ToList());
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                //return StatusCode(500);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                
             }
         }
 
@@ -77,11 +81,13 @@ namespace Stock.Api.Controllers
             try
             {
                 var result = this.service.Get(id);
-                return this.mapper.Map<ProviderDTO>(result);
+                //return this.mapper.Map<ProviderDTO>(result);
+                return Ok(this.mapper.Map<ProviderDTO>(result));
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                //return StatusCode(500);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
 

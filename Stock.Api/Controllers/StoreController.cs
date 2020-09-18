@@ -8,6 +8,7 @@ using Stock.Api.DTOs;
 using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Stock.Api.Controllers
 {
@@ -26,7 +27,7 @@ namespace Stock.Api.Controllers
         }
 
         ///<summary>
-        ///Permite crear un nuevo proveedor
+        ///Permite crear una nueva tienda
         ///</summary>
         /// <param name="value">Una instancia</param>
         [HttpPost]
@@ -44,8 +45,14 @@ namespace Stock.Api.Controllers
             catch
             {
                 return Ok(new { Success = false, Message = "The name is already in use" });
+
             }
         }
+        
+        ///<summary>
+        /// Permite recuperar todas las instancias
+        ///</summary>
+        /// <returns>Una colección de instancias</returns>
 
         [HttpGet]
         public ActionResult<IEnumerable<StoreDTO>> Get()
@@ -53,11 +60,14 @@ namespace Stock.Api.Controllers
             try
             {
                 var result = this.service.GetAll();
-                return this.mapper.Map<IEnumerable<StoreDTO>>(result).ToList();
+                //return this.mapper.Map<IEnumerable<StoreDTO>>(result).ToList();
+                return Ok(this.mapper.Map<IEnumerable<StoreDTO>>(result).ToList());
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                //return StatusCode(500);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                
             }
         }
 
@@ -73,11 +83,13 @@ namespace Stock.Api.Controllers
             try
             {
                 var result = this.service.Get(id);
-                return this.mapper.Map<StoreDTO>(result);
+                //return this.mapper.Map<StoreDTO>(result);
+                return Ok(this.mapper.Map<StoreDTO>(result));
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                //return StatusCode(500);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -109,7 +121,9 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
-        
+        ///<summary>
+        ///Permite buscar una tienda
+        ///</summary>
         [HttpPost("search")]
         public ActionResult Search([FromBody] StoreSearchDTO model)
         {

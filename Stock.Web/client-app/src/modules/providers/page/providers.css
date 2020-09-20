@@ -203,8 +203,7 @@
     display: flex;
 }
 
-.ReactTable .rt-tbody .rt-td .provider-list__button,
-.ReactTable .rt-tbody .rt-td .product-list__button {
+.ReactTable .rt-tbody .rt-td .provider-list__button {
     background: none;
     color: #009688;
     padding: 0;
@@ -214,8 +213,7 @@
     margin: 0 15px;
 }
 
-.ReactTable .rt-tbody .rt-td .provider-list__button svg,
-.ReactTable .rt-tbody .rt-td .product-list__button svg {
+.ReactTable .rt-tbody .rt-td .provider-list__button svg {
     width: inherit;
     height: inherit;
 }

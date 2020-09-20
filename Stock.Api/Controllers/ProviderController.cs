@@ -24,7 +24,10 @@ namespace Stock.Api.Controllers
             this.service = service;
             this.mapper = mapper;
         }
-
+        
+        /// <summary>
+        /// Permite crear una nueva instancia
+        /// </summary>
         [HttpPost]
         public ActionResult Post([FromBody] ProviderDTO value)
         {
@@ -42,7 +45,10 @@ namespace Stock.Api.Controllers
                 return Ok(new { Success = false, Message = "The name is already in use" });
             }
         }
-
+        
+        /// <summary>
+        /// Permite recuperar todas las instancias
+        /// </summary>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -56,7 +62,11 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
-
+        
+        /// <summary>
+        /// Permite recuperar una instancia mediante un identificador
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a buscar</param>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
@@ -70,7 +80,10 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
-
+        /// <summary>
+        /// Permite editar una instancia
+        /// </summary>
+        /// <param name="id">Identificador de la instancia a editar</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
@@ -87,10 +100,16 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var provider = this.service.Get(id);
+            try {
+                var provider = this.service.Get(id);
 
-            this.service.Delete(provider);
-            return Ok(new { Success = true, Message = "", data = id });
+                Expression<Func<Product, bool>> filter = x => x.ProviderId.Equals(id);
+
+                this.service.Delete(provider);
+                return Ok(new { Success = true, Message = "", data = id });
+            } catch {
+                return Ok(new { Success = false, Message = "", data = id });
+            }
         }
 
         [HttpPost("search")]

@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  api:
+    ports:
+      - "5000:80"
+  
+  front:
+    ports:
+      - "3000:3000"

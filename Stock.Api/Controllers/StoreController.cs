@@ -87,10 +87,14 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var store = this.service.Get(id);
+            try {
+                var store = this.service.Get(id);
 
-            this.service.Delete(store);
-            return Ok(new { Success = true, Message = "", data = id });
+                this.service.Delete(store);
+                return Ok(new { Success = true, Message = "", data = id });
+            } catch {
+                return Ok(new { Success = false, Message = "", data = id });
+            }
         }
 
         [HttpPost("search")]

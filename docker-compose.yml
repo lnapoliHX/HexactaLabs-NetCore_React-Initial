@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  api:
+    image: hexacta-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+  
+  front:
+    image: hexacta-front
+    build: 
+      context: ./Stock.Web/client-app
+      dockerfile: Dockerfile

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.Http;
 
 namespace Stock.Api.Controllers
 {
@@ -24,14 +25,23 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
-        /// <summary>
+        ///<summary>
         /// Permite recuperar todas las instancias
-        /// </summary>
+        ///</summary>
         /// <returns>Una colección de instancias</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProductTypeDTO>> Get()
         {
-            return this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList();
+            //Agrego manejo de excepciones y devolver en Ok() 
+            try{
+                var resul = this.service.GetAll();
+                return Ok(this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList());
+                //return this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList();
+            }
+            catch(Exception){
+                //return StatusCode(500);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         /// <summary>
@@ -42,7 +52,17 @@ namespace Stock.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<ProductTypeDTO> Get(string id)
         {
-            return this.mapper.Map<ProductTypeDTO>(this.service.Get(id));
+            //Agrego el manejo de excepciones y retornar en OK();
+            try{
+                var result = this.service.Get(id);
+                return Ok(this.mapper.Map<ProductTypeDTO>(this.service.Get(id)));
+            }
+            catch(Exception){
+                //return StatusCode(500);
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+            //return this.mapper.Map<ProductTypeDTO>(this.service.Get(id));
+            //return Ok(this.mapper.Map<ProductTypeDTO>(this.service.Get(id)));
         }
 
         /// <summary>
@@ -54,6 +74,7 @@ namespace Stock.Api.Controllers
         {
             TryValidateModel(value);
             var productType = this.service.Create(this.mapper.Map<ProductType>(value));
+            
             return this.mapper.Map<ProductType>(productType);
         }
 
@@ -70,6 +91,7 @@ namespace Stock.Api.Controllers
             this.mapper.Map<ProductTypeDTO, ProductType>(value, productType);
             this.service.Update(productType);
         }
+
 
         /// <summary>
         /// Permite borrar una instancia

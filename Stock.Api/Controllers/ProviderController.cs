@@ -60,7 +60,7 @@ namespace Stock.Api.Controllers
 
 
         [HttpPost("search")]
-        public ActionResult Search([FromBody] ProviderDTO model)
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
             Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
 
@@ -71,7 +71,7 @@ namespace Stock.Api.Controllers
                 filter = filter.AndOrCustom(
                     x => x.Email.ToUpper().Contains(model.Email.ToUpper()));
               
-                var provider = this.mapper.Map<IEnumerable<ProviderDTO>>(this.service.Search(filter));
+                var provider = this.mapper.Map<IEnumerable<ProviderSearchDTO>>(this.service.Search(filter));
 
                 return Ok(provider);
             

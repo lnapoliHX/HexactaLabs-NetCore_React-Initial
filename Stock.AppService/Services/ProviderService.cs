@@ -14,6 +14,22 @@ namespace Stock.AppService.Services
             : base(repository)
         {
         }
+
+        public new Provider Create(Provider provider){
+
+            if(!string.IsNullOrWhiteSpace(provider.Name)){
+
+                //Comprueba que el nombre sea unico
+                if(UniqueName(provider.Name)){
+                    return base.Create(provider);        
+                }
+            }
+            throw new Exception("the name already in use");
+        }
+
+        public bool UniqueName(string name){
+            return this.Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count==0;
+        }
         public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
         {
             return this.Repository.List(filter);

@@ -7,7 +7,10 @@ import InputField from "../../../../components/inputs/InputField";
 import schema from "../validation";
 
 const ProviderForm = props => {
+
   const { handleSubmit, handleCancel } = props;
+
+
   return (
     <Form onSubmit={handleSubmit} className="addForm">
       <Field label="Nombre" name="name" component={InputField} type="text" />

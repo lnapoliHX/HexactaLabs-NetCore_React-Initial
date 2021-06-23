@@ -61,15 +61,14 @@ namespace Stock.Api
             }); 
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
              if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock.Api v1"));
-                //loggerFactory.AddConsole();
+                LoggerFactory.Create(builder => builder.AddConsole());
             }
 
             app.UseHttpsRedirection();

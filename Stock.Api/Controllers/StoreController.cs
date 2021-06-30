@@ -8,6 +8,7 @@ using Stock.Api.DTOs;
 using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace Stock.Api.Controllers
 {
@@ -17,12 +18,15 @@ namespace Stock.Api.Controllers
     public class StoreController : ControllerBase
     {
         private StoreService service;
+
+        private ILogger<StoreController> logger;
         private readonly IMapper mapper;
 
-        public StoreController(StoreService service, IMapper mapper)
+        public StoreController(StoreService service, IMapper mapper, ILogger<StoreController> logger)
         {
             this.service = service;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         [HttpPost]
@@ -37,8 +41,9 @@ namespace Stock.Api.Controllers
                 value.Id = store.Id;
                 return Ok(new { Success = true, Message = "", data = value });
             }
-            catch
-            {
+            catch (Exception ex)
+            {   
+                this.logger.LogCritical(ex.StackTrace);
                 return Ok(new { Success = false, Message = "The name is already in use" });
             }
         }
@@ -88,7 +93,9 @@ namespace Stock.Api.Controllers
         public ActionResult Delete(string id)
         {
             var store = this.service.Get(id);
-
+            if (store == null) {
+                return NotFound();
+            }
             this.service.Delete(store);
             return Ok(new { Success = true, Message = "", data = id });
         }

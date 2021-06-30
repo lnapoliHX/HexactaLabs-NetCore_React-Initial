@@ -7,7 +7,8 @@ namespace Stock.Repository.LiteDb.Configuration
     {
         public LiteDatabase GetDatabase(ConfigurationProvider provider)
         {
-            var db = new LiteDatabase(provider.LiteUrl);
+            var stringConnection = $"Filename=${provider.LiteUrl};connection=shared";
+            var db = new LiteDatabase(stringConnection);
             db.Mapper.IncludeNonPublic = true;
             return db;
         }

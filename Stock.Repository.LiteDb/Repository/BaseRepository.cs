@@ -12,7 +12,7 @@ namespace Stock.Repository.LiteDb.Repository
     public class BaseRepository<T> : IRepository<T> where T : IEntity
     {
         protected readonly IDbContext context;
-        protected readonly LiteCollection<T> collection;
+        protected readonly ILiteCollection<T> collection;
 
         public BaseRepository(IDbContext context)
         {
@@ -29,7 +29,7 @@ namespace Stock.Repository.LiteDb.Repository
 
         public void Delete(T entity)
         {
-            this.collection.Delete(x => x.Id == entity.Id);
+            this.collection.Delete(entity.Id);
         }
 
         public T GetById(string id)
@@ -53,7 +53,7 @@ namespace Stock.Repository.LiteDb.Repository
             this.collection.Update(entity);
         }
 
-        private LiteCollection<T> GetCollection()
+        private ILiteCollection<T> GetCollection()
         {
             var collectionName = DocumentCollectionMapping.GetCollectionName<T>();
             var client = this.context.Database;

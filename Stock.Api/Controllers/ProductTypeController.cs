@@ -31,7 +31,7 @@ namespace Stock.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ProductTypeDTO>> Get()
         {
-            return this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList();
+            return Ok(this.mapper.Map<IEnumerable<ProductTypeDTO>>(this.service.GetAll()).ToList());
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Stock.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<ProductTypeDTO> Get(string id)
         {
-            return this.mapper.Map<ProductTypeDTO>(this.service.Get(id));
+            return Ok(this.mapper.Map<ProductTypeDTO>(this.service.Get(id)));
         }
 
         /// <summary>
@@ -79,10 +79,12 @@ namespace Stock.Api.Controllers
         public ActionResult Delete(string id)
         {
             var productType = this.service.Get(id);
-
-             Expression<Func<Product, bool>> filter = x => x.ProductType.Id.Equals(id);
             
-            this.service.Delete(productType);
+            if (productType != null) {
+                this.service.Delete(productType);
+            } else {
+                return NotFound();
+            }
             return Ok();
         }
     }

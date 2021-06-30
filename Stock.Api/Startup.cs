@@ -1,10 +1,17 @@
 ﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Stock.Api.Exceptions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
@@ -14,7 +21,6 @@ using Stock.Repository.LiteDb.Interface;
 using Stock.Repository.LiteDb.Repository;
 using Stock.Settings;
 using Swashbuckle.AspNetCore.Swagger;
-using System;
 using System.IO;
 using System.Reflection;
 
@@ -32,7 +38,6 @@ namespace Stock.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<StoreService>();
             //services.AddTransient<ProductService>();
@@ -45,61 +50,37 @@ namespace Stock.Api
             services.AddTransient<IRepository<Product>, BaseRepository<Product>>();
             services.AddTransient<IRepository<ProductType>, BaseRepository<ProductType>>();
             services.AddTransient<IRepository<Store>, BaseRepository<Store>>();
-
-            services.AddAutoMapper();
+            
+            services.AddControllers();
+            services.AddAutoMapper(typeof(Startup).Assembly);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
-            });
+                c.SwaggerDoc("v1", new OpenApiInfo  { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
+            }); 
         }
 
-        private void OnShutdown()
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           // MySqlConnection.ClearAllPools();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(
-            IApplicationBuilder app, 
-            IHostingEnvironment env, 
-            IApplicationLifetime applicationLifetime,
-            ILoggerFactory loggerFactory)
-        {
-            if (env.IsDevelopment())
+             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseExceptionMiddleware();
-            }
-            else
-            {
-                app.UseExceptionMiddleware();
-                //app.UseExceptionHandler();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock.Api v1"));
+                LoggerFactory.Create(builder => builder.AddConsole());
             }
 
-            //app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            app.UseHttpsRedirection();
 
-            loggerFactory.AddConsole();
+            app.UseRouting();
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            app.UseAuthorization();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+            app.UseEndpoints(endpoints =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock API V1");
-               // c.RoutePrefix = "docs";
+                endpoints.MapControllers();
             });
-
-            applicationLifetime.ApplicationStopping.Register(OnShutdown);                        
-            app.UseMvc();
         }
     }
 }

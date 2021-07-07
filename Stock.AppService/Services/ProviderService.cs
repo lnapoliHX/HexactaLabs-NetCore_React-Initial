@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Stock.AppService.Base;
@@ -7,13 +7,13 @@ using Stock.Repository.LiteDb.Interface;
 
 namespace Stock.AppService.Services
 {
-    public class StoreService : BaseService<Store>
+    public class ProviderService : BaseService<Provider>
     {
-        public StoreService(IRepository<Store> repository) : base(repository)
-        {             
+        public ProviderService(IRepository<Provider> repository) : base(repository)
+        {
         }
 
-        public new Store Create(Store entity)
+        public new Provider Create(Provider entity)
         {
             if (this.NombreUnico(entity.Name))
             {
@@ -32,7 +32,7 @@ namespace Stock.AppService.Services
             return this.Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
         }
 
-        public IEnumerable<Store> Search(Expression<Func<Store, bool>> filter)
+        public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
         {
             return this.Repository.List(filter);
         }

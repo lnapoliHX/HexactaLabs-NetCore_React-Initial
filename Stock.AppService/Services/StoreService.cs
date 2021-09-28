@@ -16,13 +16,14 @@ namespace Stock.AppService.Services
 
         public new Store Create(Store entity)
         {
-            if (this.NombreUnico(entity.Name))
+            if (NombreUnico(entity.Name))
             {
                 return base.Create(entity);
             }
 
-            throw new System.Exception("The name is already in use");
+            throw new Exception("The name is already in use");
         }
+
         private bool NombreUnico(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -30,12 +31,12 @@ namespace Stock.AppService.Services
                 return false;
             }
 
-            return this.Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
+            return Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
         }
 
         public IEnumerable<Store> Search(Expression<Func<Store, bool>> filter)
         {
-            return this.Repository.List(filter);
+            return Repository.List(filter);
         }
     }
 }

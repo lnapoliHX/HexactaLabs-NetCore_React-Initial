@@ -15,6 +15,6 @@ namespace Stock.Repository.LiteDb
             this.provider = provider;
         }
 
-        public LiteDatabase Database => this.configuration.GetDatabase(this.provider);
+        public LiteDatabase Database => configuration.GetDatabase(provider);
     }
 }

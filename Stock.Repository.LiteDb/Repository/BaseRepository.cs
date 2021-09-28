@@ -17,60 +17,53 @@ namespace Stock.Repository.LiteDb.Repository
         public BaseRepository(IDbContext context)
         {
             this.context = context;
-            this.collection = this.GetCollection();
+            collection = GetCollection();
         }
 
         public T Add(T entity)
         {   
             entity.Id = Guid.NewGuid().ToString();
-            this.collection.Insert(entity);
+            collection.Insert(entity);
             return entity;
         }
 
         public void Delete(T entity)
         {
-            this.collection.Delete(entity.Id);
+            collection.Delete(entity.Id);
         }
 
         public T GetById(string id)
         {
-            var item = this.collection.Find(x => x.Id == id).ToList().FirstOrDefault();
+            var item = collection.Find(x => x.Id == id).ToList().FirstOrDefault();
             return item;
         }
 
         public IReadOnlyList<T> List(Expression<Func<T, bool>> filter = null)
         {
-            return this.Find(filter).ToList();
+            return Find(filter).ToList();
         }
 
         public IReadOnlyList<T> ListLimit(Expression<Func<T, bool>> filter = null, int size = 15)
         {
-            return this.Find(filter).Take(size).ToList();
+            return Find(filter).Take(size).ToList();
         }
 
         public void Update(T entity)
         {
-            this.collection.Update(entity);
+            collection.Update(entity);
         }
 
         private ILiteCollection<T> GetCollection()
         {
             var collectionName = DocumentCollectionMapping.GetCollectionName<T>();
-            var client = this.context.Database;
+            var client = context.Database;
 
             return client.GetCollection<T>(collectionName);
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> filter = null)
         {
-            if (filter == null)
-            {
-                return this.collection.FindAll();
-            }
-            else
-            {
-                return this.collection.Find(filter);
-            }
+            return filter == null ? collection.FindAll() : collection.Find(filter);
         }
     }
 }

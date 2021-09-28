@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Stock.Model.Base;
 using Stock.Repository.LiteDb.Interface;
 
@@ -11,32 +12,32 @@ namespace Stock.AppService.Base
 
         public BaseService(IRepository<TEntity> repository)
         {
-            this.Repository = repository;
+            Repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         public TEntity Create(TEntity entity)
         {
-            return this.Repository.Add(entity);
+            return Repository.Add(entity);
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return this.Repository.List();
+            return Repository.List();
         }
 
         public TEntity Get(string id)
         {
-            return this.Repository.GetById(id);            
+            return Repository.GetById(id);            
         }
 
         public void Delete(TEntity entity)
         {
-            this.Repository.Delete(entity);
+            Repository.Delete(entity);
         }
 
         public TEntity Update(TEntity entity)
         {
-            this.Repository.Update(entity);
+            Repository.Update(entity);
             return entity;
         }
     }

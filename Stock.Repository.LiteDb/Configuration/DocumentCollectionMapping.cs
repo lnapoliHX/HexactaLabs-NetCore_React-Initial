@@ -28,9 +28,7 @@ namespace Stock.Repository.LiteDb.Configuration
 
         public static string GetCollectionName(Type type)
         {
-            string nameMapped = null;
-
-            if (!TypeCollectionMapping.TryGetValue(type, out nameMapped))
+            if (!TypeCollectionMapping.TryGetValue(type, out var nameMapped))
             {
                 throw new ArgumentOutOfRangeException($"The document {type.FullName} is not mapped to any collection in the configuration");
             }

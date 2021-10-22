@@ -1,22 +1,29 @@
 .ui-sidebar {    
-    background: #f2f2f2;
-    padding-top: 2rem
+    background: #f3fffb;
+    padding-top: 1rem
 }
 
 .ui-sidebar-section-title {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    font-size: large;
+   
 }
 
 .ui-sidebar-section-nav a {
     color: #333;
     padding: 0.5rem;
+    text-decoration: none;
+    display: flex;
+    
 }
 .ui-sidebar-section-nav a:hover,
 .ui-sidebar-section-nav a.active {
     background: rgba(0, 0, 0, 0.1);
-    text-decoration: none;
+   
+   
 }
 
-.ui-sidebar-section-nav a p {
+.ui-sidebar-section-nav a p{
     margin-bottom: 0;
+    font-size: small;
 }

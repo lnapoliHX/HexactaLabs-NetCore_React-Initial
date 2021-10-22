@@ -5,12 +5,13 @@ import { FaPlus } from "react-icons/fa";
 import ReactTable from "react-table";
 import columns from "./ColumnsConfig";
 import Search from "./StoreSearch";
+import '../../../../index.css';
 
 const Presentation = props => {
   return (
     <Container fluid>
       <Row className="my-1">
-        <Col>
+        <Col className="col">
           <h1>Tiendas</h1>
         </Col>
       </Row>

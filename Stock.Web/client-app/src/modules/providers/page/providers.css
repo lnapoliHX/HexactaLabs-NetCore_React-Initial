@@ -313,7 +313,7 @@
 .btn-primary,
 .btn-primary:not(:disabled):not(.disabled):active, 
 .btn-primary:not(:disabled):not(.disabled).active {
-    background: #00AC9D;
+    background: #6F07D8;
     border-color:#00AC9D;
 }
 

@@ -1,13 +1,14 @@
 .ui-header {
-    color: white;
-    background: #009688;
+    color: #52F7C5;
+    background: #f3fffb;
 }
 
 .ui-header-brand {
+    color: #52F7C5;
 }
 
 .ui-header-options .btn {
-    background: none;
+    background: #52F7C5;
     border: none;
 }
 

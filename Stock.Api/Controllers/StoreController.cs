@@ -113,9 +113,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite borrar una instancia
+        /// Deletes a store.
         /// </summary>
-        /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <param name="id">Store id to delete</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -127,6 +127,11 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
+        /// <summary>
+        /// Search some stores.
+        /// </summary>
+        /// <param name="model">Store filters.</param>
+        /// <returns></returns>
         [HttpPost("search")]
         public ActionResult Search([FromBody] StoreSearchDTO model)
         {

@@ -32,9 +32,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar todas las instancias
+        /// Get all products.
         /// </summary>
-        /// <returns>Una colección de instancias</returns>
+        /// <returns>List of <see cref="ProductTypeDTO"/></returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProductTypeDTO>> Get()
         {
@@ -42,10 +42,10 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar una instancia mediante un identificador
+        /// Gets a product by id.
         /// </summary>
-        /// <param name="id">Identificador de la instancia a recuperar</param>
-        /// <returns>Una instancia</returns>
+        /// <param name="id">Product id to return.</param>
+        /// <returns>A <see cref="ProductTypeDTO"/></returns>
         [HttpGet("{id}")]
         public ActionResult<ProductTypeDTO> Get(string id)
         {
@@ -53,9 +53,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite crear una nueva instancia
+        /// Add a product.
         /// </summary>
-        /// <param name="value">Una instancia</param>
+        /// <param name="value">Product information.</param>
         [HttpPost]
         public ProductType Post([FromBody] ProductTypeDTO value)
         {
@@ -65,10 +65,10 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite editar una instancia
+        /// Updates a product.
         /// </summary>
-        /// <param name="id">Identificador de la instancia a editar</param>
-        /// <param name="value">Una instancia con los nuevos datos</param>
+        /// <param name="id">Product id to edit.</param>
+        /// <param name="value">Product information.</param>
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProductTypeDTO value)
         {
@@ -79,9 +79,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite borrar una instancia
+        /// Deletes a product.
         /// </summary>
-        /// <param name="id">Identificador de la instancia a borrar</param>
+        /// <param name="id">Product id to delete.</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {

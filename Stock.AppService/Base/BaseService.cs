@@ -19,7 +19,7 @@ namespace Stock.AppService.Base
         /// </summary>
         /// <param name="repository">Generic repository.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public BaseService(IRepository<TEntity> repository)
+        protected BaseService(IRepository<TEntity> repository)
         {
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }

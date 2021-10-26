@@ -7,7 +7,7 @@ namespace Stock.Repository.LiteDb.Configuration
 {
     public class DocumentCollectionMapping
     {
-        private static IReadOnlyDictionary<Type, string> TypeCollectionMapping;
+        private static readonly IReadOnlyDictionary<Type, string> TypeCollectionMapping;
 
         static DocumentCollectionMapping()
         {
@@ -16,8 +16,7 @@ namespace Stock.Repository.LiteDb.Configuration
                 { typeof(Product), "product" },
                 { typeof(ProductType), "producttype" },
                 { typeof(Provider), "provider" },
-                { typeof(Store), "store" },
-
+                { typeof(Store), "store" }
             };
         }
 

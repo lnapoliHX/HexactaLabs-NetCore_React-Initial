@@ -1,18 +1,10 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Stock.Api.Exceptions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
 using Stock.Repository.LiteDb;
@@ -20,9 +12,6 @@ using Stock.Repository.LiteDb.Configuration;
 using Stock.Repository.LiteDb.Interface;
 using Stock.Repository.LiteDb.Repository;
 using Stock.Settings;
-using Swashbuckle.AspNetCore.Swagger;
-using System.IO;
-using System.Reflection;
 
 namespace Stock.Api
 {
@@ -50,20 +39,20 @@ namespace Stock.Api
             services.AddTransient<IRepository<Product>, BaseRepository<Product>>();
             services.AddTransient<IRepository<ProductType>, BaseRepository<ProductType>>();
             services.AddTransient<IRepository<Store>, BaseRepository<Store>>();
-            
+
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo  { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
-            }); 
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-             if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();

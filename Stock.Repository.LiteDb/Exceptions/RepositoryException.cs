@@ -2,9 +2,16 @@ using System;
 
 namespace Stock.Repository.LiteDb.Exceptions
 {
-    public class RepositoryException: Exception
+    /// <summary>
+    /// Repository exception.
+    /// </summary>
+    public class RepositoryException : Exception
     {
-        public RepositoryException(string message): base(message)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RepositoryException"/> class.
+        /// </summary>
+        /// <param name="message">Error message.</param>
+        public RepositoryException(string message) : base(message)
         {
         }
     }

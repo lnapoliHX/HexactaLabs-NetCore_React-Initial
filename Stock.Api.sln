@@ -10,6 +10,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.Model", "Stock.Model\Stock.Model.csproj", "{56F2A339-C7A1-4FF0-BBE3-FF83F454AE01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.Repository.LiteDb", "Stock.Repository.LiteDb\Stock.Repository.LiteDb.csproj", "{D3AD2199-3805-45F5-B400-16C02C48A7B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stock.Test", "Stock.Test\Stock.Test.csproj", "{1DCE5647-C174-4291-84F1-30734EA90C33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

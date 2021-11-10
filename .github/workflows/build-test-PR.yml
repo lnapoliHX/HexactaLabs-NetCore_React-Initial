@@ -20,4 +20,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test Stock.Test\Stock.Test.csproj --no-build --verbosity normal
+      run: dotnet test $GITHUB_WORKSPACE/Stock.Test/Stock.Test.csproj --no-build --verbosity normal

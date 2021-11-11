@@ -51,7 +51,7 @@ namespace Stock.Test
         public void When_ProviderControllerCreated_Expect_DeleteMethodWhitParameter()
         {
             var className = "Stock.Api.Controllers.ProviderController, Stock.Api";
-            var methodName = "Get";
+            var methodName = "Delete";
             var parametersType = new Type[] { typeof(string) };
 
             Assert.True(HasMethod(className, methodName, parametersType));

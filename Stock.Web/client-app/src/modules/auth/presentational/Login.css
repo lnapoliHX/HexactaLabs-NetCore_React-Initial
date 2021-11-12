@@ -9,9 +9,30 @@ min-height: 100vh;
 }
 
 .bg-image {
-background-image: url('https://source.unsplash.com/wL7pwimB78Q/600x1200');
+background-image: url('airplane.jpeg');
 background-size: cover;
 background-position: center;
+}
+
+.img_provider{
+  background-image: url('truck.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  color: black;
+}
+.img_store{
+  background-image: url('warehouse.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  color: red;
 }
 
 .login-heading {
@@ -23,6 +44,10 @@ font-size: 0.9rem;
 letter-spacing: 0.05rem;
 padding: 0.75rem 1rem;
 border-radius: 2rem;
+}
+
+.btn_prueba{
+  background: #52F7C5;
 }
 
 .form-label-group {

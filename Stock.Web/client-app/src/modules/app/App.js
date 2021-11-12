@@ -21,7 +21,7 @@ const Private = props => {
 const App = props => (
   <Private>
     <Layout {...props}>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" component={HomePage}/>
       <Route path="/provider" component={ProviderPage} />
       <Route path="/logout" component={LogoutPage} />
       <Route path="/store" component={StorePage} />

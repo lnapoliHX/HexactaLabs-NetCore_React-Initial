@@ -1,6 +1,6 @@
 # HexactaLabs-.NETCore_React
 
-Hexacta 2020
+Hexacta 2020 - Prueba
 
 **Bienvenidos a los Hexacta Labs**
 

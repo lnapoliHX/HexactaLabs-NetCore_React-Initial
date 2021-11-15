@@ -9,7 +9,7 @@
 1. Presionar CTRL + SHIFT + P y escribir "Show Recommended Extensions"
 	1. Instalar las que dicen "Workspace Recommended"
 	1. Instalar las otras que prefieran
-1. Instalar el último SDK de NetCore desde: [Link](https://dotnet.microsoft.com/download/dotnet-core). La versión que vamos a utilizar es la *2.1*.
+1. Instalar el último SDK de NetCore desde: [Link](https://dotnet.microsoft.com/download/dotnet-core). La versión que vamos a utilizar es la *5.0*.
 1. Para poder Ejecutar y Debuggear el proyecto:
 	1. CTRL + SHIFT + P y escribir "Generate Assets..."
 	1. Presionamos F5 y debería abrirnos un Browser

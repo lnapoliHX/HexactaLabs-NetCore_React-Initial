@@ -101,7 +101,7 @@ En [Docs/Prerequisitos Netcore](./Docs/prerequisitosnetcore.md) hay una guía de
 ## Arquitectura esperada
 Se crearon UnitTest para validar los endpoints.
 Deberán utilizarlos como guía para que los mismos validen que el desarrollo cumpla con las condiciones, siguiendo la nomeclatura declarada dentro de los tests.
-Podrán encontrarlo dentro del proyecto Stock.Test (https://github.com/lnapoliHX/HexactaLabs-NetCore_React-Initial/tree/master/Stock.Api).
+Podrán encontrarlo dentro del proyecto Stock.Test (https://github.com/lnapoliHX/HexactaLabs-NetCore_React-Initial/tree/master/Stock.Test).
 
 Documentación útil:
 https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices

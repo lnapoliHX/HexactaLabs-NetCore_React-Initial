@@ -30,7 +30,7 @@ Otra opción, es utilizar Visual Studio, pero solo está disponible para Windows
 	1. Hacer click en Install y avanzar con la instalacion. Tener en cuenta que podria pedir reiniciar la computadora, si despues de reiniciar no se continua la instalacion se debe ejecutar el instalador del paso 1 nuevamente.
 
 1. Instalar el último SDK de NetCore desde: [Link](https://dotnet.microsoft.com/download/dotnet-core)
-La versión que vamos a utilizar es la *2.1*.
+La versión que vamos a utilizar es la *5.0*.
 
 1. Clonar el proyecto de GitHub en Visual Studio
 	1. Desde la URL del proyecto en github, click en Clone or Download y Open in Visual Studio.

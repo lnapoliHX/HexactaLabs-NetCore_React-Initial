@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Stock.Api.DTOs;
+using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Stock.Api.Controllers
 {
@@ -91,6 +93,34 @@ namespace Stock.Api.Controllers
 
             service.Delete(provider);
             return Ok();
+        }
+
+        /// <summary>
+        /// Search providers.
+        /// </summary>
+        /// <param name="model">Provider filters.</param>
+        /// <returns></returns>
+        [HttpPost("search")]
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
+        {
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+
+            if (!string.IsNullOrWhiteSpace(model.Name))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Email))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            var provider = service.Search(filter);
+            return Ok(provider);
         }
     }
 }

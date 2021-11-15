@@ -10,7 +10,7 @@ namespace Stock.AppService.Services
     /// <summary>
     /// Provider service.
     /// </summary>
-    class ProviderService : BaseService<Provider>
+    public class ProviderService : BaseService<Provider>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProviderService"/> class.

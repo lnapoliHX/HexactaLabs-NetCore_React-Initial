@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Stock.Api.DTOs;
+using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
 using System;
@@ -88,5 +89,54 @@ namespace Stock.Api.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public void Put(string id, [FromBody] ProviderDTO value)
+        {
+            var provider = service.Get(id);
+            TryValidateModel(value);
+            mapper.Map<ProviderDTO, Provider>(value, provider);
+            service.Update(provider);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(string id)
+        {
+            var provider = service.Get(id);
+            if (provider is null)
+                return NotFound();
+
+            service.Delete(provider);
+            return Ok(new { Success = true, Message = "", data = id });
+        }
+
+        [HttpPost("search")]
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
+        {
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+
+            if (!string.IsNullOrWhiteSpace(model.Name))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Email))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Phone))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Phone.ToUpper().Contains(model.Phone.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            var provider = service.Search(filter);
+            return Ok(provider);
+        }
     }
 }

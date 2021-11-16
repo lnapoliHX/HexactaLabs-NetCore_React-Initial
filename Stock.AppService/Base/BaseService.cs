@@ -72,5 +72,20 @@ namespace Stock.AppService.Base
             Repository.Update(entity);
             return entity;
         }
+
+        /// <summary>
+        /// Checks if the name is unique or not.
+        /// </summary>
+        /// <param name="name">Entity name to check.</param>
+        /// <returns></returns>
+        public bool NombreUnico(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return false;
+            }
+            
+            return Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
+        }
     }
 }

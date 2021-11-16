@@ -9,5 +9,6 @@
         /// Gets or sets the entity id.
         /// </summary>
         string Id { get; set; }
+        string Name { get; set; }
     }
 }

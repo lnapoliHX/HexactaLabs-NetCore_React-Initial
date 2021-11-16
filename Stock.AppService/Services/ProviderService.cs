@@ -37,21 +37,6 @@ namespace Stock.AppService.Services
         }
 
         /// <summary>
-        /// Checks if the provider name is unique or not.
-        /// </summary>
-        /// <param name="name">Provider name to check.</param>
-        /// <returns></returns>
-        private bool NombreUnico(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return false;
-            }
-
-            return Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
-        }
-
-        /// <summary>
         /// Search providers.
         /// </summary>
         /// <param name="filter"></param>

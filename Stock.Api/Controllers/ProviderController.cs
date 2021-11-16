@@ -51,7 +51,14 @@ namespace Stock.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
-            return Ok(mapper.Map<ProviderDTO>(service.Get(id)));
+            try
+            {
+                return Ok(mapper.Map<ProviderDTO>(service.Get(id)));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         /// <summary>
@@ -62,11 +69,17 @@ namespace Stock.Api.Controllers
         public ActionResult Post([FromBody] ProviderDTO value)
         {
             TryValidateModel(value);
-
-            var provider = mapper.Map<Provider>(value);
-            service.Create(provider);
-            value.Id = provider.Id;
-            return Ok(new { Success = true, Message = "", data = value });
+            try
+            {
+                var provider = mapper.Map<Provider>(value);
+                service.Create(provider);
+                value.Id = provider.Id;
+                return Ok(new { Success = true, Message = "", data = value });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { Success = false, Message = ex.Message, data = value });
+            }
         }
 
         /// <summary>

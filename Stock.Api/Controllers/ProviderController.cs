@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Stock.Api.DTOs;
 using Stock.AppService.Services;
+using Stock.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Stock.Api.Controllers
@@ -52,15 +55,12 @@ namespace Stock.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProviderDTO>> GetAll()
+        public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
             try
             {
                 var result = service.GetAll();
-                if (result != null)
-                    return mapper.Map<List<ProviderDTO>>(result);
-                else
-                    return NotFound();
+                return mapper.Map<List<ProviderDTO>>(result);
             }
             catch (Exception ex)
             {
@@ -68,5 +68,25 @@ namespace Stock.Api.Controllers
                 return StatusCode(500);
             }
         }
+
+        [HttpPost]
+        public ActionResult Post([FromBody] ProviderDTO value)
+        {
+            TryValidateModel(value);
+
+            try
+            {
+                var provider = mapper.Map<Provider>(value);
+                service.Create(provider);
+                value.Id = provider.Id;
+                return Ok(new { Success = true, Message = "", data = value });
+            }
+            catch (Exception ex)
+            {
+                logger.LogCritical(ex.StackTrace);
+                return Ok(new { Success = false, Message = "The name is already in use" });
+            }
+        }
+
     }
 }

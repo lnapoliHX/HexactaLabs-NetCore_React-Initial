@@ -1,15 +1,19 @@
 ﻿using System;
-
-public class ProviderDTO
+namespace Stock.Api.DTOs
 {
-    public string Id { get; set; }
 
-    public string Name { get; set; }
+    public class ProviderDTO
+    {
+        public string Id { get; set; }
 
-    public string Phone { get; set; }
+        public string Name { get; set; }
 
-    public string Email { get; set; }
-    public ProviderDTO()
-	{
-	}
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
+
+        public ProviderDTO()
+        {
+        }
+    }
 }

@@ -59,11 +59,14 @@ namespace Stock.Api.Controllers
         /// </summary>
         /// <param name="value">Provider information.</param>
         [HttpPost]
-        public Provider Post([FromBody] ProviderDTO value)
+        public ActionResult Post([FromBody] ProviderDTO value)
         {
             TryValidateModel(value);
-            var provider = service.Create(mapper.Map<Provider>(value));
-            return mapper.Map<Provider>(provider);
+
+            var provider = mapper.Map<Provider>(value);
+            service.Create(provider);
+            value.Id = provider.Id;
+            return Ok(new { Success = true, Message = "", data = value });
         }
 
         /// <summary>

@@ -30,7 +30,7 @@ namespace Stock.Api
             services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<StoreService>();
             //services.AddTransient<ProductService>();
-            //services.AddTransient<ProviderService>();
+            services.AddTransient<ProviderService>();
             services.AddTransient<ProductTypeService>();
             services.AddTransient<Repository.LiteDb.Configuration.ConfigurationProvider>();
             services.AddTransient<ILiteConfiguration, LiteConfiguration>();
@@ -40,6 +40,7 @@ namespace Stock.Api
             services.AddTransient<IRepository<ProductType>, BaseRepository<ProductType>>();
             services.AddTransient<IRepository<Store>, BaseRepository<Store>>();
 
+            
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup).Assembly);
 

@@ -30,8 +30,12 @@ namespace Stock.Api.MapperProfiles
                .ForMember(c => c.Name, opt => opt.MapFrom(s => s.Name))
                .ForMember(c => c.Phone, opt => opt.MapFrom(s => s.Phone))
                .ForMember(c => c.Email, opt => opt.MapFrom(s => s.Email))
+
+               .ForMember(c => c.OfferedProducts, opt => opt.MapFrom(s => s.OfferedProducts))
                .ReverseMap()
-               .ForMember(s => s.OfferedProducts, opt => opt.Ignore());
+               .ForMember(s => s.Id, opt => opt.Ignore());
+            //.ReverseMap()
+            //.ForPath(s => s.OfferedProducts, opt => opt.Ignore());
 
         }        
     }

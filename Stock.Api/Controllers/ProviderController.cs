@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Stock.Api.DTOs;
+using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Stock.Api.Controllers
@@ -104,6 +106,52 @@ namespace Stock.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Search by Id, Name, Phone, Email
+        /// </summary>
+        /// <param name="model">Provider information.</param>        
+        /// <returns>A <see cref="ProviderSearchDTO"/></returns>
+        [HttpGet]
+        [Route("search")]
+        public ActionResult Search([FromQuery] ProviderSearchDTO model) 
+        {
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
 
+            // Search by Id
+            if (!string.IsNullOrWhiteSpace(model.Id))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Id.ToUpper().Contains(model.Id.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            // Search by Name
+            if (!string.IsNullOrWhiteSpace(model.Name))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            // Search by Phone
+            if (!string.IsNullOrWhiteSpace(model.Phone))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Phone.ToUpper().Contains(model.Phone.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            // Search by Email
+            if (!string.IsNullOrWhiteSpace(model.Email))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            var provider = service.Search(filter);
+            
+            return Ok(provider);
+        }
     }
 }

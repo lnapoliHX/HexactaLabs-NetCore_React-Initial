@@ -7,7 +7,7 @@ namespace Stock.Repository.LiteDb.Configuration
 {
     public class DocumentCollectionMapping
     {
-        private static IReadOnlyDictionary<Type, string> TypeCollectionMapping;
+        private static readonly IReadOnlyDictionary<Type, string> TypeCollectionMapping;
 
         static DocumentCollectionMapping()
         {
@@ -16,8 +16,7 @@ namespace Stock.Repository.LiteDb.Configuration
                 { typeof(Product), "product" },
                 { typeof(ProductType), "producttype" },
                 { typeof(Provider), "provider" },
-                { typeof(Store), "store" },
-
+                { typeof(Store), "store" }
             };
         }
 
@@ -28,9 +27,7 @@ namespace Stock.Repository.LiteDb.Configuration
 
         public static string GetCollectionName(Type type)
         {
-            string nameMapped = null;
-
-            if (!TypeCollectionMapping.TryGetValue(type, out nameMapped))
+            if (!TypeCollectionMapping.TryGetValue(type, out var nameMapped))
             {
                 throw new ArgumentOutOfRangeException($"The document {type.FullName} is not mapped to any collection in the configuration");
             }

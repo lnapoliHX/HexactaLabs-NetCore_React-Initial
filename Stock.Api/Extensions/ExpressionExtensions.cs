@@ -16,19 +16,16 @@ namespace Stock.Api.Extensions
 
             var rightVisitor = new ReplaceExpressionVisitor(expr2.Parameters[0], parameter);
             var right = rightVisitor.Visit(expr2.Body);
- 
+
             if (isAnd)
             {
-                return Expression.Lambda<Func<T, bool>>(
-                    Expression.AndAlso(left, right), parameter);
+                return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(left, right), parameter);
             }
-            else
-            {
-                 return Expression.Lambda<Func<T, bool>>(
-                    Expression.Or(left, right), parameter);
-            }         
+
+            return Expression.Lambda<Func<T, bool>>(Expression.Or(left, right), parameter);
         }
-         private class  ReplaceExpressionVisitor : ExpressionVisitor
+        
+        private class ReplaceExpressionVisitor : ExpressionVisitor
         {
             private readonly Expression oldValue;
             private readonly Expression newValue;
@@ -41,10 +38,8 @@ namespace Stock.Api.Extensions
 
             public override Expression Visit(Expression node)
             {
-                if (node == oldValue)
-                    return newValue;
-                return base.Visit(node);
+                return node == oldValue ? newValue : base.Visit(node);
             }
         }
-    }  
+    }
 }

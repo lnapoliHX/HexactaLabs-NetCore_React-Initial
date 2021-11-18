@@ -47,7 +47,7 @@ namespace Stock.Api.Exceptions
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
 
-            return context.Response.WriteAsync(new ErrorDetails()
+            return context.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = context.Response.StatusCode,
                 Message = exception.Message
@@ -59,7 +59,7 @@ namespace Stock.Api.Exceptions
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
 
-            return context.Response.WriteAsync(new ErrorDetails()
+            return context.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = context.Response.StatusCode,
                 Message = exception.Message
@@ -71,11 +71,11 @@ namespace Stock.Api.Exceptions
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            return context.Response.WriteAsync(new ErrorDetails()
-                {
-                    StatusCode = context.Response.StatusCode,
-                    Message = "Internal Server Error"
-                }.ToString());
+            return context.Response.WriteAsync(new ErrorDetails
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = "Internal Server Error"
+            }.ToString());
         }
     }
 }

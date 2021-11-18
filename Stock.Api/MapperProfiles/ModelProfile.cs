@@ -25,6 +25,8 @@ namespace Stock.Api.MapperProfiles
             //     .ForMember(s => s.Id, opt => opt.Ignore())
             //     .ForMember(s => s.ProductType, opt => opt.Ignore());       
 
+            
+
             CreateMap<Provider, ProviderDTO>()
                .ForMember(c => c.Id, opt => opt.MapFrom(s => s.Id))
                .ForMember(c => c.Name, opt => opt.MapFrom(s => s.Name))
@@ -37,7 +39,13 @@ namespace Stock.Api.MapperProfiles
             //.ReverseMap()
             //.ForPath(s => s.OfferedProducts, opt => opt.Ignore());
 
-        }        
+            CreateMap<Provider, ProviderSearchDTO>()
+               .ForMember(c => c.Name, opt => opt.MapFrom(s => s.Name))
+               .ForMember(c => c.Phone, opt => opt.MapFrom(s => s.Phone))
+               .ForMember(c => c.Email, opt => opt.MapFrom(s => s.Email));
+
+
+        }
     }
 
 

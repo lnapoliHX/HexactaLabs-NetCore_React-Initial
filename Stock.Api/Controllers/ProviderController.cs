@@ -20,11 +20,12 @@ namespace Stock.Api.Controllers
 
         private readonly ProviderService service;
         private readonly IMapper mapper;
+        
 
         public ProviderController(ProviderService service, IMapper mapper)
         {
             this.service = service ?? throw new ArgumentException(nameof(service));
-            this.mapper = mapper ?? throw new ArgumentException(nameof(mapper));
+            this.mapper = mapper ?? throw new ArgumentException(nameof(mapper));            
         }
 
 
@@ -35,14 +36,19 @@ namespace Stock.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
+            logger.LogInformation("Mensaje Log de Get");
             try
             {
-                var result = service.GetAll();
-                return mapper.Map<IEnumerable<ProviderDTO>>(result).ToList();
+                var provider = service.GetAll();
+                if (provider == null)
+                {
+                    return Ok(new { statusCode = "404", result = "No hay datos en Proveedores" });
+                }
+                return mapper.Map<IEnumerable<ProviderDTO>>(provider).ToList();
             }
-            catch (Exception)
-            {
-                return StatusCode(500);
+            catch (Exception ex)
+            {                
+                return BadRequest(new { statusCode = "400", errorMessage = ex.Message });
             }        
         }
 
@@ -53,8 +59,21 @@ namespace Stock.Api.Controllers
         /// <returns>A <see cref="ProviderDTO"/></returns>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
-        {
-            return Ok(mapper.Map<ProviderDTO>(service.Get(id)));
+        {            
+            try
+            {
+                var provider = mapper.Map<ProviderDTO>(service.Get(id));
+                if (provider == null) 
+                {
+                    return Ok(new { statusCode = "404", result = "El Proveedor no fué encontrado" });
+                }
+                return Ok(provider);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { statusCode = "400", errorMessage = ex.Message });
+            }             
+
         }
 
         /// <summary>
@@ -75,18 +94,23 @@ namespace Stock.Api.Controllers
         /// <param name="id">Provider id to edit.</param>
         /// <param name="value">Prodvider information.</param>
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] ProviderDTO value)
-        {
-            var provider = service.Get(id);
+        public ActionResult Put(string id, [FromBody] ProviderDTO value)
+        {            
             TryValidateModel(value);
             try
             {
+                var provider = service.Get(id);
+                if (provider == null) 
+                {
+                    return Ok(new { statusCode = "404", result = "El Proveedor no fué encontrado" });
+                }
                 mapper.Map<ProviderDTO, Provider>(value, provider);
                 service.Update(provider);
+                return Ok(new { statusCode = "200", result = "Proveedor modificado exitosamente" });
             }
             catch (Exception ex)
-            {
-                var msg = ex.Message;             
+            {                
+                return BadRequest(new { statusCode = "400", result = ex.Message });
             }
         }
 
@@ -97,17 +121,23 @@ namespace Stock.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var provider = service.Get(id);
+            try
+            {
+                var provider = service.Get(id);
+                if (provider is null)
+                    return Ok(new { statusCode = "404", result = "El Proveedor no fué encontrado" });
 
-            if (provider is null)
-                return NotFound();
-
-            service.Delete(provider);
-            return Ok();
+                service.Delete(provider);
+                return Ok(new { statusCode = "200", result = "Proveedor eliminado exitosamente" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { statusCode = "400", result = ex.Message });
+            }
         }
 
         /// <summary>
-        /// Search by Id, Name, Phone, Email
+        /// Search by Name, Phone, Email
         /// </summary>
         /// <param name="model">Provider information.</param>        
         /// <returns>A <see cref="ProviderSearchDTO"/></returns>
@@ -116,14 +146,6 @@ namespace Stock.Api.Controllers
         public ActionResult Search([FromQuery] ProviderSearchDTO model) 
         {
             Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
-
-            // Search by Id
-            if (!string.IsNullOrWhiteSpace(model.Id))
-            {
-                filter = filter.AndOrCustom(
-                    x => x.Id.ToUpper().Contains(model.Id.ToUpper()),
-                    model.Condition.Equals(ActionDto.AND));
-            }
 
             // Search by Name
             if (!string.IsNullOrWhiteSpace(model.Name))
@@ -149,8 +171,11 @@ namespace Stock.Api.Controllers
                     model.Condition.Equals(ActionDto.AND));
             }
 
+
             var provider = service.Search(filter);
-            
+            if(provider.Count()==0)
+                return Ok(new { statusCode = "404", result = "No se encontró información del Proveedor" });
+
             return Ok(provider);
         }
     }

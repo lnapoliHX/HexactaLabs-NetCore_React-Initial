@@ -40,7 +40,14 @@ namespace Stock.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
-            return Ok(mapper.Map<IEnumerable<ProviderDTO>>(service.GetAll()).ToList());
+            try
+            {
+                return Ok(mapper.Map<IEnumerable<ProviderDTO>>(service.GetAll()).ToList());
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         /// <summary>
@@ -53,7 +60,10 @@ namespace Stock.Api.Controllers
         {
             try
             {
-                return Ok(mapper.Map<ProviderDTO>(service.Get(id)));
+                var result = service.Get(id);
+                if (result is null) { return NotFound(); }
+
+                return Ok(mapper.Map<ProviderDTO>(result));
             }
             catch (Exception)
             {

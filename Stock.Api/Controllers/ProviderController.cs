@@ -24,7 +24,6 @@ namespace Stock.Api.Controllers
     public class ProviderController : ControllerBase
     {
         private readonly ProviderService service;
-
         private readonly ILogger<ProviderController> logger;
         private readonly IMapper mapper;
 
@@ -102,6 +101,7 @@ namespace Stock.Api.Controllers
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] ProviderDTO value)
         {
+
             var provider = service.Get(id);
             TryValidateModel(value);
             mapper.Map<ProviderDTO,Provider >(value, provider);

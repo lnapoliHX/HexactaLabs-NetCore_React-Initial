@@ -37,44 +37,6 @@ namespace Stock.AppService.Services
         }
 
         /// <summary>
-        /// Gets all providers.
-        /// </summary>
-        /// <returns></returns>
-        public new IEnumerable<Provider> GetAll()
-        {
-            return Repository.List();
-        }
-
-        /// <summary>
-        /// Gets an item by id.
-        /// </summary>
-        /// <param name="id">Item id.</param>
-        /// <returns></returns>
-        public new Provider Get(string id)
-        {
-            return Repository.GetById(id);
-        }
-
-        /// <summary>
-        /// Deletes a provider.
-        /// </summary>
-        /// <param name="entity">Provider information.</param>
-        /// <returns></returns>
-        public new void Delete(Provider entity)
-        {
-            base.Delete(entity);
-        }
-
-        /// <summary>
-        /// Updates a provider.
-        /// </summary>
-        /// <param name="entity">Provider information</param>
-        public new Provider Update(Provider entity)
-        {
-            return base.Update(entity);
-        }
-
-        /// <summary>
         /// Checks if the provider name is unique or not.
         /// </summary>
         /// <param name="name">Provider name to check</param>

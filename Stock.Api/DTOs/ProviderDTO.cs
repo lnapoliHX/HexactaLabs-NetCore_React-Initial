@@ -16,8 +16,5 @@ namespace Stock.Api.DTOs
 
         [Required]
         public string Email {get; set;}
-
-        [Required]
-        public List<Product> OfferedProducts {get; set;}
     }
 }

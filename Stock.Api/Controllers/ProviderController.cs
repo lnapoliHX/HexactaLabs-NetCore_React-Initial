@@ -30,7 +30,7 @@ namespace Stock.Api.Controllers
         /// <param name="service">Provider service</param>
         /// <param name="mapper">Mapper configurator</param>
         /// <param name="logger">Logger service.</param>
-        public ProviderController(ProviderService service, IMapper mapper)
+        public ProviderController(ProviderService service, IMapper mapper,ILogger<ProviderController> logger)
         {
             this.service = service ?? throw new ArgumentException(nameof(service));
             this.mapper = mapper ?? throw new ArgumentException(nameof(mapper));

@@ -91,7 +91,6 @@ namespace Stock.Api.Controllers
             {
                 var provider = mapper.Map<Provider>(value);
                 service.Create(provider);
-                value.Id = provider.Id;
                 return Ok(new { Success = true, Message = "", data = value });
             }
             catch (Exception ex)

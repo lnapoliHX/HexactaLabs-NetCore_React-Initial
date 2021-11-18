@@ -1,33 +1,32 @@
+﻿using Stock.AppService.Base;
+using Stock.Model.Entities;
+using Stock.Repository.LiteDb.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Stock.AppService.Base;
-using Stock.Model.Entities;
-using Stock.Repository.LiteDb.Interface;
 
 namespace Stock.AppService.Services
 {
     /// <summary>
-    /// Store service.
+    /// Provider Service.
     /// </summary>
-    public class StoreService : BaseService<Store>
+    public class ProviderService : BaseService<Provider>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StoreService"/> class.
+        /// Initializes a new instance of the <see cref="ProviderService"/> class.
         /// </summary>
-        /// <param name="repository">Store repository.</param>
-        public StoreService(IRepository<Store> repository)
-            : base(repository)
-        {     
+        /// <param name="repository">Provider Repository.</param>
+        public ProviderService(IRepository<Provider> repository) : base(repository)
+        {
         }
 
         /// <summary>
-        /// Creates a store.
+        /// Creates a provider.
         /// </summary>
-        /// <param name="entity">Store information.</param>
+        /// <param name="entity">Provider information.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public new Store Create(Store entity)
+        public new Provider Create(Provider entity)
         {
             if (NombreUnico(entity.Name))
             {
@@ -38,11 +37,11 @@ namespace Stock.AppService.Services
         }
 
         /// <summary>
-        /// Search stores.
+        /// Search providers.
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public IEnumerable<Store> Search(Expression<Func<Store, bool>> filter)
+        public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
         {
             return Repository.List(filter);
         }

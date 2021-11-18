@@ -1,5 +1,4 @@
 ﻿using Stock.Model.Entities;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Stock.Api.DTOs

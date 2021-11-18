@@ -35,3 +35,6 @@ $tf/
 
 #Litedb File
 Stock.Api/*.db
+
+# Visual Studio Code
+.vscode

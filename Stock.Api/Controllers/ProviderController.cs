@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
+
 
 namespace Stock.Api.Controllers
 {
@@ -36,19 +36,20 @@ namespace Stock.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
-            logger.LogInformation("Mensaje Log de Get");
+            
             try
             {
                 var provider = service.GetAll();
                 if (provider == null)
                 {
-                    return Ok(new { statusCode = "404", result = "No hay datos en Proveedores" });
+                    return NotFound();
                 }
                 return mapper.Map<IEnumerable<ProviderDTO>>(provider).ToList();
             }
             catch (Exception ex)
-            {                
-                return BadRequest(new { statusCode = "400", errorMessage = ex.Message });
+            {
+                var errorMessage = ex.Message;
+                return BadRequest(); 
             }        
         }
 
@@ -65,13 +66,14 @@ namespace Stock.Api.Controllers
                 var provider = mapper.Map<ProviderDTO>(service.Get(id));
                 if (provider == null) 
                 {
-                    return Ok(new { statusCode = "404", result = "El Proveedor no fué encontrado" });
+                    return NotFound();
                 }
                 return Ok(provider);
             }
             catch (Exception ex)
             {
-                return BadRequest(new { statusCode = "400", errorMessage = ex.Message });
+                var errorMessage = ex.Message;
+                return BadRequest();
             }             
 
         }
@@ -102,15 +104,16 @@ namespace Stock.Api.Controllers
                 var provider = service.Get(id);
                 if (provider == null) 
                 {
-                    return Ok(new { statusCode = "404", result = "El Proveedor no fué encontrado" });
+                    return NotFound();
                 }
                 mapper.Map<ProviderDTO, Provider>(value, provider);
                 service.Update(provider);
                 return Ok(new { statusCode = "200", result = "Proveedor modificado exitosamente" });
             }
             catch (Exception ex)
-            {                
-                return BadRequest(new { statusCode = "400", result = ex.Message });
+            {
+                var errorMessage = ex.Message;
+                return BadRequest();
             }
         }
 
@@ -125,14 +128,15 @@ namespace Stock.Api.Controllers
             {
                 var provider = service.Get(id);
                 if (provider is null)
-                    return Ok(new { statusCode = "404", result = "El Proveedor no fué encontrado" });
+                    return NotFound();
 
                 service.Delete(provider);
                 return Ok(new { statusCode = "200", result = "Proveedor eliminado exitosamente" });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { statusCode = "400", result = ex.Message });
+                var errorMessage = ex.Message;
+                return BadRequest();
             }
         }
 
@@ -174,7 +178,7 @@ namespace Stock.Api.Controllers
 
             var provider = service.Search(filter);
             if(provider.Count()==0)
-                return Ok(new { statusCode = "404", result = "No se encontró información del Proveedor" });
+                return NotFound();
 
             return Ok(provider);
         }

@@ -17,9 +17,19 @@ namespace Stock.Model.Entities
 
         public virtual ProductType ProductType { get; set; }
 
-        private int _stock;
+        private int _stock { get; set; }
 
-        public int Stock => _stock;
+        //public int Stock => _stock;
+
+        public int Stock
+        {
+            get => _stock;
+            set => _stock = value;
+        }
+
+        public string ProviderId { get; set; }
+
+        public Provider Provider { get; set; }
 
         public void DescontarStock(int value)
         {
@@ -34,8 +44,5 @@ namespace Stock.Model.Entities
             _stock += value;
         }
 
-        public string ProviderId { get; set; }
-
-        public Provider Provider { get; set; }
     }
 }

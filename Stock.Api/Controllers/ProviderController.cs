@@ -130,7 +130,7 @@ namespace Stock.Api.Controllers
         /// <summary>
         /// Search some stores.
         /// </summary>
-        /// <param name="model">Store filters.</param>
+        /// <param name="model">Provider filters.</param>
         /// <returns></returns>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
@@ -141,18 +141,20 @@ namespace Stock.Api.Controllers
             {
                 filter = filter.AndOrCustom(
                     x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
-                    model.Condition.Equals(ActionDto.AND));
+                     model.Condition.Equals(ActionDto.AND));
+
             }
 
             if (!string.IsNullOrWhiteSpace(model.Address))
             {
                 filter = filter.AndOrCustom(
                     x => x.Address.ToUpper().Contains(model.Address.ToUpper()),
-                    model.Condition.Equals(ActionDto.AND));
+                     model.Condition.Equals(ActionDto.OR));
+                    
             }
 
-            var stores = service.Search(filter);
-            return Ok(stores);
+            var provider = service.Search(filter);
+            return Ok(provider);
         }
     }
 }

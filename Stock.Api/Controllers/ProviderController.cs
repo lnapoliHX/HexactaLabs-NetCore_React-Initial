@@ -50,5 +50,16 @@ namespace Stock.Api.Controllers
 
             return Ok(mappedProvider);
         }
+
+        [HttpPut("id")]
+        public void Put(string id, [FromBody] ProviderDTO dto)
+        {
+            TryValidateModel(dto);
+
+            var provider = service.Get(id);
+
+            mapper.Map(dto, provider);
+            service.Update(provider);
+        }
     }
 }

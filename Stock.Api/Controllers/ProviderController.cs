@@ -60,6 +60,9 @@ namespace Stock.Api.Controllers
 
             var provider = service.Get(id);
 
+            if (provider is null)
+                return NotFound();
+
             mapper.Map(dto, provider);
             service.Update(provider);
 

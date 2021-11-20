@@ -10,6 +10,9 @@ using System.Linq.Expressions;
 
 namespace Stock.Api.Controllers
 {
+    /// <summary>
+    /// Provider endpoint.
+    /// </summary>
     [Produces("application/json")]
     [Route("api/provider")]
     [ApiController]
@@ -18,12 +21,22 @@ namespace Stock.Api.Controllers
         private readonly ProviderService service;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProviderController"/> class.
+        /// </summary>
+        /// <param name="service">Provider service.</param>
+        /// <param name="mapper">Mapper configurator.</param>
         public ProviderController(ProviderService service, IMapper mapper)
         {
             this.service = service ?? throw new ArgumentException(null, nameof(service));
             this.mapper = mapper ?? throw new ArgumentException(null, nameof(mapper));
         }
 
+        /// <summary>
+        /// Add a provider.
+        /// </summary>
+        /// <param name="dto">Provider information.</param>
+        /// <returns>A <see cref="Provider"/></returns>
         [HttpPost]
         public Provider Post([FromBody] ProviderDTO dto)
         {
@@ -35,6 +48,10 @@ namespace Stock.Api.Controllers
             return provider;
         }
 
+        /// <summary>
+        /// Get all providers.
+        /// </summary>
+        /// <returns>A collection of <see cref="ProviderDTO"/></returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -44,6 +61,11 @@ namespace Stock.Api.Controllers
             return Ok(mappedProviders);
         }
 
+        /// <summary>
+        /// Gets a provider by id.
+        /// </summary>
+        /// <param name="id">Provider id to return.</param>
+        /// <returns>A <see cref="ProviderDTO"/></returns>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {
@@ -53,6 +75,11 @@ namespace Stock.Api.Controllers
             return Ok(mappedProvider);
         }
 
+        /// <summary>
+        /// Updates a provider.
+        /// </summary>
+        /// <param name="id">Provider id to edit.</param>
+        /// <param name="dto">Provider information.</param>
         [HttpPut("id")]
         public ActionResult Put(string id, [FromBody] ProviderDTO dto)
         {
@@ -69,6 +96,10 @@ namespace Stock.Api.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes a provider.
+        /// </summary>
+        /// <param name="id">Provider id to delete.</param>
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -82,6 +113,10 @@ namespace Stock.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Search providers by filters.
+        /// </summary>
+        /// <param name="model">Provider filters.</param>
         [HttpPost("search")]
         public ActionResult Search([FromBody] ProviderSearchDTO model)
         {

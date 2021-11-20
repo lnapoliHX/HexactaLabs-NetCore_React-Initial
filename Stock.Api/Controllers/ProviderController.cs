@@ -63,5 +63,18 @@ namespace Stock.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(string id)
+        {
+            var provider = service.Get(id);
+
+            if (provider is null)
+                return NotFound();
+
+            service.Delete(provider);
+
+            return Ok();
+        }
     }
 }

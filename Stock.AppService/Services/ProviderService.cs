@@ -17,7 +17,6 @@ namespace Stock.AppService.Services
         {
         }
 
-
         /// <summary>
         /// Creates a provider.
         /// </summary>
@@ -50,7 +49,7 @@ namespace Stock.AppService.Services
         /// Search providers.
         /// </summary>
         /// <param name="filter"></param>
-        /// <returns></returns>
+        /// <returns>A collection of <see cref="Provider"/>.</returns>
         public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
         {
             return Repository.List(filter);

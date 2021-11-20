@@ -129,13 +129,6 @@ namespace Stock.Api.Controllers
                     model.Condition.Equals(ActionDto.AND));
             }
 
-            if (!string.IsNullOrWhiteSpace(model.Phone))
-            {
-                filter = filter.AndOrCustom(
-                    x => x.Phone.ToUpper().Contains(model.Phone.ToUpper()),
-                    model.Condition.Equals(ActionDto.AND));
-            }
-
             if (!string.IsNullOrWhiteSpace(model.Email))
             {
                 filter = filter.AndOrCustom(

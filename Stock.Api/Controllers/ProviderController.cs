@@ -36,7 +36,7 @@ namespace Stock.Api.Controllers
         /// Add a provider.
         /// </summary>
         /// <param name="dto">Provider information.</param>
-        /// <returns>A <see cref="Provider"/></returns>
+        /// <returns>A <see cref="Provider"/>.</returns>
         [HttpPost]
         public Provider Post([FromBody] ProviderDTO dto)
         {
@@ -51,7 +51,7 @@ namespace Stock.Api.Controllers
         /// <summary>
         /// Get all providers.
         /// </summary>
-        /// <returns>A collection of <see cref="ProviderDTO"/></returns>
+        /// <returns>A collection of <see cref="ProviderDTO"/>.</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
@@ -65,7 +65,7 @@ namespace Stock.Api.Controllers
         /// Gets a provider by id.
         /// </summary>
         /// <param name="id">Provider id to return.</param>
-        /// <returns>A <see cref="ProviderDTO"/></returns>
+        /// <returns>A <see cref="ProviderDTO"/>.</returns>
         [HttpGet("{id}")]
         public ActionResult<ProviderDTO> Get(string id)
         {

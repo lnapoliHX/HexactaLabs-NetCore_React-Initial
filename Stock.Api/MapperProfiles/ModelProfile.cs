@@ -12,7 +12,7 @@ namespace Stock.Api.MapperProfiles
                 //.IgnoreAllNonExisting()
                 .ReverseMap()
                 .ForMember(s => s.Id, opt => opt.Ignore());
-            
+
             CreateMap<Store, StoreDTO>()
                 //.IgnoreAllNonExisting()
                 .ReverseMap()
@@ -28,8 +28,6 @@ namespace Stock.Api.MapperProfiles
             CreateMap<Provider, ProviderDTO>()
                 .ReverseMap()
                 .ForMember(s => s.Id, opt => opt.Ignore());
-        }        
+        }
     }
-
-
 }

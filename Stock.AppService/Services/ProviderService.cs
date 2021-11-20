@@ -17,6 +17,28 @@ namespace Stock.AppService.Services
         {
         }
 
+        public new Provider Create(Provider provider)
+        {
+            if (NameIsUnique(provider.Name))
+            {
+                return base.Create(provider);
+            }
+
+            throw new Exception("The name is already in use");
+        }
+
+        private bool NameIsUnique(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return false;
+            }
+
+            var providersWithSameName = Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper()));
+
+            return providersWithSameName.Count == 0;
+        }
+
         /// <summary>
         /// Search providers.
         /// </summary>

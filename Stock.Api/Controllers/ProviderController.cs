@@ -101,5 +101,29 @@ namespace Stock.Api.Controllers
             return Ok(new { Success = true, Message = "", data = id });
         }
 
+        // SEARCH
+        [HttpPost("search")]
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
+        {
+            Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
+
+            if (!string.IsNullOrWhiteSpace(model.Name))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Email))
+            {
+                filter = filter.AndOrCustom(
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
+            }
+
+            var providers = service.Search(filter);
+            return Ok(providers);
+        }
+
     }
 }

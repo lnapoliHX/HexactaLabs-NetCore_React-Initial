@@ -80,7 +80,7 @@ namespace Stock.Api.Controllers
         }
 
         [HttpPost("search")]
-        public ActionResult Search([FromBody] ProviderDTO model)
+        public ActionResult Search([FromBody] ProviderSearchDTO model)
         {
             Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
 

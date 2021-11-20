@@ -56,6 +56,7 @@ namespace Stock.Api.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogCritical(ex.StackTrace);
                 return Ok(new { Success = false, ex.Message });
             }
         }

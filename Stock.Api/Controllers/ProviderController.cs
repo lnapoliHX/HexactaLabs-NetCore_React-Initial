@@ -39,7 +39,7 @@ namespace Stock.Api.Controllers
         public ActionResult<IEnumerable<ProviderDTO>> Get()
         {
             var providers = service.GetAll();
-            var mappedProviders = mapper.Map<ProviderDTO>(providers);
+            var mappedProviders = mapper.Map<IEnumerable<ProviderDTO>>(providers);
 
             return Ok(mappedProviders);
         }

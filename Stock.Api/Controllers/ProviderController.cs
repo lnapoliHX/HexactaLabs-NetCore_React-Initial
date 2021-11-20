@@ -86,17 +86,23 @@ namespace Stock.Api.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.Name))
             {
-                filter = filter.AndOrCustom(x => x.Name.ToUpper().Contains(model.Name.ToUpper()));
+                filter = filter.AndOrCustom(
+                    x => x.Name.ToUpper().Contains(model.Name.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
             }
 
             if (!string.IsNullOrWhiteSpace(model.Phone))
             {
-                filter = filter.AndOrCustom(x => x.Phone.ToUpper().Contains(model.Phone.ToUpper()));
+                filter = filter.AndOrCustom(
+                    x => x.Phone.ToUpper().Contains(model.Phone.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
             }
 
             if (!string.IsNullOrWhiteSpace(model.Email))
             {
-                filter = filter.AndOrCustom(x => x.Email.ToUpper().Contains(model.Email.ToUpper()));
+                filter = filter.AndOrCustom(
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
+                    model.Condition.Equals(ActionDto.AND));
             }
 
             var providers = service.Search(filter);

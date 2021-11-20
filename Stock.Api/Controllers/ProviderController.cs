@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Stock.Api.DTOs;
 using Stock.Api.Extensions;
 using Stock.AppService.Services;
@@ -20,16 +21,19 @@ namespace Stock.Api.Controllers
     {
         private readonly ProviderService service;
         private readonly IMapper mapper;
+        private readonly ILogger<ProviderController> logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProviderController"/> class.
         /// </summary>
         /// <param name="service">Provider service.</param>
         /// <param name="mapper">Mapper configurator.</param>
-        public ProviderController(ProviderService service, IMapper mapper)
+        /// <param name="logger">Logger service.</param>
+        public ProviderController(ProviderService service, IMapper mapper, ILogger<ProviderController> logger)
         {
             this.service = service ?? throw new ArgumentException(null, nameof(service));
             this.mapper = mapper ?? throw new ArgumentException(null, nameof(mapper));
+            this.logger = logger ?? throw new ArgumentException(null, nameof(logger));
         }
 
         /// <summary>

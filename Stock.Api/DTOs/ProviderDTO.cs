@@ -5,7 +5,6 @@ namespace Stock.Api.DTOs
 {
     public  class ProviderDTO
     {
-        [Required]
         public string Id { get; set; }
 
         public string Name { get; set; }

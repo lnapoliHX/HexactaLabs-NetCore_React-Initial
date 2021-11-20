@@ -52,7 +52,7 @@ namespace Stock.Api.Controllers
         }
 
         [HttpPut("id")]
-        public void Put(string id, [FromBody] ProviderDTO dto)
+        public ActionResult Put(string id, [FromBody] ProviderDTO dto)
         {
             TryValidateModel(dto);
 
@@ -60,6 +60,8 @@ namespace Stock.Api.Controllers
 
             mapper.Map(dto, provider);
             service.Update(provider);
+
+            return NoContent();
         }
     }
 }

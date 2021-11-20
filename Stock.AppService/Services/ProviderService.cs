@@ -17,6 +17,13 @@ namespace Stock.AppService.Services
         {
         }
 
+
+        /// <summary>
+        /// Creates a provider.
+        /// </summary>
+        /// <param name="provider">Provider information.</param>
+        /// <returns>A <see cref="Provider"/></returns>
+        /// <exception cref="Exception"></exception>
         public new Provider Create(Provider provider)
         {
             if (NameIsUnique(provider.Name))

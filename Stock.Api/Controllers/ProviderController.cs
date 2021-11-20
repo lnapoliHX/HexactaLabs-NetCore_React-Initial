@@ -4,6 +4,7 @@ using Stock.Api.DTOs;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Stock.Api.Controllers
 {
@@ -30,6 +31,24 @@ namespace Stock.Api.Controllers
             var provider = service.Create(providerValues);
 
             return provider;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<ProviderDTO>> Get()
+        {
+            var providers = service.GetAll();
+            var mappedProviders = mapper.Map<ProviderDTO>(providers);
+
+            return Ok(mappedProviders);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ProviderDTO> Get(string id)
+        {
+            var provider = service.Get(id);
+            var mappedProvider = mapper.Map<ProviderDTO>(provider);
+
+            return Ok(mappedProvider);
         }
     }
 }

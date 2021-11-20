@@ -123,7 +123,7 @@ namespace Stock.Api.Controllers
 
             service.Delete(provider);
 
-            return Ok();
+            return Ok(new { Success = true, Message = "", Data = id });
         }
 
         /// <summary>

@@ -33,19 +33,27 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Add a provider.
+        /// Adds a provider.
         /// </summary>
         /// <param name="dto">Provider information.</param>
-        /// <returns>A <see cref="Provider"/>.</returns>
         [HttpPost]
-        public Provider Post([FromBody] ProviderDTO dto)
+        public ActionResult Post([FromBody] ProviderDTO dto)
         {
             TryValidateModel(dto);
 
-            var providerValues = mapper.Map<Provider>(dto);
-            var provider = service.Create(providerValues);
+            try
+            {
+                var providerValues = mapper.Map<Provider>(dto);
+                var newProvider = service.Create(providerValues);
 
-            return provider;
+                dto.Id = newProvider.Id;
+
+                return Ok(new { Success = true, Message = "", Data = dto });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { Success = false, ex.Message });
+            }
         }
 
         /// <summary>

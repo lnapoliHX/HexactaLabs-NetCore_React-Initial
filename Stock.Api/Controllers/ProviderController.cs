@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Stock.Api.DTOs;
 using Stock.Api.Extensions;
-using Stock.AppService.Fake;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
 using System;
@@ -34,13 +33,6 @@ namespace Stock.Api.Controllers
             this.service = providerService ?? throw new ArgumentException(nameof(providerService));
             this.mapper = mapper ?? throw new ArgumentException(nameof(mapper));
 
-
-        }
-
-        public ProviderController(FakeProviderService fakeService, IMapper mapper)
-        {
-            this.service = fakeService ?? throw new ArgumentException(nameof(fakeService));
-            this.mapper = mapper ?? throw new ArgumentException(nameof(mapper));
 
         }
 

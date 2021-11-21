@@ -12,6 +12,9 @@ using Stock.Repository.LiteDb.Configuration;
 using Stock.Repository.LiteDb.Interface;
 using Stock.Repository.LiteDb.Repository;
 using Stock.Settings;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace Stock.Api
 {
@@ -30,7 +33,7 @@ namespace Stock.Api
             services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<StoreService>();
             //services.AddTransient<ProductService>();
-            //services.AddTransient<ProviderService>();
+            services.AddTransient<ProviderService>();
             services.AddTransient<ProductTypeService>();
             services.AddTransient<Repository.LiteDb.Configuration.ConfigurationProvider>();
             services.AddTransient<ILiteConfiguration, LiteConfiguration>();
@@ -43,10 +46,16 @@ namespace Stock.Api
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
-            // Register the Swagger generator, defining 1 or more Swagger documents
+            
             services.AddSwaggerGen(c =>
             {
+                // Set Title and version
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                // pick comments from classes, including controller summary comments
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

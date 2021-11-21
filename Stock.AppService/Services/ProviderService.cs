@@ -17,7 +17,7 @@ namespace Stock.AppService.Services
 
         public new Provider Create(Provider provider)
         {
-            if(NombreUnico(provider.Name) && EmailUnico(provider.Email) && TelefonoUnico(provider.Phone))
+            //if(NombreUnico(provider.Name) && EmailUnico(provider.Email) && TelefonoUnico(provider.Phone))
             {
                 return base.Create(provider);
             }

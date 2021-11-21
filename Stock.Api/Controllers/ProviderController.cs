@@ -30,7 +30,9 @@ namespace Stock.Api.Controllers
             this.service = service ?? throw new ArgumentNullException(nameof(service));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
         }
+
         /// <summary>
         /// Gets a provider by id
         /// </summary>
@@ -85,7 +87,7 @@ namespace Stock.Api.Controllers
             catch (Exception ex)
             {
                 logger.LogCritical(ex.StackTrace);
-                return Ok(new { Success = false, Message = "The name is already in use" });
+                return Ok(new { Success = false, Message = "The id is already in use" });
             }
         }
 
@@ -134,9 +136,8 @@ namespace Stock.Api.Controllers
                     x => x.Phone.ToUpper().Contains(model.Phone.ToUpper()),
                     model.Condition.Equals(ActionDto.AND));
             }
-
             var provider = service.Search(filter);
-            return Ok(provider);
+            return Ok(mapper.Map<IEnumerable<ProviderDTO>>(provider));
         }
     }
 }

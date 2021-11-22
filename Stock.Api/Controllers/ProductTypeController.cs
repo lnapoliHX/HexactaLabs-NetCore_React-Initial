@@ -20,11 +20,11 @@ namespace Stock.Api.Controllers
         private readonly ProductTypeService service;
         private readonly IMapper mapper;
         
-        /// <summary>
+         ///<summary>
         /// Initializes a new instance of the <see cref="ProductTypeController"/> class.
-        /// </summary>
-        /// <param name="service">Product type service.</param>
-        /// <param name="mapper">Mapper configurator.</param>
+         ///</summary>
+         ///<param name="service">Product type service.</param>
+         ///<param name="mapper">Mapper configurator.</param>
         public ProductTypeController(ProductTypeService service, IMapper mapper)
         {
             this.service = service ?? throw new ArgumentException(nameof(service));

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Stock.AppService.Base;
@@ -8,17 +8,17 @@ using Stock.Repository.LiteDb.Interface;
 namespace Stock.AppService.Services
 {
     /// <summary>
-    /// Store service.
+    /// provider service.
     /// </summary>
-    public class StoreService : BaseService<Store>
+    public class ProviderService : BaseService<Store>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StoreService"/> class.
+        /// Initializes a new instance of the <see cref="ProviderService"/> class.
         /// </summary>
         /// <param name="repository">Store repository.</param>
-        public StoreService(IRepository<Store> repository)
+        public ProviderService(IRepository<Store> repository)
             : base(repository)
-        {     
+        {
         }
 
         /// <summary>
@@ -60,16 +60,6 @@ namespace Stock.AppService.Services
         public IEnumerable<Store> Search(Expression<Func<Store, bool>> filter)
         {
             return Repository.List(filter);
-        }
-
-        public void Create(Provider store)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static implicit operator StoreService(ProviderService v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

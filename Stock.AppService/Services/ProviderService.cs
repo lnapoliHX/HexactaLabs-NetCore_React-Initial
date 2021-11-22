@@ -50,5 +50,15 @@ namespace Stock.AppService.Services
 
             return Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
         }
+
+        /// <summary>
+        /// Search providers.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public IEnumerable<Provider> Search(Expression<Func<Provider, bool>> filter)
+        {
+            return Repository.List(filter);
+        }
     }
 }

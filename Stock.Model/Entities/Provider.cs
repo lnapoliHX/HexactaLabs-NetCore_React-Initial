@@ -9,9 +9,9 @@ namespace Stock.Model.Entities
 
         public string Name { get; set; }
         
-        public string Phone { get; set; }
+        public string Cellphone { get; set; }
 
-        public string Email { get; set; }
+        public string Emilio { get; set; }
 
         public List<Product> OfferedProducts { get; set; }
     }

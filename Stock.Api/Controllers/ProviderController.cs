@@ -144,10 +144,10 @@ namespace Stock.Api.Controllers
                     model.Condition.Equals(ActionDto.AND));
             }
 
-            if (!string.IsNullOrWhiteSpace(model.Emilio))
+            if (!string.IsNullOrWhiteSpace(model.Email))
             {
                 filter = filter.AndOrCustom(
-                    x => x.Emilio.ToUpper().Contains(model.Emilio.ToUpper()),
+                    x => x.Email.ToUpper().Contains(model.Email.ToUpper()),
                     model.Condition.Equals(ActionDto.AND));
             }
 

@@ -10,7 +10,7 @@ namespace Stock.AppService.Services
     /// <summary>
     /// Store service.
     /// </summary>
-    public class StoreService : BaseService<Store>
+    public class StoreService : NameService<Store>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StoreService"/> class.
@@ -37,12 +37,12 @@ namespace Stock.AppService.Services
             throw new Exception("The name is already in use");
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Checks if the store name is unique or not.
         /// </summary>
         /// <param name="name">Store name to check.</param>
         /// <returns></returns>
-        private bool NombreUnico(string name)
+        public bool NombreUnico(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -50,7 +50,7 @@ namespace Stock.AppService.Services
             }
 
             return Repository.List(x => x.Name.ToUpper().Equals(name.ToUpper())).Count == 0;
-        }
+        }*/
 
         /// <summary>
         /// Search stores.

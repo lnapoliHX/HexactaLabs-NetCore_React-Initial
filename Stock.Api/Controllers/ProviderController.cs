@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Stock.Api.DTOs;
@@ -86,18 +87,27 @@ namespace Stock.Api.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogCritical(ex.StackTrace);
-                return Ok(new { Success = false, Message = "The id is already in use" });
+                logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,new { Success = false, Message = ex.Message });
             }
         }
 
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] ProviderDTO value)
+        public ActionResult Put(string id, [FromBody] ProviderDTO value)
         {
-            var provider = service.Get(id);
             TryValidateModel(value);
-            mapper.Map<ProviderDTO, Provider>(value, provider);
-            service.Update(provider);
+            try
+            {
+                if (value.Id != id) throw new ArgumentException("provider to be updated is different from the body id provider");
+                var provider = service.Get(id);
+                service.Update(provider);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Success = false, Message = ex.Message });
+            }
+            return Ok(new { Success = true, Message = "", data = value });
         }
 
         [HttpDelete("{id}")]
@@ -112,7 +122,7 @@ namespace Stock.Api.Controllers
         }
 
         [HttpPost("search")]
-        public ActionResult Search([FromBody] ProviderSearchDTO model)
+        public ActionResult<ProviderDTO> Search([FromBody] ProviderSearchDTO model)
         {
             Expression<Func<Provider, bool>> filter = x => !string.IsNullOrWhiteSpace(x.Id);
 

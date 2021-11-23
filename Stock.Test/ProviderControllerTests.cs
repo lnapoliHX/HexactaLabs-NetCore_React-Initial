@@ -7,10 +7,10 @@ namespace Stock.Test
     public class ProviderControllerTests
     {
         [Test]
-        public void When_ProvierControllerCreated_Expect_PostMethodWithParameter()
+        public void When_ProviderControllerCreated_Expect_PostMethodWithParameter()
         {
             var className = "Stock.Api.Controllers.ProviderController, Stock.Api";
-            var methodName = "Post";
+            var methodName = "CreateProvider";
             var providerDTOParameter = "Stock.Api.DTOs.ProviderDTO, Stock.Api";
             var parametersType = new Type[] { Type.GetType(providerDTOParameter) };
 
@@ -21,7 +21,7 @@ namespace Stock.Test
         public void When_ProviderControllerCreated_Expect_GetMethodWhitParameter()
         {
             var className = "Stock.Api.Controllers.ProviderController, Stock.Api";
-            var methodName = "Get";
+            var methodName = "GetById";
             var parametersType = new Type[] { typeof(string) };
 
             Assert.True(HasMethod(className, methodName, parametersType));
@@ -31,7 +31,7 @@ namespace Stock.Test
         public void When_ProviderControllerCreated_Expect_GetMethodWhitoutParameter()
         {
             var className = "Stock.Api.Controllers.ProviderController, Stock.Api";
-            var methodName = "Get";
+            var methodName = "GetAll";
 
             Assert.True(HasMethod(className, methodName));
         }
@@ -40,7 +40,7 @@ namespace Stock.Test
         public void When_ProviderControllerCreated_Expect_PutMethodWithTwoParameters()
         {
             var className = "Stock.Api.Controllers.ProviderController, Stock.Api";
-            var methodName = "Put";
+            var methodName = "UpdateProvider";
             var providerDTOParameter = "Stock.Api.DTOs.ProviderDTO, Stock.Api";
             var parametersType = new Type[] { typeof(string), Type.GetType(providerDTOParameter) };
 
@@ -61,7 +61,7 @@ namespace Stock.Test
         public void When_ProviderControllerCreated_Expect_SearchMethodWithParameter()
         {
             var className = "Stock.Api.Controllers.ProviderController, Stock.Api";
-            var methodName = "Search";
+            var methodName = "SearchProvider";
             var providerSearchDTOParameter = "Stock.Api.DTOs.ProviderSearchDTO, Stock.Api";
             var parametersType = new Type[] { Type.GetType(providerSearchDTOParameter) };
 

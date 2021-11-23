@@ -35,3 +35,6 @@ $tf/
 
 #Litedb File
 Stock.Api/*.db
+.vscode/launch.json
+.vscode/tasks.json
+Stock.Web/client-app/package-lock.json

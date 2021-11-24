@@ -15,7 +15,6 @@ namespace Stock.Model.Exceptions
         /// <param name="message">Error message.</param>
         public NotUniqueNameException(string message) : base(message)
         {
-
         }
     }
 }

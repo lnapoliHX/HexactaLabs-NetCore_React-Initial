@@ -2,7 +2,7 @@ using Stock.Model.Base;
 
 namespace Stock.Model.Entities
 {
-    public class Store : IEntity
+    public class Store : IUniquelyNamedEntity
     {
         public string Id { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Stock.Model.Base;
+using Stock.Model.Exceptions;
 using Stock.Repository.LiteDb.Interface;
 
 namespace Stock.AppService.Base
@@ -24,7 +25,7 @@ namespace Stock.AppService.Base
         /// </summary>
         /// <param name="entity">Item information.</param>
         /// <returns>The newly created <see cref="TEntity"/>.</returns>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="NotUniqueNameException"></exception>
         public new TEntity Create(TEntity entity)
         {
             if (IsUnique(entity.Name))
@@ -32,7 +33,7 @@ namespace Stock.AppService.Base
                 return base.Create(entity);
             }
 
-            throw new Exception($"The entity name is not unique: {entity.Name}.");
+            throw new NotUniqueNameException($"The entity name is not unique: {entity.Name}.");
         }
 
         protected bool IsUnique(string name)

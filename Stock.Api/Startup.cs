@@ -27,10 +27,11 @@ namespace Stock.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors();
             services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<StoreService>();
             //services.AddTransient<ProductService>();
-            //services.AddTransient<ProviderService>();
+            services.AddTransient<ProviderService>();
             services.AddTransient<ProductTypeService>();
             services.AddTransient<Repository.LiteDb.Configuration.ConfigurationProvider>();
             services.AddTransient<ILiteConfiguration, LiteConfiguration>();
@@ -54,6 +55,12 @@ namespace Stock.Api
         {
             if (env.IsDevelopment())
             {
+                /*app.UseCors(options =>
+                {
+                    options.WithOrigins("http://localhost:3000/");
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });*/
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock.Api v1"));
@@ -70,6 +77,7 @@ namespace Stock.Api
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

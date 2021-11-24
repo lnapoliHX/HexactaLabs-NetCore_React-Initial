@@ -3,7 +3,7 @@ using Stock.Model.Base;
 
 namespace Stock.Model.Entities
 {
-    public class Provider : IEntity
+    public class Provider : IUniquelyNamedEntity
     {
         public string Id { get; set; }
 

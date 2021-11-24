@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Stock.Api.DTOs;
 using Stock.Api.Extensions;
 using Stock.AppService.Services;
 using Stock.Model.Entities;
+using Stock.Model.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -54,10 +56,14 @@ namespace Stock.Api.Controllers
 
                 return Ok(new { Success = true, Message = "", Data = dto });
             }
+            catch(NotUniqueNameException ex)
+            {
+                return Ok(new { Success = false, ex.Message });
+            }
             catch (Exception ex)
             {
                 logger.LogCritical(ex.StackTrace);
-                return Ok(new { Success = false, ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 

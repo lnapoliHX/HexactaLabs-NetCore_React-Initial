@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Stock.AppService.Base;
 using Stock.Model.Entities;
 using Stock.Repository.LiteDb.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Stock.AppService.Services
 {
@@ -16,9 +16,8 @@ namespace Stock.AppService.Services
         /// Initializes a new instance of the <see cref="StoreService"/> class.
         /// </summary>
         /// <param name="repository">Store repository.</param>
-        public StoreService(IRepository<Store> repository)
-            : base(repository)
-        {     
+        public StoreService(IRepository<Store> repository) : base(repository)
+        {
         }
 
         /// <summary>

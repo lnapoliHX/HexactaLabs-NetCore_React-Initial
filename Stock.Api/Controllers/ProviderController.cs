@@ -37,7 +37,7 @@ namespace Stock.Api.Controllers
             try
             {
                 var result = service.Get(id);
-                if (result == null)
+                if (result != null)
                     return mapper.Map<ProviderDTO>(result);
                 else
                     return NotFound();
@@ -59,6 +59,7 @@ namespace Stock.Api.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.Message);
                 return StatusCode(500);
             }
         }
@@ -78,7 +79,7 @@ namespace Stock.Api.Controllers
             catch(Exception ex)
             {
                 logger.LogCritical(ex.StackTrace);
-                return Ok(new { Success = false, Message = "The id is aleready in use" });
+                return Ok(new { Success = false, Message = ex });
             }
         }
 

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.4",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^4.6.1",
     "connected-react-router": "^6.9.1",
     "faker": "^4.1.0",
     "history": "^4.10.1",
@@ -15,17 +15,17 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-icons": "^3.11.0",
-    "react-redux": "^7.2.5",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^5.3.0",
     "react-scripts": "3.0.1",
     "react-table": "^6.11.5",
     "react-toastify": "^5.5.0",
     "react-widgets": "^4.6.1",
     "react-widgets-moment": "^4.0.30",
-    "reactstrap": "^8.10.0",
-    "redux": "^4.1.1",
-    "redux-form": "^8.3.7",
-    "redux-thunk": "^2.3.0",
+    "reactstrap": "^8.10.1",
+    "redux": "^4.1.2",
+    "redux-form": "^8.3.8",
+    "redux-thunk": "^2.4.0",
     "yup": "^0.27.0"
   },
   "scripts": {
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "eslint-plugin-react": "^7.26.1"
+    "eslint-plugin-react": "^7.27.1"
   },
   "proxy": "http://localhost:5000"
 }

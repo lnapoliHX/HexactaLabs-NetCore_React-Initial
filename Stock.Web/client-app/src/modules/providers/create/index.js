@@ -25,6 +25,7 @@ export function create(provider) {
       })
       .catch(error => {
         apiErrorToast(error);
+        toast.error('el nombre de proveedor ya existe');
         return dispatch(setLoading(false));
       });
   };

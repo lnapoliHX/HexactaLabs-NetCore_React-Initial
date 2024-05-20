@@ -19,7 +19,7 @@ En Entornos linux:  Opción 2) agregar MsBuild
 en .bashrc o según corresponda: 
 
 ```
-export MSBuildSDKsPath="/usr/share/dotnet/sdk/3.1.401/Sdks/"
+export MSBuildSDKsPath="/usr/share/dotnet/sdk/2.1.810/Sdks/"
 export PATH=$MSBuildSDKsPath:$PATH
 ```
 
